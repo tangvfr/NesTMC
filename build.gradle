@@ -1,0 +1,45 @@
+plugins {
+    id "java"
+    id "net.minecrell.plugin-yml.bukkit" version "0.3.0"
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+version = "1.0.0"
+group = "fr.tangv.nestmc"
+
+sourceCompatibility = 8
+targetCompatibility = 8
+compileJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    shadow "org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT" // The full Spigot server with no shadowing. Requires mavenLocal.
+    shadow "org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT" // The full Spigot server with no shadowing. Requires mavenLocal.
+    implementation files("libs/halfNES_062.jar")
+}
+
+shadowJar {
+   archiveBaseName.set("${project.name}")
+   archiveClassifier.set("all")
+   archiveVersion.set("${project.version}")
+   
+   //create folder
+   new File("$projectDir/build/libs/").mkdirs()
+   //current version name in file
+   File file = new File("$projectDir/build/libs/current_name")
+   file.write("${project.name}-${project.version}-all.jar")
+}
+
+bukkit {
+    name = "${project.name}"
+    version = "${project.version}"
+    apiVersion = "1.8.8"
+    authors = ["Tangv"]
+    description = "This plugin add nes. It is playable in minecraft."
+    load = "STARTUP"
+    main = "${group}.${project.name}"
+}
