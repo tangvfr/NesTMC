@@ -4,7 +4,7 @@ package fr.tangv.nestmc.screen;
  * @author tangv
  * Partie d'un écran
  */
-public class BitScreen {
+public class BitScreen implements Drawable {
 	
 	//largeur du carré
 	private final static int WIDTH = 128;
@@ -35,16 +35,17 @@ public class BitScreen {
 	 * @param y décalage en partant du haut
 	 * @param color couleur définie
 	 */
+	@Override
 	public void setPixel(int x, int y, byte color) {
 		this.buf[x + (y * BitScreen.WIDTH)] = color;
 	}
 	
 	/**
-	 * Méthode qui permet de remplacé tout l'écran par une couleur la partie d'écran
+	 * Méthode qui permet de remplacé tout les couleurs de la partie d'écran
 	 * @param color couleur de remplacement
 	 */
 	public void clearScreen(byte color) {
-		for (int i = 0; i < BitScreen.LENGTH; i++) {//parcours du
+		for (int i = 0; i < BitScreen.LENGTH; i++) {//parcours de tout les couleurs
 			this.buf[i] = color;
 		}
 	}

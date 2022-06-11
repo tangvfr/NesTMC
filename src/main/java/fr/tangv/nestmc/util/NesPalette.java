@@ -4,9 +4,9 @@ package fr.tangv.nestmc.util;
  * @author tangv
  * Couleurs du ppu nes en rgb
  */
-public class NesColor {
+public class NesPalette {
 	
-	public static byte[][] NES_COLOR = new byte[][] {
+	public static byte[][] NES_PALETTE = new byte[][] {
 		{(byte) 0x66, (byte) 0x66, (byte) 0x66}, //0x00
 		{(byte) 0x00, (byte) 0x2A, (byte) 0x88}, //0x01
 		{(byte) 0x14, (byte) 0x12, (byte) 0xA7}, //0x02

@@ -34,6 +34,10 @@ shadowJar {
    file.write("${project.name}-${project.version}-all.jar")
 }
 
+tasks.register("copyToServerTest") {
+    
+}
+
 bukkit {
     name = "${project.name}"
     version = "${project.version}"
