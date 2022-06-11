@@ -3,7 +3,7 @@ package fr.tangv.nestmc.screen;
 /*
  * écran d'une nes sur 4 maps sois 256x256
  */
-public class ScreenMap implements Drawable {
+public class ScreenMap extends Drawable {
 
 	//les 4 maps minecraft qui compose l'ecran de la nes
 	private final BitScreen[] bitScreens;
@@ -13,6 +13,7 @@ public class ScreenMap implements Drawable {
 	 * @param maps les 4 partie d'écran compossent l'écran
 	 */
 	public ScreenMap(BitScreen[] bitScreens) {
+		super(256);
 		if (bitScreens == null || bitScreens.length != 4)
 			throw new IllegalArgumentException("Maps have length different of 4 !");
 		

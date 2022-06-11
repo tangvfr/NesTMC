@@ -4,7 +4,7 @@ package fr.tangv.nestmc.screen;
  * @author tangv
  * Partie d'un écran
  */
-public class BitScreen implements Drawable {
+public class BitScreen implements Pixelable {
 	
 	//largeur du carré
 	private final static int WIDTH = 128;

@@ -1,0 +1,17 @@
+package fr.tangv.nestmc.screen;
+
+/**
+ * @author tangv
+ * Permet de définir un pixel
+ */
+public interface Pixelable {
+
+	/**
+	 * Méthode qui permet de definir un pixel
+	 * @param x décalage en partant de la gauche
+	 * @param y décalage en partant du haut
+	 * @param color couleur définie
+	 */
+	public void setPixel(int x, int y, byte color);
+	
+}
