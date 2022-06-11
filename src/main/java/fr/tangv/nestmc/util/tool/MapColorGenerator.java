@@ -11,14 +11,14 @@ public class MapColorGenerator {
 	// \tpublic static byte $2 = $1;
 	
 	public static void main(String[] args) {
-		final String[] SUF_NAME = {
+		final String[] SUF_NAMES = {
 				"_SHADOW",
 				"_NORMAL",
 				"_LIGTH",
 				"_DARK"
 		};
 		
-		final String[] COLOR_NAME = {
+		final String[] COLOR_NAMES = {
 				"TRANSPARENT",
 				"SLIME",
 				"SAND",
@@ -58,7 +58,16 @@ public class MapColorGenerator {
 		};
 		
 		//generate number
-		//public static byte
+		int iColor = 0;//numéro de couleur
+		for (String colorName : COLOR_NAMES) {//pour chaque nom de couleur
+			for (String sufName : SUF_NAMES) {//pour chaque sufix de nom de couleur
+				System.out.printf(
+						"\tpublic static final byte %s%s = (byte) %d;\n",
+						colorName, sufName, iColor
+						);
+				iColor++;
+			}
+		}
 	}
 	
 }
