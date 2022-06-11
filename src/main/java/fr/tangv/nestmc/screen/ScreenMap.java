@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.screen;
 
 /*
- * écran d'une nes sur 4 maps sois 256x256
+ * Ã©cran d'une nes sur 4 maps sois 256x256
  */
 public class ScreenMap implements Drawable {
 
@@ -9,8 +9,8 @@ public class ScreenMap implements Drawable {
 	private final BitScreen[] bitScreens;
 	
 	/**
-	 * Construteur qui permet de construire un écran pour la nes avec 4 partie d'écran
-	 * @param maps les 4 partie d'écran compossent l'écran
+	 * Construteur qui permet de construire un Ã©cran pour la nes avec 4 partie d'Ã©cran
+	 * @param maps les 4 partie d'Ã©cran compossent l'Ã©cran
 	 */
 	public ScreenMap(BitScreen[] bitScreens) {
 		if (bitScreens == null || bitScreens.length != 4)
@@ -20,31 +20,31 @@ public class ScreenMap implements Drawable {
 	}
 	
 	/**
-	 * Méthode qui renvoie les partie d'écran
-	 * @return un tableau de 4 morceaux d'écran compossant l'écran
+	 * MÃ©thode qui renvoie les partie d'Ã©cran
+	 * @return un tableau de 4 morceaux d'Ã©cran compossant l'Ã©cran
 	 */
 	public BitScreen[] getBitScreens() {
 		return this.bitScreens;
 	}
 	
 	/**
-	 * Méthode qui permet de définir un pixel sur l'écran
-	 * @param x décalage en partant de la gauche
-	 * @param y décalage en partant du haut
-	 * @param color couleur définie
+	 * MÃ©thode qui permet de dÃ©finir un pixel sur l'Ã©cran
+	 * @param x dÃ©calage en partant de la gauche
+	 * @param y dÃ©calage en partant du haut
+	 * @param color couleur dÃ©finie
 	 */
 	@Override
 	public void setPixel(int x, int y, byte color) {
-		int bitS = 0;//partie d'écran conserné
+		int bitS = 0;//partie d'Ã©cran consernÃ©
 		int iX = x;
 		int iY = y;
 
-		//test de x dans quel écran il se trouve
+		//test de x dans quel Ã©cran il se trouve
 		if (x > 127) {
 			bitS += 1;
 			iX -= 128;
 		}
-		//test de y dans quel écran il se trouve
+		//test de y dans quel Ã©cran il se trouve
 		if (y > 127) {
 			bitS += 2;
 			iY -= 128;
@@ -54,11 +54,11 @@ public class ScreenMap implements Drawable {
 	}
 	
 	/**
-	 * Méthode qui permet de remplacé toutes les couleurs de l'écran
+	 * MÃ©thode qui permet de remplacÃ© toutes les couleurs de l'Ã©cran
 	 * @param color couleur de remplacement
 	 */
 	public void clearScreen(byte color) {
-		for (int i = 0; i < 4; i++) {//parcours des parties d'écran qui compose l'écran
+		for (int i = 0; i < 4; i++) {//parcours des parties d'Ã©cran qui compose l'Ã©cran
 			this.bitScreens[i].clearScreen(color);
 		}
 	}

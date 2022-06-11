@@ -2,38 +2,38 @@ package fr.tangv.nestmc.screen;
 
 /**
  * @author tangv
- * Partie d'un écran
+ * Partie d'un Ã©cran
  */
 public class BitScreen implements Drawable {
 	
-	//largeur du carré
+	//largeur du carrÃ©
 	private final static int WIDTH = 128;
-	//nombre de couleur (l'ecran est un carré)
+	//nombre de couleur (l'ecran est un carrÃ©)
 	private final static int LENGTH = BitScreen.WIDTH * BitScreen.WIDTH;
 
 	//tableau des couleur
 	private final byte[] buf;
 	
 	/**
-	 * Constructeur qui permet de crée une partie d'écran de 128x128
+	 * Constructeur qui permet de crÃ©e une partie d'Ã©cran de 128x128
 	 */
 	public BitScreen() {
 		this.buf = new byte[BitScreen.LENGTH];
 	}
 	
 	/**
-	 * Retourne les couleur qui compose la partie de l'écran
-	 * @return donnée de l'image
+	 * Retourne les couleur qui compose la partie de l'Ã©cran
+	 * @return donnÃ©e de l'image
 	 */
 	public byte[] getBuffer() {
 		return this.buf;
 	}
 	
 	/**
-	 * Méthode qui permet de définir un pixel sur la partie d'écran
-	 * @param x décalage en partant de la gauche
-	 * @param y décalage en partant du haut
-	 * @param color couleur définie
+	 * MÃ©thode qui permet de dÃ©finir un pixel sur la partie d'Ã©cran
+	 * @param x dÃ©calage en partant de la gauche
+	 * @param y dÃ©calage en partant du haut
+	 * @param color couleur dÃ©finie
 	 */
 	@Override
 	public void setPixel(int x, int y, byte color) {
@@ -41,7 +41,7 @@ public class BitScreen implements Drawable {
 	}
 	
 	/**
-	 * Méthode qui permet de remplacé tout les couleurs de la partie d'écran
+	 * MÃ©thode qui permet de remplacÃ© tout les couleurs de la partie d'Ã©cran
 	 * @param color couleur de remplacement
 	 */
 	public void clearScreen(byte color) {

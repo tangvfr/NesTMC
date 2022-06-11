@@ -1,8 +1,8 @@
-package fr.tangv.nestmc.util;
+package fr.tangv.nestmc.palette;
 
 /**
  * @author tangv
- * Indices des couleurs des maps minecraft associé a un nom
+ * Indices des couleurs des maps minecraft associÃ© a un nom
  */
 public class MapColor {
 

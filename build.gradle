@@ -35,7 +35,7 @@ shadowJar {
 }
 
 tasks.register("copyToServerTest") {
-    
+    println("hello man !")
 }
 
 bukkit {

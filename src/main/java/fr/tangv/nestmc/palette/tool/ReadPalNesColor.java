@@ -1,8 +1,12 @@
-package fr.tangv.nestmc.util.tool;
+package fr.tangv.nestmc.palette.tool;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author tangv
+ * Permet de convertir un fichier pal (palette de couleur NES) vers un tableau
+ */
 public class ReadPalNesColor {
 
 	//nombre de couleur dans un fichier PAL, nombre de couleur de la NES
@@ -11,9 +15,9 @@ public class ReadPalNesColor {
 	//Permet de convertir un fichier pal vers un tableau
 	public static void main(String[] args) throws IOException {
 		InputStream in = ClassLoader.getSystemResourceAsStream("color.pal");
-		int size = ReadPalNesColor.NUMBER_COLOR * 3;//taille théorique du fichier
+		int size = ReadPalNesColor.NUMBER_COLOR * 3;//taille thÃ©orique du fichier
 		
-		if (in.available() != size) {
+		if (in == null || in.available() != size) {
 			throw new IllegalArgumentException("Fichier pal invalide");
 		} else {//fichier a la bonne taille
 			System.out.println("byte[][] color = new byte[][] {");
@@ -31,9 +35,9 @@ public class ReadPalNesColor {
 	}
 	
 	/**
-	 * Méthode pour lire un byte dans un flux de donées et emmetre une erreur si ce n'est pas possible
+	 * MÃ©thode pour lire un byte dans un flux de donÃ©es et emmetre une erreur si ce n'est pas possible
 	 * @param in flux dans lequel est lu l'octect
-	 * @return valeur hexadécimal de l'otect lue sur deux caratère hexa
+	 * @return valeur hexadÃ©cimal de l'otect lue sur deux caratÃ¨re hexa
 	 * @throws IOException si la lecture de l'octect n'est pas posssible
 	 */
 	public static String readByteHex(InputStream in) throws IOException {
@@ -41,14 +45,14 @@ public class ReadPalNesColor {
 	}
 	
 	/**
-	 * Méthode qui poermet de convertir un octect vers une string de 2 char
+	 * MÃ©thode qui poermet de convertir un octect vers une string de 2 char
 	 * @param d octect converti
-	 * @return valeur hexadécimal de l'otect
+	 * @return valeur hexadÃ©cimal de l'otect
 	 */
 	public static String byteToHex2Char(byte d) {
 		int b = Byte.toUnsignedInt(d);
 		
-		//convertion vers hexa a deux caratère
+		//convertion vers hexa a deux caratÃ¨re
 		String hex = "";
 		char tmp;
 		for (int i = 0; i < 2; i++) {//repete 2 fois
@@ -67,7 +71,7 @@ public class ReadPalNesColor {
 	}
 	
 	/**
-	 * Méthode pour lire un byte dans un flux de donées et emmetre une erreur si ce n'est pas possible
+	 * MÃ©thode pour lire un byte dans un flux de donÃ©es et emmetre une erreur si ce n'est pas possible
 	 * @param in flux dans lequel est lu l'octect
 	 * @return octect lue
 	 * @throws IOException si la lecture de l'octect n'est pas posssible

@@ -1,8 +1,10 @@
 package fr.tangv.nestmc.screen;
 
-public class PacketBitScreen extends PAcketplayout{
+import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
+
+public class PacketBitScreen extends PacketPlayOutMap {
 	
-	 public void b(PacketDataSerializer paramPacketDataSerializer) throws IOException {
+	/* public void b(PacketDataSerializer paramPacketDataSerializer) throws IOException {
 		    paramPacketDataSerializer.b(this.a);
 		    paramPacketDataSerializer.writeByte(this.b);
 		    paramPacketDataSerializer.b(this.c.length);
@@ -18,6 +20,6 @@ public class PacketBitScreen extends PAcketplayout{
 		      paramPacketDataSerializer.writeByte(this.e);
 		      paramPacketDataSerializer.a(this.h);
 		    } 
-		  }
+		  }*/
 
 }

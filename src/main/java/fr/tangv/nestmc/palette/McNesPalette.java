@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.util;
+package fr.tangv.nestmc.palette;
 
 /**
  * @author tangv

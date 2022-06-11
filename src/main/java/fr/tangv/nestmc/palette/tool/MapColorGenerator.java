@@ -1,8 +1,8 @@
-package fr.tangv.nestmc.util.tool;
+package fr.tangv.nestmc.palette.tool;
 
 /**
  * @author tangv
- * Permet de généré nom des couleur des maps minecraft
+ * Permet de gÃ©nÃ©rÃ© nom des couleur des maps minecraft
  */
 public class MapColorGenerator {
 
@@ -58,7 +58,7 @@ public class MapColorGenerator {
 		};
 		
 		//generate number
-		int iColor = 0;//numéro de couleur
+		int iColor = 0;//numÃ©ro de couleur
 		for (String colorName : COLOR_NAMES) {//pour chaque nom de couleur
 			for (String sufName : SUF_NAMES) {//pour chaque sufix de nom de couleur
 				System.out.printf(
