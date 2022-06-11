@@ -1,4 +1,4 @@
-package fr.tangv.nestmc;
+package fr.tangv.nestmc.palette.tool;
 
 import java.awt.Color;
 import java.io.File;
@@ -8,8 +8,6 @@ import java.io.InputStream;
 
 import org.bukkit.map.MapPalette;
 
-import fr.tangv.nestmc.palette.tool.ReadPalNesColor;
-
 /**
  * @author tangv
  * Permet de trouvé les couleurs de map qui corespondes au mieux a celles de la palette d'un fichier pal
@@ -17,6 +15,7 @@ import fr.tangv.nestmc.palette.tool.ReadPalNesColor;
  */
 public class MatchPalNesToPalMap {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 		File pal = new File("test.pal");
 		if (!pal.exists())
@@ -26,7 +25,7 @@ public class MatchPalNesToPalMap {
 		InputStream in = ClassLoader.getSystemResourceAsStream("choix.pal");
 		
 		if (in == null || in.available() != 192) {
-			throw new IllegalArgumentException("Fichier pal invalide");
+			throw new IOException("Fichier pal invalide");
 		} else {
 			for (byte i = 0; i < 64; i++) {//pour tout les couleur de la palette de la nes
 				//icm indices de coleur de la map
