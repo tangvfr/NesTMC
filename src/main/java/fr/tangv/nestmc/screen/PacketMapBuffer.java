@@ -2,7 +2,7 @@ package fr.tangv.nestmc.screen;
 
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
 
-public class PacketBitScreen extends PacketPlayOutMap {
+public class PacketMapBuffer extends PacketPlayOutMap {
 	
 	/* public void b(PacketDataSerializer paramPacketDataSerializer) throws IOException {
 		    paramPacketDataSerializer.b(this.a);
