@@ -159,7 +159,7 @@ public class DrawableTest {
 		map.setColor(MapColor.SAND_NORMAL);
 		map.drawText(0, 88, "! \"#$%&'()*+,-./01234567");
 		map.drawText(0, 96, "89:;<=>?@LMNOPhijkl{|}~'[");
-		map.drawText(0, 104, "\\]^_@àçéÉëê`è");
+		map.drawText(0, 104, "\\]^_@àçéÉëêè");
 		
 		//all character
 		//" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~\u837f\u83c7\u83fc\u83e9\u83e2\u83e4\u83e0\u83e5\u83e7\u83ea\u83eb\u83e8\u83ef\u83ee\u83ec\u83c4\u83c5\u83c9\u83e6\u83c6\u83f4\u83f6\u83f2\u83fb\u83f9\u83ff\u83d6\u83dc\u83f8£\u83d8\u83d7\u0191\u83e1\u83ed\u83f3\u83fa\u83f1\u83d1ªº¿®¬½¼¡«»"
