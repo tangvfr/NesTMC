@@ -135,7 +135,7 @@ public abstract class Drawable implements Pixelable {
             dx <<= 1;
 
             while (x != x2) {
-            	drawPoint(x, y);
+            	this.drawPoint(x, y);
                 if (balance >= 0) {
                     y += incy;
                     balance -= dx;
@@ -143,14 +143,14 @@ public abstract class Drawable implements Pixelable {
                 balance += dy;
                 x += incx;
             }
-            drawPoint(x, y);
+            this.drawPoint(x, y);
         } else {
             dx <<= 1;
             balance = dx - dy;
             dy <<= 1;
 
             while (y != y2) {
-                drawPoint(x, y);
+            	this.drawPoint(x, y);
                 if (balance >= 0) {
                     x += incx;
                     balance -= dy;
@@ -158,7 +158,7 @@ public abstract class Drawable implements Pixelable {
                 balance += dx;
                 y += incy;
             }
-            drawPoint(x, y);
+            this.drawPoint(x, y);
         }
 
         return;
@@ -179,7 +179,7 @@ public abstract class Drawable implements Pixelable {
 		
 		//dessine la ligne
         for (int x = x1; x <= x2; x++) {
-        	drawPoint(x, y1);
+        	this.drawPoint(x, y1);
         }
     }
 	
@@ -198,7 +198,7 @@ public abstract class Drawable implements Pixelable {
 		
 		//dessine la colonne
         for (int y = y1; y <= y2; y++) {
-        	drawPoint(x1, y);
+        	this.drawPoint(x1, y);
         }
     }
 	
@@ -214,10 +214,10 @@ public abstract class Drawable implements Pixelable {
         	int drawX = x1 + width - 1;//arret dessiner en x 
         	int drawY = y1 + height - 1;//arret dessiner en y
         	
-        	drawLineX(x1, y1, drawX - 1);
-        	drawLineY(drawX, y1, drawY - 1);
-        	drawLineX(x1 + 1, drawY, drawX);
-        	drawLineY(x1, y1 + 1, drawY);
+        	this.drawLineX(x1, y1, drawX - 1);
+        	this.drawLineY(drawX, y1, drawY - 1);
+        	this.drawLineX(x1 + 1, drawY, drawX);
+        	this.drawLineY(x1, y1 + 1, drawY);
         }
     }
 	
@@ -237,7 +237,7 @@ public abstract class Drawable implements Pixelable {
 			
 		    for (int y = y1; y <= drawY; y++) {//dessine les colonne
 		    	for (int x = x1; x <= drawX; x++) {//dessine la ligne de la colonne
-		    		drawPoint(x, y);//dessine le point
+		    		this.drawPoint(x, y);//dessine le point
 		    	}
 		    }
 		 }
@@ -256,14 +256,14 @@ public abstract class Drawable implements Pixelable {
 	    
 	    while(y >= x)
 	    {
-	    	drawPoint(xc + x, yc + y);
-	        drawPoint(xc + y, yc + x);
-	        drawPoint(xc - x, yc + y);
-	        drawPoint(xc - y, yc + x);
-	        drawPoint(xc + x, yc - y);
-	        drawPoint(xc + y, yc - x);
-	        drawPoint(xc - x, yc - y);
-	        drawPoint(xc - y, yc - x);
+	    	this.drawPoint(xc + x, yc + y);
+	    	this.drawPoint(xc + y, yc + x);
+	    	this.drawPoint(xc - x, yc + y);
+	    	this.drawPoint(xc - y, yc + x);
+	    	this.drawPoint(xc + x, yc - y);
+	    	this.drawPoint(xc + y, yc - x);
+	    	this.drawPoint(xc - x, yc - y);
+	    	this.drawPoint(xc - y, yc - x);
 	        
 	        if (d >= 2*x)
 	        {
@@ -297,10 +297,10 @@ public abstract class Drawable implements Pixelable {
 		
 		while(y >= x)
 		{
-			drawLine(xc + x , yc - y, xc + x , yc + y);
-	        drawLine(xc + y , yc - x, xc + y , yc + x);
-	        drawLine(xc - x , yc - y, xc - x , yc + y);
-	        drawLine(xc - y , yc - x, xc - y , yc + x);
+			this.drawLineY(xc + x, yc - y, yc + y);
+			this.drawLineY(xc + y, yc - x, yc + x);
+			this.drawLineY(xc - x, yc - y, yc + y);
+			this.drawLineY(xc - y, yc - x, yc + x);
 			
 			if (d >= 2*x)
 			{
@@ -326,9 +326,27 @@ public abstract class Drawable implements Pixelable {
 	 * Méthodes qui prennes en compte le coeficient multiplicateur
 	*/
 	
+	/**
+	 * Permet de dessiner un carré en fonction de size
+	 * @param ox origine x
+	 * @param oy origine y
+	 * @param x	decalage en x pas de size
+	 * @param y decalage en y pas de size
+	 * @param size cof de size, taille du carré
+	 */
+	private void drawFontSquare(int ox, int oy, int x, int y, int size) {
+		int endX = ox + ((x + 1) * size);
+		int endY = oy + ((y + 1) * size);
+		
+		for (int yd = oy + (y * size); yd < endY; yd++) {//desine la hauteur du carré du pixel
+			for (int xd = ox + (x * size); xd < endX; xd++) {//desine la largueur du carré du pixel
+				this.drawPoint(xd, yd);
+			}
+		}
+	}
 	
 	/**
-	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, check {@link #setCof(byte)}
+	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
 	 * @param ox coordonnée inital de l'image en partant de la gauche
 	 * @param oy coordonnée inital de l'image en partant du haut
 	 * @param img image sous forme de buffer
@@ -341,32 +359,24 @@ public abstract class Drawable implements Pixelable {
 		}
 		byte size = this.cof;//taille des carré
 		int i = 0;//indice du buffer
-		int endX, endY;//fin ou doivent etre desiner un pixel
 		byte color;
 		
 		for (int y = 0; y < heightBuf; y++) { //parcour en hauteur l'image
 			for (int x = 0; x < widthBuf; x++) {//parcour en largeur l'image
 				color = img[i];
-				if (color < 0 && color >= 4) {//test si la couleur est transparente
+				if (color < 0 || color >= 4) {//test si la couleur est transparente
 					this.setColor(color);
-					endX = ((x + 1) * size) + ox;
-					endY = ((y + 1) * size) + oy;
-					
-					for (int yd = y + oy; yd < endY; yd++) {//desine la hauteur du carré du pixel
-						for (int xd = x + ox; xd < endX; xd++) {//desine la largueur du carré du pixel
-							this.drawPoint(xd, yd);
-						}
-					}
-					i++;
+					this.drawFontSquare(ox, oy, x, y, size);
 				}
+				i++;
 			}
 		}
 	}
 	
 	/**
-	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, check {@link #setCof(byte)}
-	 * @param ox coordonnée du debut du texte en partant de la gauche
-	 * @param oy coordonnée du bas du texte en partant du haut
+	 * Méthode qui permet de dessiner un caractère, regarder {@link #setCof(byte)}
+	 * @param ox coordonnée du debut du caractère en partant de la gauche
+	 * @param oy coordonnée du haut du caractère en partant du haut
 	 * @param ch caractère a dessiner
 	 * @return la largeur que le caractère dessiné prend
 	*/
@@ -374,20 +384,12 @@ public abstract class Drawable implements Pixelable {
 		CharacterSprite charS = MinecraftFont.Font.getChar(ch);
 		int width = charS.getWidth();
 		int height = charS.getHeight();
-		int endX, endY;//fin ou doivent etre desiner un pixel
 		byte size = this.cof;//taille des carré
 		
-		for (int y = 0; y < height; y++) { //fait de haut en bas de
-			for (int x = 0; x < width; x++) {
-				if (charS.get(x, y)) {
-					endX = ox + ((x + 1) * size);
-					endY = oy - ((y + 1) * size);
-					
-					for (int yd = y + oy; yd > endY; yd--) {//desine la hauteur du carré du pixel
-						for (int xd = x + ox; xd < endX; xd++) {//desine la largueur du carré du pixel
-							this.drawPoint(xd, yd);
-						}
-					}
+		for (int y = 0; y < height; y++) { //parcour les lignes du caratère
+			for (int x = 0; x < width; x++) {//parcour les colonnes des lignes du caratère
+				if (charS.get(y, x)) {
+					this.drawFontSquare(ox, oy, x, y, size);
 				}
 			}
 		}
@@ -395,14 +397,35 @@ public abstract class Drawable implements Pixelable {
 		return width * this.cof;
 	}
 	
-	public void drawText(String text) {
+	/**
+	 * Méthode qui permet de dessiner une chaîne de caractères, regarder {@link #setCof(byte)}
+	 * @param ox coordonnée du debut du texte en partant de la gauche
+	 * @param oy coordonnée du haut du texte en partant du haut
+	 * @param text texte qui sera dessiné
+	 */
+	public void drawText(int ox, int oy, String text) {
+		byte size = this.cof;
+		int x = ox;//decal x pour desinner chaque caratère
+		int length = text.length();
 		
+		for (int i = 0; i < length; i++) {//parcours les caratères de text
+			x += size + this.drawChar(x, oy, text.charAt(i));//dessine le caratère et decal pour le prochain
+		}
 	}
 	
+	/**
+	 * Permet de retourner la largueur des textes en prennant en compte le cof
+	 * @param text texte dont on souhaite la largueur
+	 * @return la largueur du texte en focntion du cof
+	 */
 	public int getWidthText(String text) {
 		return MinecraftFont.Font.getWidth(text) * this.cof;
   	}
   
+	/**
+	 * Permet de retourner la hauteur des textes en prennant en compte le cof
+	 * @return hauteur du texte en fonction du cof
+	 */
 	public int getHeightText() {
 		return MinecraftFont.Font.getHeight() * this.cof;
 	}
