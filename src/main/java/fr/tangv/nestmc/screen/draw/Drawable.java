@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.screen;
+package fr.tangv.nestmc.screen.draw;
 
 import org.bukkit.map.MapFont.CharacterSprite;
 import org.bukkit.map.MinecraftFont;

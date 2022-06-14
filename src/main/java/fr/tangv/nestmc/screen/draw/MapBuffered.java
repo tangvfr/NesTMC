@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.screen;
+package fr.tangv.nestmc.screen.draw;
 
 public interface MapBuffered {
 

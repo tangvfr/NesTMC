@@ -1,54 +1,18 @@
 package fr.tangv.nestmc.test;
 
-import java.awt.Graphics;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.bukkit.map.MapPalette;
-
 import fr.tangv.nestmc.palette.MapColor;
-import fr.tangv.nestmc.screen.MapBuffer;
-import fr.tangv.nestmc.screen.MapDrawable;
+import fr.tangv.nestmc.screen.draw.MapScreen;
 
 public class DrawableTest {
 	
 	public static void main(String[] args) {
-		MapDrawable map = new MapDrawable();
-		
-		JFrame frame = new JFrame("Drawable Test");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel pan = new JPanel() {
-			private static final long serialVersionUID = 1L;
-			
-			@SuppressWarnings("deprecation")
-			@Override
-			public void paint(Graphics g) {
-				byte[] buf = map.getBuffer();
-				int i = 0;
-				
-				for (int y = 0; y < MapBuffer.WIDTH; y++) {
-					for (int x = 0; x < MapBuffer.WIDTH; x++) {
-						g.setColor(MapPalette.getColor(buf[i]));
-						g.fillRect(x * 4, y * 4, 4, 4);
-						i++;
-					} 
-				} 
-			}
-			
-		};
-		
-		frame.setSize(MapBuffer.WIDTH * 4, MapBuffer.WIDTH * 4);
-		frame.setResizable(false);
-		frame.setContentPane(pan);
-		frame.setVisible(true);
-		
+		MapScreen map = new MapScreen();
 		testDrawable(map);
-		pan.repaint();
+		MapBufferFrame frame = new MapBufferFrame(map, 4);
+		frame.repaint();
 	}
 	
-	public static void testDrawable(MapDrawable map) {
+	public static void testDrawable(MapScreen map) {
 		map.clearScreen(MapColor.BLACK_SHADOW);
 		
 		System.out.println("height: " + map.getHeight());
