@@ -33,12 +33,12 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 	@Override
 	public void loadROMs(String path) {
 		
-		System.out.println("load roms: "+path);
+		System.out.println("load roms: " + path);
 	}
 
 	@Override
 	public void messageBox(String message) {
-		System.out.println(message);
+		System.out.println("messagebox: " + message);
 	}
 
 	@Override
@@ -57,8 +57,9 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 	 * @param screenLeft le buffer de droite de 128x128
 	 * @param screenRight le buffer de gauche de 128x128
 	 * @param numberOfLine nombre de ligne a afficher
+	 * @return index d'arrête de lecture du buffer de l'ecran de la nes
 	 */
-	private void writeLigneInScreen(int[] nespixels, int startBuf, byte[] screenLeft, byte[] screenRight, int numberOfLine) {
+	private int writeLigneInScreen(int[] nespixels, int startBuf, byte[] screenLeft, byte[] screenRight, int numberOfLine) {
 		//avancement dans le buffer de l'écran de la nes
 		int i = startBuf;
 		//palette des couleur nes pour les maps
@@ -81,18 +82,23 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 				i++;
 			}
 		}
+		
+		return i;
 	}
 	
+	/**
+	 * Méthode qui est appeler lorsque le PPU de la NES a calculer une frame
+	 */
 	@Override
 	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
 		//nespixels = 256x240
 		MapBuffer[] screens = this.getBitScreens();
 		
 		//haut de l'ecran les 128 premiere ligne
-		this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
+		int iStop = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
 		
 		//bas de l'ecran les 112 dernier ligne
-		this.writeLigneInScreen(nespixels, 128, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+		this.writeLigneInScreen(nespixels, iStop, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
 	}
 
 }

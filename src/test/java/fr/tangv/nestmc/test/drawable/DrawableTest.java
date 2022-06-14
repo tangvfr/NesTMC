@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.test;
+package fr.tangv.nestmc.test.drawable;
 
 import fr.tangv.nestmc.palette.MapColor;
 import fr.tangv.nestmc.screen.draw.MapScreen;

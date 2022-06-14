@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.test;
+package fr.tangv.nestmc.test.drawable;
 
 import java.awt.Graphics;
 
@@ -50,6 +50,14 @@ public class MapBufferFrame {
 		frame.setVisible(true);
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public JPanel getPan() {
+		return pan;
+	}
+	
 	public void dispose() {
 		this.frame.dispose();
 	}
@@ -57,5 +65,5 @@ public class MapBufferFrame {
 	public void repaint() {
 		this.pan.repaint();
 	}
-	
+
 }
