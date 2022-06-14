@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.screen.draw;
+package fr.tangv.nestmc.draw;
 
 /*
  * écran d'une nes sur 4 maps sois 256x256

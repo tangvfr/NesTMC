@@ -1,18 +1,18 @@
-package fr.tangv.nestmc.screen.nes;
+package fr.tangv.nestmc.nes;
 
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
 
+import fr.tangv.nestmc.draw.FourMapScreen;
+import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.palette.McNesPalette;
-import fr.tangv.nestmc.screen.draw.FourMapScreen;
-import fr.tangv.nestmc.screen.draw.MapBuffer;
 
 public class NesScreenMap extends FourMapScreen implements GUIInterface {
 
 	private NES nes;
 	
 	/**
-	 * Permet de crée l'écran de la nes
+	 * Permet de crée l'écran de la nes sur 4 MapBuffer
 	 * @param bitScreens les ecrans qui font l'écran de la NES
 	 */
 	public NesScreenMap(MapBuffer[] bitScreens) {
@@ -27,7 +27,6 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 	@Override
 	public void setNES(NES nes) {
 		this.nes = nes;
-		System.out.println("new nes");
 	}
 
 	@Override
@@ -95,10 +94,10 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 		MapBuffer[] screens = this.getBitScreens();
 		
 		//haut de l'ecran les 128 premiere ligne
-		int iStop = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
+		int iStoped = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
 		
 		//bas de l'ecran les 112 dernier ligne
-		this.writeLigneInScreen(nespixels, iStop, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+		this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
 	}
 
 }

@@ -8,8 +8,8 @@ import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.PrefsSingleton;
 import com.grapeshot.halfnes.ui.PuppetController;
 
-import fr.tangv.nestmc.screen.draw.MapBuffer;
-import fr.tangv.nestmc.screen.nes.NesScreenMap;
+import fr.tangv.nestmc.draw.MapBuffer;
+import fr.tangv.nestmc.nes.NesScreenMap;
 import fr.tangv.nestmc.test.drawable.MapBufferFrame;
 import fr.tangv.nestmc.test.emulator.PuppetKeyListener;
 

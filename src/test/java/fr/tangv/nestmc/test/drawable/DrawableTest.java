@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.test.drawable;
 
+import fr.tangv.nestmc.draw.MapScreen;
 import fr.tangv.nestmc.palette.MapColor;
-import fr.tangv.nestmc.screen.draw.MapScreen;
 
 public class DrawableTest {
 	

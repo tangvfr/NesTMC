@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.screen.draw;
+package fr.tangv.nestmc.draw;
 
 /**
  * @author tangv

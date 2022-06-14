@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 import org.bukkit.map.MapPalette;
 
-import fr.tangv.nestmc.screen.draw.MapBuffer;
-import fr.tangv.nestmc.screen.draw.MapBuffered;
+import fr.tangv.nestmc.draw.MapBuffer;
+import fr.tangv.nestmc.draw.MapBuffered;
 
 public class MapBufferFrame {
 
