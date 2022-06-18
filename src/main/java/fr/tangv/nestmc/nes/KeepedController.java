@@ -2,6 +2,7 @@ package fr.tangv.nestmc.nes;
 
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 
+import fr.tangv.nestmc.util.ReflectionUtil;
 import net.minecraft.server.v1_8_R3.PacketPlayOutAttachEntity;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 
@@ -33,9 +34,12 @@ public class KeepedController {
 		this.co = this.target.getHandle().playerConnection;
 	}
 	
-	public void mount() {
-		//PacketPlayOutAttachEntity.class.getDeclaredField('');
-		co.sendPacket(new PacketPlayOutAttachEntity(idVehicle, null, null));
+	public void mount(boolean mount) {
+		PacketPlayOutAttachEntity packet = new PacketPlayOutAttachEntity();
+		ReflectionUtil.setValue("a", packet, target.getEntityId());//player
+		ReflectionUtil.setValue("b", packet, mount ? this.idVehicle : -1);//vehicle
+		ReflectionUtil.setValue("c", packet, 0);//attacher par laisse
+		co.sendPacket(packet);
 	}
 	
 	
