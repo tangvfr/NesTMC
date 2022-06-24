@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.test.drawable;
 
 import fr.tangv.nestmc.draw.MapScreen;
-import fr.tangv.nestmc.palette.MapColor;
+import fr.tangv.nestmc.palette.MapColorV1_8;
 
 public class DrawableTest {
 	
@@ -13,7 +13,7 @@ public class DrawableTest {
 	}
 	
 	public static void testDrawable(MapScreen map) {
-		map.clearScreen(MapColor.BLACK_SHADOW);
+		map.clearScreen(MapColorV1_8.BLACK_SHADOW);
 		
 		System.out.println("height: " + map.getHeight());
 		System.out.println("width: " + map.getWidth());
@@ -21,7 +21,7 @@ public class DrawableTest {
 		System.out.println("width text 'he': " + map.getWidthText("hs"));
 		
 		//setcolor
-		map.setColor(MapColor.EMERALD_LIGTH);
+		map.setColor(MapColorV1_8.EMERALD_LIGTH);
 		
 		map.drawPoint(1, 1);
 		//test draw Y
@@ -35,14 +35,14 @@ public class DrawableTest {
 		map.drawLine(12, 10, 1, 16);
 		
 		//setcolor
-		map.setColor(MapColor.LAVA_LIGTH);
+		map.setColor(MapColorV1_8.LAVA_LIGTH);
 	
 		//test draw circle
 		map.drawCircle(24, 8, 7);
 		map.fillCircle(40, 8, 7);
 		
 		//setcolor
-		map.setColor(MapColor.DIAMOND_LIGTH);
+		map.setColor(MapColorV1_8.DIAMOND_LIGTH);
 		
 		//test draw rect
 		map.drawRect(50, 1, 3, 3);
@@ -51,7 +51,7 @@ public class DrawableTest {
 		map.fillRect(64, 1, 8, 16);
 		
 		//setcolor
-		map.setColor((byte) MapColor.WATER_DARK);
+		map.setColor((byte) MapColorV1_8.WATER_DARK);
 		
 		//test draw in rect
 		map.fillRect(60, 1, 3, 3);
@@ -61,7 +61,7 @@ public class DrawableTest {
 		map.drawPoint(71, 3);
 		
 		//setcolor
-		map.setColor(MapColor.GOLD_LIGTH);
+		map.setColor(MapColorV1_8.GOLD_LIGTH);
 		
 		//test draw char
 		map.drawChar(8, 16, 'A');
@@ -102,14 +102,14 @@ public class DrawableTest {
 		//reset cof
 		map.setCof((byte) 1);
 		
-		map.setColor(MapColor.EMERALD_NORMAL);
+		map.setColor(MapColorV1_8.EMERALD_NORMAL);
 		map.drawLineX(0, 64, 64);
 		//test drawText
-		map.setColor(MapColor.SNOW_LIGTH);
+		map.setColor(MapColorV1_8.SNOW_LIGTH);
 		map.drawText(0, 64, "Hello, world !");
 		//test cof 2
 		map.setCof((byte) 2);
-		map.setColor(MapColor.LAVA_NORMAL);
+		map.setColor(MapColorV1_8.LAVA_NORMAL);
 		map.drawText(0, 72, "Hello, world !");
 		
 		//cof null
@@ -120,7 +120,7 @@ public class DrawableTest {
 		map.setCof((byte) 1);
 		
 		//test all char
-		map.setColor(MapColor.SAND_NORMAL);
+		map.setColor(MapColorV1_8.SAND_NORMAL);
 		map.drawText(0, 88, "! \"#$%&'()*+,-./01234567");
 		map.drawText(0, 96, "89:;<=>?@LMNOPhijkl{|}~'[");
 		map.drawText(0, 104, "\\]^_@àçéÉëêè");

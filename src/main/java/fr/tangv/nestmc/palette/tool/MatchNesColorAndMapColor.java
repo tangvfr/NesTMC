@@ -7,8 +7,6 @@ import java.io.IOException;
 
 import org.bukkit.map.MapPalette;
 
-import fr.tangv.nestmc.palette.NesPalette;
-
 /**
  * @author tangv
  * Permet de trouvé les couleurs de map qui corespondes au mieux a celles de la palette nes

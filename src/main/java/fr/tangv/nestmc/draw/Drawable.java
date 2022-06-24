@@ -3,7 +3,7 @@ package fr.tangv.nestmc.draw;
 import org.bukkit.map.MapFont.CharacterSprite;
 import org.bukkit.map.MinecraftFont;
 
-import fr.tangv.nestmc.palette.MapColor;
+import fr.tangv.nestmc.palette.MapColorV1_8;
 
 /**
  * @author tangv
@@ -16,7 +16,7 @@ public abstract class Drawable implements Pixelable {
 	//hauteur
 	private final int SIZE_Y;
 	//coleur dessiné
-	private byte color = MapColor.TRANSPARENT_DARK;
+	private byte color = MapColorV1_8.TRANSPARENT_DARK;
 	//coefficient multiplicateur de buffer et de texte
 	private byte cof = 1;
 	

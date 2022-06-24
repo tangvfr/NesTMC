@@ -4,7 +4,7 @@ package fr.tangv.nestmc.palette.tool;
  * @author tangv
  * Permet de généré nom des couleur des maps minecraft
  */
-public class MapColorGenerator {
+public class MapColorGeneratorV1_8 {
 
 	//https://minecraft.fandom.com/wiki/Map_item_format#Full_color_tables
 	// \t(\d{1,3})\t\t[^\t]*\t(.*)

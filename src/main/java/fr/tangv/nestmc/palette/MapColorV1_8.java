@@ -4,7 +4,7 @@ package fr.tangv.nestmc.palette;
  * @author tangv
  * Indices des couleurs des maps minecraft associé a un nom
  */
-public class MapColor {
+public class MapColorV1_8 {
 
 	//https://minecraft.fandom.com/wiki/Map_item_format#Full_color_tables
 	

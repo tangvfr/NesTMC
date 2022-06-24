@@ -10,7 +10,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
  * @author tangv
  * Permet de crée une map envoyable
  */
-public class PacketMapBuffer extends MapBuffer {
+public class PacketMapBufferV1_8 extends MapBuffer {
 	
 	private final int idMap;
 	private final PacketPlayOutMap packet;
@@ -20,7 +20,7 @@ public class PacketMapBuffer extends MapBuffer {
 	 * 
 	 * @param idMap id damage de la map mise à jour
 	 */
-	public PacketMapBuffer(NesManager manager) {
+	public PacketMapBufferV1_8(NesManager manager) {
 		this.idMap = manager.nextIdMap();
 		this.packet = new PacketPlayOutMap(idMap, (byte) 0, new ArrayList<MapIcon>(), this.getBuffer(), 0, 0, 128, 128);
 	}

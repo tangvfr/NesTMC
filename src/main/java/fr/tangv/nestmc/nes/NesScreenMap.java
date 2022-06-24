@@ -5,7 +5,7 @@ import com.grapeshot.halfnes.ui.GUIInterface;
 
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.draw.MapBuffer;
-import fr.tangv.nestmc.palette.McNesPalette;
+import fr.tangv.nestmc.palette.McNesPaletteV1_8;
 
 public class NesScreenMap extends FourMapScreen implements GUIInterface {
 
@@ -62,7 +62,7 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 		//avancement dans le buffer de l'écran de la nes
 		int i = startBuf;
 		//palette des couleur nes pour les maps
-		byte[] palette = McNesPalette.MC_NES_PALETTE;
+		byte[] palette = McNesPaletteV1_8.MC_NES_PALETTE;
 		//index exclu de fin des lignes a copier
 		int endLengthY = numberOfLine * 128;
 		//index exclu de fin de la ligne a copier
