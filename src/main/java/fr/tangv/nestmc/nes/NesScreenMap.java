@@ -7,8 +7,13 @@ import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 
-public class NesScreenMap extends FourMapScreen implements GUIInterface {
+/**
+ * @author tangv
+ * Permet de crée un écran de 4 map pour une nes
+ */
+public abstract class NesScreenMap extends FourMapScreen implements GUIInterface {
 
+	/*Nes a llaquelle apartien le Gui interface*/
 	private NES nes;
 	
 	/**
@@ -27,26 +32,6 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 	@Override
 	public void setNES(NES nes) {
 		this.nes = nes;
-	}
-
-	@Override
-	public void loadROMs(String path) {
-		
-		System.out.println("load roms: " + path);
-	}
-
-	@Override
-	public void messageBox(String message) {
-		System.out.println("messagebox: " + message);
-	}
-
-	@Override
-	public void render() {}
-
-	@Override
-	public void run() {
-		//update param
-		System.out.println("I run !");
 	}
 
 	/**

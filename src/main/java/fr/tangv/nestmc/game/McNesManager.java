@@ -1,15 +1,15 @@
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.game;
 
 /**
  * @author tangv
  * Permet de géré les différente NES sur le serveur
  */
-public class NesManager {
+public class McNesManager {
 
 	/**
 	 * id de map en partant de la fin des id possible
 	 */
-	private int nextIdMap;
+	private short nextIdMap;
 
 	public void start() {
 		this.nextIdMap = Short.MAX_VALUE;
@@ -24,8 +24,8 @@ public class NesManager {
 	 * Permet de récupéré la prochaine id de map en partant de la fin des id possible
 	 * @return l'id de prochaine map
 	 */
-	public int nextIdMap() {
-		int idMap = this.nextIdMap;
+	public short nextIdMap() {
+		short idMap = this.nextIdMap;
 		this.nextIdMap--;
 		return idMap;
 	}

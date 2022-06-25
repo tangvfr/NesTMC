@@ -35,7 +35,27 @@ public class FScreenEmulatorTest {
 		frame.setVisible(true);
 		
 		//init nes
-		NES nes = new NES(new NesScreenMap(maps));
+		NES nes = new NES(new NesScreenMap(maps) {
+			@Override
+			public void loadROMs(String arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void messageBox(String arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void render() {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+			}
+		});
 	    PuppetController c2 = new PuppetController();
 	    nes.setControllers(c1, c2);
 	    

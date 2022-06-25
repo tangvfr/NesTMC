@@ -10,6 +10,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.tangv.nestmc.draw.Drawable;
+import fr.tangv.nestmc.game.v1_8.PacketMapBufferV1_8;
+import fr.tangv.nestmc.palette.tool.DrawableTest;
 import fr.tangv.nestmc.util.ReflectionUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
@@ -193,4 +196,41 @@ public class TestListener extends ChannelDuplexHandler implements Listener {
 		super.channelRead(chx, ob);
 	}
 	
+	/*McNesManager mnm = new McNesManager();
+	mnm.start();
+	PacketMapBufferV1_8 pmb = new PacketMapBufferV1_8(mnm);
+	DrawableTest.testDrawable(new Drawable(128) {
+		@Override
+		public void setPixel(int x, int y, byte color) {
+			pmb.setPixel(x, y, color);
+		}
+		@Override
+		public void clearScreen(byte color) {}
+	});
+	
+	Bukkit.getPluginManager().registerEvents(new Listener() {
+		@EventHandler
+		public void onChat(PlayerChatEvent e) {
+			if (e.getMessage().equals("item")) {
+				ItemStack tt = new ItemStack(Items.FILLED_MAP, 1, pmb.getIdMap());
+				//((CraftPlayer) e.getPlayer()).getHandle().inventory.items[0] = tt;dont work for id map special
+				((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(new PacketPlayOutSetSlot(0, 37, tt));
+			} else if (e.getMessage().equals("lime")) {
+				byte[] bb = new byte[128*128];
+				for (int i = 0; i < 128*128; i++) {
+					bb[i] = MapColorV1_8.LIME_NORMAL;
+				}
+				PacketPlayOutMap map = new PacketPlayOutMap(pmb.getIdMap(), (byte)0, new ArrayList<MapIcon>(), bb, 64, 64, 64, 64);
+				((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(map);
+			} else if (e.getMessage().equals("draw")) {
+				System.out.println("selected idmap: "+pmb.getIdMap());
+				((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(pmb.getPacket());
+			} else if (e.getMessage().equals("draw2")) {
+				((CraftPlayer) e.getPlayer()).getHandle().playerConnection.sendPacket(
+						new PacketPlayOutMap(pmb.getIdMap(), (byte)0, new ArrayList<MapIcon>(), pmb.getBuffer(), 0, 0, 128, 128)
+						);
+			}
+		}
+	}, this);
+	*/
 }

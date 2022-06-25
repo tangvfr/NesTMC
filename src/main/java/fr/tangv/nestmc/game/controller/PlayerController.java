@@ -1,7 +1,8 @@
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.game.controller;
 
 import org.bukkit.entity.Player;
 
+import fr.tangv.nestmc.nes.NesController;
 import io.netty.channel.ChannelDuplexHandler;
 
 /**

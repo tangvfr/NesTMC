@@ -1,4 +1,4 @@
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.game.controller;
 
 import org.bukkit.entity.Player;
 

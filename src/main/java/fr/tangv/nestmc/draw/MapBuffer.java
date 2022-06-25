@@ -21,6 +21,7 @@ public class MapBuffer implements Pixelable, MapBuffered {
 		this.buf = new byte[MapBuffer.LENGTH];
 	}
 	
+	@Override
 	public byte[] getBuffer() {
 		return this.buf;
 	}

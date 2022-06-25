@@ -1,129 +1,127 @@
-package fr.tangv.nestmc.test.drawable;
+package fr.tangv.nestmc.palette.tool;
 
-import fr.tangv.nestmc.draw.MapScreen;
+import fr.tangv.nestmc.draw.Drawable;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 public class DrawableTest {
-	
-	public static void main(String[] args) {
-		MapScreen map = new MapScreen();
-		testDrawable(map);
-		MapBufferFrame frame = new MapBufferFrame(map, 4);
-		frame.repaint();
-	}
-	
-	public static void testDrawable(MapScreen map) {
-		map.clearScreen(MapColorV1_8.BLACK_SHADOW);
+
+	public static void testDrawable(Drawable draw) {
+		draw.clearScreen(MapColorV1_8.BLACK_SHADOW);
 		
-		System.out.println("height: " + map.getHeight());
-		System.out.println("width: " + map.getWidth());
-		System.out.println("height text: " + map.getHeightText());
-		System.out.println("width text 'he': " + map.getWidthText("hs"));
+		System.out.println("height: " + draw.getHeight());
+		System.out.println("width: " + draw.getWidth());
+		System.out.println("height text: " + draw.getHeightText());
+		System.out.println("width text 'he': " + draw.getWidthText("hs"));
 		
 		//setcolor
-		map.setColor(MapColorV1_8.EMERALD_LIGTH);
+		draw.setColor(MapColorV1_8.EMERALD_LIGTH);
 		
-		map.drawPoint(1, 1);
+		draw.drawPoint(1, 1);
 		//test draw Y
-		map.drawLineY(3, 1, 6);
-		map.drawLineY(5, 10, 6);
+		draw.drawLineY(3, 1, 6);
+		draw.drawLineY(5, 10, 6);
 		//test draw X
-		map.drawLineX(7, 1, 12);
-		map.drawLineX(12, 3, 8);
+		draw.drawLineX(7, 1, 12);
+		draw.drawLineX(12, 3, 8);
 		
 		//test drawLine
-		map.drawLine(12, 10, 1, 16);
+		draw.drawLine(12, 10, 1, 16);
 		
 		//setcolor
-		map.setColor(MapColorV1_8.LAVA_LIGTH);
+		draw.setColor(MapColorV1_8.LAVA_LIGTH);
 	
 		//test draw circle
-		map.drawCircle(24, 8, 7);
-		map.fillCircle(40, 8, 7);
+		draw.drawCircle(24, 8, 7);
+		draw.fillCircle(40, 8, 7);
 		
 		//setcolor
-		map.setColor(MapColorV1_8.DIAMOND_LIGTH);
+		draw.setColor(MapColorV1_8.DIAMOND_LIGTH);
 		
 		//test draw rect
-		map.drawRect(50, 1, 3, 3);
-		map.drawRect(53, 4, 4, 4);
-		map.drawRect(57, 8, 5, 5);
-		map.fillRect(64, 1, 8, 16);
+		draw.drawRect(50, 1, 3, 3);
+		draw.drawRect(53, 4, 4, 4);
+		draw.drawRect(57, 8, 5, 5);
+		draw.fillRect(64, 1, 8, 16);
 		
 		//setcolor
-		map.setColor((byte) MapColorV1_8.WATER_DARK);
+		draw.setColor((byte) MapColorV1_8.WATER_DARK);
 		
 		//test draw in rect
-		map.fillRect(60, 1, 3, 3);
-		map.drawRect(64, 1, 5, 5);
-		map.drawPoint(66, 3);
-		map.drawPoint(69, 3);
-		map.drawPoint(71, 3);
+		draw.fillRect(60, 1, 3, 3);
+		draw.drawRect(64, 1, 5, 5);
+		draw.drawPoint(66, 3);
+		draw.drawPoint(69, 3);
+		draw.drawPoint(71, 3);
 		
 		//setcolor
-		map.setColor(MapColorV1_8.GOLD_LIGTH);
+		draw.setColor(MapColorV1_8.GOLD_LIGTH);
 		
 		//test draw char
-		map.drawChar(8, 16, 'A');
-		map.drawChar(16, 16, 'B');
-		map.drawChar(24, 16, 'c');
-		map.drawChar(32, 16, 'd');
+		draw.drawChar(8, 16, 'A');
+		draw.drawChar(16, 16, 'B');
+		draw.drawChar(24, 16, 'c');
+		draw.drawChar(32, 16, 'd');
 		
 		//test font
-		map.setCof((byte) 2);//set cof 2
-		map.drawChar(8, 24, '@');
-		map.setCof((byte) 3);//set cof 3
-		map.drawChar(24, 24, '{');
-		map.setCof((byte) 4);//set cof 4
-		map.drawChar(48, 24, '}');
-		System.out.println("height 4 text: " + map.getHeightText());
-		System.out.println("height 4 text 'he': " + map.getWidthText("he"));
-		map.setCof((byte) 5);//set cof 5
-		map.drawChar(73, 1, '$');
+		draw.setCof((byte) 2);//set cof 2
+		draw.drawChar(8, 24, '@');
+		draw.setCof((byte) 3);//set cof 3
+		draw.drawChar(24, 24, '{');
+		draw.setCof((byte) 4);//set cof 4
+		draw.drawChar(48, 24, '}');
+		System.out.println("height 4 text: " + draw.getHeightText());
+		System.out.println("height 4 text 'he': " + draw.getWidthText("he"));
+		draw.setCof((byte) 5);//set cof 5
+		draw.drawChar(73, 1, '$');
 		
 		//test buf
-		map.setCof((byte) 1);//reset cof
+		draw.setCof((byte) 1);//reset cof
 		byte[] miniBuf = new byte[] {//5x3
 				(byte) 78, (byte) 79, (byte) 78, (byte) 79, (byte) 79,
 				(byte) 79, (byte) 78, (byte) 78, (byte) 78, (byte) 79,
 				(byte) 79, (byte) 79, (byte) 78, (byte) 79, (byte) 78,
 		};
-		map.drawBuffer(76, 10, miniBuf, 5, 3);
+		draw.drawBuffer(76, 10, miniBuf, 5, 3);
 		
 		//test buffer 480
 		byte[] testBuf = new byte[] {//30x16
 			(byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 126, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 126, (byte) 130, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 126, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 126, (byte) 126, (byte) 126, (byte) 130, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 126, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 126, (byte) 126, (byte) 126, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 126, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 130, (byte) 130, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 130, (byte) 130, (byte) 130, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 130, (byte) 130, (byte) 130, (byte) 130, (byte) 130, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 131, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0, 
 		};
-		map.drawBuffer(90, 8, testBuf, 30, 16);
+		draw.drawBuffer(90, 8, testBuf, 30, 16);
 		//test buffer font 2
-		map.setCof((byte) 2);
-		map.drawBuffer(65, 33, testBuf, 30, 16);
+		draw.setCof((byte) 2);
+		draw.drawBuffer(65, 33, testBuf, 30, 16);
 		
 		//reset cof
-		map.setCof((byte) 1);
+		draw.setCof((byte) 1);
 		
-		map.setColor(MapColorV1_8.EMERALD_NORMAL);
-		map.drawLineX(0, 64, 64);
+		//setcolor
+		draw.setColor((byte) MapColorV1_8.WATER_LIGTH);
+		draw.drawLineX(0, 60, 60);
+		draw.drawLineX(0, 62, 62);
+		
+		draw.setColor(MapColorV1_8.EMERALD_NORMAL);
+		draw.drawLineX(0, 64, 64);
 		//test drawText
-		map.setColor(MapColorV1_8.SNOW_LIGTH);
-		map.drawText(0, 64, "Hello, world !");
+		draw.setColor(MapColorV1_8.SNOW_LIGTH);
+		draw.drawText(0, 64, "Hello, world !");
 		//test cof 2
-		map.setCof((byte) 2);
-		map.setColor(MapColorV1_8.LAVA_NORMAL);
-		map.drawText(0, 72, "Hello, world !");
+		draw.setCof((byte) 2);
+		draw.setColor(MapColorV1_8.LAVA_NORMAL);
+		draw.drawText(0, 72, "Hello, world !");
 		
 		//cof null
-		map.setCof((byte) 0);
-		map.drawText(0, 0, "Hello, world !");
+		draw.setCof((byte) 0);
+		draw.drawText(0, 0, "Hello, world !");
 		
 		//reset cof
-		map.setCof((byte) 1);
+		draw.setCof((byte) 1);
 		
 		//test all char
-		map.setColor(MapColorV1_8.SAND_NORMAL);
-		map.drawText(0, 88, "! \"#$%&'()*+,-./01234567");
-		map.drawText(0, 96, "89:;<=>?@LMNOPhijkl{|}~'[");
-		map.drawText(0, 104, "\\]^_@àçéÉëêè");
+		draw.setColor(MapColorV1_8.SAND_NORMAL);
+		draw.drawText(0, 88, "! \"#$%&'()*+,-./01234567");
+		draw.drawText(0, 96, "89:;<=>?@LMNOPhijkl{|}~'[");
+		draw.drawText(0, 104, "\\]^_@àçéÉëêè");
 		
 		//all character
 		//" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~\u837f\u83c7\u83fc\u83e9\u83e2\u83e4\u83e0\u83e5\u83e7\u83ea\u83eb\u83e8\u83ef\u83ee\u83ec\u83c4\u83c5\u83c9\u83e6\u83c6\u83f4\u83f6\u83f2\u83fb\u83f9\u83ff\u83d6\u83dc\u83f8£\u83d8\u83d7\u0191\u83e1\u83ed\u83f3\u83fa\u83f1\u83d1ªº¿®¬½¼¡«»"
