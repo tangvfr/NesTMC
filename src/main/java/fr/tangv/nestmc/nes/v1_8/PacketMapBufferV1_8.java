@@ -1,8 +1,9 @@
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.nes.v1_8;
 
 import java.util.ArrayList;
 
 import fr.tangv.nestmc.draw.MapBuffer;
+import fr.tangv.nestmc.nes.NesManager;
 import net.minecraft.server.v1_8_R3.MapIcon;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
 

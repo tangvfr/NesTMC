@@ -1,9 +1,10 @@
 package fr.tangv.nestmc.draw;
 
 import org.bukkit.map.MapFont.CharacterSprite;
-import org.bukkit.map.MinecraftFont;
 
-import fr.tangv.nestmc.palette.MapColorV1_8;
+import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
+
+import org.bukkit.map.MinecraftFont;
 
 /**
  * @author tangv

@@ -2,11 +2,13 @@ package fr.tangv.nestmc.nes;
 
 import org.bukkit.entity.Player;
 
+import io.netty.channel.ChannelDuplexHandler;
+
 /**
  * @author tangv
  * Permet de lier un joueur a un controlleur (une manette)
  */
-public class PlayerController {
+public abstract class PlayerController extends ChannelDuplexHandler implements SofaController {
 
 	//controler (manette) a la qu'elle on est associe
 	private final NesController controller;

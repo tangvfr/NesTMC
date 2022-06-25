@@ -4,15 +4,7 @@ import com.grapeshot.halfnes.ui.ControllerInterface;
 
 public class NesController implements ControllerInterface {
 	
-	/*
-	HELD for MENU
-	CTRL for MENU
-	ZQSD = UP LEFT DOWN RIGTH
-	A = START
-	ATTACK = SELECT
-	SPACE = A
-	INTERACT = B
-	*/
+	/*NES BUTTONS*/
 	public static int BUTTON_SPACE = 0x01;//A
 	public static int BUTTON_INTERACT = 0x02;//B
 	public static int BUTTON_ATTACK = 0x04;//SELECT
@@ -21,6 +13,7 @@ public class NesController implements ControllerInterface {
 	public static int BUTTON_DOWN = 0x20;//DOWN
 	public static int BUTTON_LEFT = 0x40;//LEFT
 	public static int BUTTON_RIGHT = 0x80;//RIGHT
+	/*ADICTIONAL BUTTONS*/
 	public static int BUTTON_SNEAK = 0x0100;
 	public static int BUTTON_HEALD_1 = 0x0200;
 	public static int BUTTON_HEALD_2 = 0x0400;
@@ -68,7 +61,7 @@ public class NesController implements ControllerInterface {
 	public NesController() {}
 
 	/**
-	 * Permet de mettre a jour les valeurs
+	 * Permet de mettre a jour les valeurs (clicked buttons & press buttons)
 	 */
 	public void update() {
 		//calc cliked buttons

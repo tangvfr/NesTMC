@@ -5,7 +5,7 @@ import com.grapeshot.halfnes.ui.GUIInterface;
 
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.draw.MapBuffer;
-import fr.tangv.nestmc.palette.McNesPaletteV1_8;
+import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 
 public class NesScreenMap extends FourMapScreen implements GUIInterface {
 
