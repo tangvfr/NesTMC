@@ -1,26 +1,30 @@
 package fr.tangv.nestmc.game.v1_8;
 
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.NesController;
-import fr.tangv.nestmc.util.ReflectionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.EntityHorse;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.Item;
+import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.PacketPlayInEntityAction;
 import net.minecraft.server.v1_8_R3.PacketPlayInEntityAction.EnumPlayerAction;
 import net.minecraft.server.v1_8_R3.PacketPlayInHeldItemSlot;
 import net.minecraft.server.v1_8_R3.PacketPlayInSteerVehicle;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
-import net.minecraft.server.v1_8_R3.PacketPlayOutAttachEntity;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity.EnumEntityUseAction;
+import net.minecraft.server.v1_8_R3.PacketPlayOutAttachEntity;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEquipment;
 import net.minecraft.server.v1_8_R3.PacketPlayOutHeldItemSlot;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
+import net.minecraft.server.v1_8_R3.Vector3f;
 
 /**
  * @author tangv
@@ -149,26 +153,75 @@ public class PlayerControllerV1_8 extends PlayerController {
 	
 	@Override
 	public void create(boolean isFirst) {
-		// TODO Auto-generated method stub
+		//variable
+		Player player = this.getPlayer();
+		double locX = this.player.locX;
+		double locY = this.player.locY;
+		double locZ = this.player.locZ;
+		float yaw = this.player.yaw;
 		
+		//create vehicle
+		this.vehicle = new EntityHorse(null);//try with new EntityHorse(this.player.getWorld());----
+		//this.vehicle.setInvisible(true);
+		this.vehicle.setHealth(2F);
+		this.vehicle.setType(3);
+		this.vehicle.onGround = false;
+		this.vehicle.setPositionRotation(locX, locY - 1.2, locZ, yaw, 0);
+		this.vehicle.f(yaw);//set head rotation
+		
+		//create aim
+		this.aim = new EntityArmorStand(null);
+		this.aim.setPosition(locX, locY - 0.2, locZ);
+		//this.aim.setInvisible(true);
+
+		//create sofa
+		this.sofa = new EntityArmorStand(null);
+		this.sofa.setPositionRotation(locX, locY - 0.5, locZ, yaw - 45F, 0F);//45° wool sofa
+		this.sofa.setHeadPose(new Vector3f(0F, 0F, 180F));//head to down
+		this.sofa.setSmall(true);
+		this.sofa.setInvisible(true);//work
+		this.sofa.setEquipment(4, new ItemStack(Item.getById(35), 1, isFirst ? 10 : 9));//4 = HEAD, 35 = WOOL, 10 = MAGENTA 9 = CYAN
+		
+		//only controller player
+		player.getInventory().setHeldItemSlot(4);//set held 4
+		this.player.playerConnection.sendPacket(new PacketPlayOutSpawnEntityLiving(this.aim));//spawn
+		this.show(player);
+		//action
+		this.getController().resetButtons();
+		//add channel handler----
+		//create list----
 	}
 
 	@Override
 	public void show(Player player) {
-		// TODO Auto-generated method stub
-		
+		PlayerConnection co = ((CraftPlayer) player).getHandle().playerConnection;
+		co.sendPacket(new PacketPlayOutSpawnEntityLiving(this.vehicle));//spawn vehicle
+		co.sendPacket(new PacketPlayOutAttachEntity(0, this.player, this.vehicle));//mount controller player
+		co.sendPacket(new PacketPlayOutSpawnEntityLiving(this.sofa));//spawn sofa
+		co.sendPacket(new PacketPlayOutEntityEquipment(this.sofa.getId(), 4, this.sofa.getEquipment(4)));//set item on sofa 4 = HEAD
+		//remove list---
 	}
 
 	@Override
 	public void hide(Player player) {
-		// TODO Auto-generated method stub
-		
+		PlayerConnection co = ((CraftPlayer) player).getHandle().playerConnection;
+		co.sendPacket(new PacketPlayOutAttachEntity(0, this.player, null));//dismount controller player
+		co.sendPacket(new PacketPlayOutEntityDestroy(this.vehicle.getId()));//despawn vehicle
+		co.sendPacket(new PacketPlayOutEntityDestroy(this.sofa.getId()));//despawn sofa
+		//add list---
 	}
 
 	@Override
 	public void destruct(boolean reasonQuit) {
-		// TODO Auto-generated method stub
-		
+		//hide for all-----
+		//this.hide-------
+		//only controller player
+		this.hide(this.getPlayer());
+		this.player.playerConnection.sendPacket(new PacketPlayOutEntityDestroy(this.aim.getId()));//despawn aim
+		//action
+		this.getController().resetButtons();
+		//remove channel handler----
+		this.aim.
 	}
 	
 }
