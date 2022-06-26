@@ -2,7 +2,7 @@ package fr.tangv.nestmc.game.controller;
 
 import org.bukkit.entity.Player;
 
-import fr.tangv.nestmc.nes.NesController;
+import fr.tangv.nestmc.nes.controller.NesController;
 import io.netty.channel.ChannelDuplexHandler;
 
 /**
@@ -26,6 +26,11 @@ public abstract class PlayerController extends ChannelDuplexHandler implements S
 		this.controller = controller;
 	}
 
+	/**
+	 * Permet de mettre a jour le controller et reset les boutons qui en on besoin
+	 */
+	public abstract void updateController();
+	
 	/**
 	 * Permet de récupérer le controller du controleur du joueur
 	 * @return le controller du controleur du joueur

@@ -1,28 +1,8 @@
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.nes.controller;
 
 import com.grapeshot.halfnes.ui.ControllerInterface;
 
-public class NesController implements ControllerInterface {
-	
-	/*NES BUTTONS*/
-	public static int BUTTON_SPACE = 0x01;//A
-	public static int BUTTON_INTERACT = 0x02;//B
-	public static int BUTTON_ATTACK = 0x04;//SELECT
-	public static int BUTTON_OPEN_INV = 0x08;//START
-	public static int BUTTON_UP = 0x10;//UP
-	public static int BUTTON_DOWN = 0x20;//DOWN
-	public static int BUTTON_LEFT = 0x40;//LEFT
-	public static int BUTTON_RIGHT = 0x80;//RIGHT
-	/*ADICTIONAL BUTTONS*/
-	public static int BUTTON_SNEAK = 0x0100;
-	public static int BUTTON_HEALD_1 = 0x0200;
-	public static int BUTTON_HEALD_2 = 0x0400;
-	public static int BUTTON_HEALD_3 = 0x0800;
-	public static int BUTTON_HEALD_4 = 0x1000;
-	public static int BUTTON_HEALD_5 = 0x2000;
-	public static int BUTTON_HEALD_6 = 0x4000;
-	public static int BUTTON_HEALD_7 = 0x8000;
-	public static int BUTTON_HEALD_8 = 0x10000;
+public class NesController implements ControllerInterface, InputController {
 	
 	/*etat des boutons a ce cycle*/
 	private int nowButtons = 0;
@@ -80,27 +60,19 @@ public class NesController implements ControllerInterface {
 		this.latchbyte = 0;
 	}
 	
-	/**
-	 * Permet de savoir si un bouton a été cliquer
-	 * @param button boutton testé
-	 * @return true si le bouton vient d'être cliqué
-	 */
+	@Override
 	public boolean isClicked(int button) {
 		return (button & this.clickButtons) != 0;
 	}
 	
-	/**
-	 * Permet de savoir si un bouton est enfoncé
-	 * @param button boutton testé
-	 * @return true si le bouton est enfoncé
-	 */
+	@Override
 	public boolean isPress(int button) {
 		return (button & this.prevButtons) != 0;
 	}
 	
 	/**
 	 * Permet de modifier le bouton held appuyer
-	 * @param held le held doit etre entre 1 et 8, en dehors a set tout les held à false
+	 * @param held le held doit etre entre 1 et 8, en dehors tout les held seront défini à false
 	 */
 	public void setHeld(int held) {
 		this.nowButtons &= 0b1111_11110;//reset all held

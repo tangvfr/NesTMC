@@ -12,13 +12,13 @@ public interface SofaController {
 	 * Permet de récupéré le propriétaire du siège
 	 * @return
 	 */
-	public PlayerController getOwner();
+	//public PlayerController getOwner();
 	
 	/**
 	 * Permet de créé le siège
-	 * @param first
+	 * @param first si c'est le premier controleur
 	 */
-	public void create(boolean first);
+	public void create(boolean isFirst);
 	
 	/**
 	 * Permet d'afficher le siège a un joueur
@@ -34,8 +34,8 @@ public interface SofaController {
 	
 	/**
 	 * Permet de détruire le siège
-	 * @param first
+	 * @param reasonQuit si la raison que le siege soit destruit est car le joueur a quité
 	 */
-	public void destruct();
+	public void destruct(boolean reasonQuit);
 	
 }
