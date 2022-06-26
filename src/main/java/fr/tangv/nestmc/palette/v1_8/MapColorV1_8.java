@@ -7,6 +7,8 @@ package fr.tangv.nestmc.palette.v1_8;
 public class MapColorV1_8 {
 
 	//https://minecraft.fandom.com/wiki/Map_item_format#Full_color_tables
+	//mauvaise info
+	//powder = palle
 	
 	public static final byte TRANSPARENT_SHADOW = (byte) 0;
 	public static final byte TRANSPARENT_NORMAL = (byte) 1;

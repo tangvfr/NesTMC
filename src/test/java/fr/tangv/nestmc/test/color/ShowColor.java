@@ -48,7 +48,7 @@ public class ShowColor {
 			if (i >= 4) {
 				color = MapPalette.getColor((byte) i);
 			} else {
-				color = new Color(255, 255, 255, 255);
+				color = new Color(255, 255, 255, 0);
 			}
 			g.setColor(color);
 			int x = (i % scape) * size;
