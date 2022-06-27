@@ -1,9 +1,5 @@
 package fr.tangv.nestmc.game.v1_8;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -39,8 +35,6 @@ public class PlayerControllerV1_8 extends PlayerController {
 
 	/*NMS du joueur de la manette*/
 	private EntityPlayer player;
-	/*liste des joueurs qui voies le sofa*/
-	private List<EntityPlayer> list;
 	
 	/*entité sur laquelle est assie le player*/
 	private EntityHorse vehicle;
@@ -192,12 +186,9 @@ public class PlayerControllerV1_8 extends PlayerController {
 		this.sofa.setInvisible(true);//work
 		this.sofa.setEquipment(4, new ItemStack(Item.getById(35), 1, isFirst ? 10 : 9));//4 = HEAD, 35 = WOOL, 10 = MAGENTA 9 = CYAN
 		
-		//liste
-		this.list = new ArrayList<EntityPlayer>();
 		//only controller player
 		player.getInventory().setHeldItemSlot(4);//set held 4
 		this.player.playerConnection.sendPacket(new PacketPlayOutSpawnEntityLiving(this.aim));//spawn aim
-		this.show(player);
 		//action
 		this.getController().resetButtons();
 		//handler
@@ -206,52 +197,23 @@ public class PlayerControllerV1_8 extends PlayerController {
 
 	@Override
 	public void show(Player player) {
-		EntityPlayer viewer = ((CraftPlayer) player).getHandle();
-		PlayerConnection co = viewer.playerConnection;
+		PlayerConnection co = ((CraftPlayer) player).getHandle().playerConnection;
 		co.sendPacket(new PacketPlayOutSpawnEntityLiving(this.vehicle));//spawn vehicle
 		co.sendPacket(new PacketPlayOutAttachEntity(0, this.player, this.vehicle));//mount controller player
 		co.sendPacket(new PacketPlayOutSpawnEntityLiving(this.sofa));//spawn sofa
 		co.sendPacket(new PacketPlayOutEntityEquipment(this.sofa.getId(), 4, this.sofa.getEquipment(4)));//set item on sofa 4 = HEAD
-		this.list.add(viewer);
-	}
-	
-	@Override
-	public boolean in(Player player) {
-		EntityPlayer viewer = ((CraftPlayer) player).getHandle();
-		/*int length = this.list.size();
-		int i = 0;
-		boolean in = false;
-		
-		while (!in && i < length) {//pacours chaque joueur de la liste
-			if (viewer == this.list.get(i)) {
-				in = true;
-			}
-			i++;
-		}*/
-		for (EntityPlayer ep : this.list) {
-			if (viewer == ep) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
 	public void hide(Player player) {
-		EntityPlayer viewer = ((CraftPlayer) player).getHandle();
-		PlayerConnection co = viewer.playerConnection;
+		PlayerConnection co = ((CraftPlayer) player).getHandle().playerConnection;
 		co.sendPacket(new PacketPlayOutAttachEntity(0, this.player, null));//dismount controller player
 		co.sendPacket(new PacketPlayOutEntityDestroy(this.vehicle.getId()));//despawn vehicle
 		co.sendPacket(new PacketPlayOutEntityDestroy(this.sofa.getId()));//despawn sofa
-		this.list.remove(viewer);
 	}
 
 	@Override
 	public void destruct(boolean reasonQuit) {
-		ListIterator<EntityPlayer> it = this.list.listIterator();
-		while (it.hasNext()) {//pour tout les joueur de la liste
-			this.hide(it.next().getBukkitEntity());
-		}
 		//only controller player
 		this.player.playerConnection.sendPacket(new PacketPlayOutEntityDestroy(this.aim.getId()));//despawn aim
 		//action
