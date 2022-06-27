@@ -21,7 +21,7 @@ public class NesController implements ControllerInterface, InputController {
     }
 
     @Override
-    public void output(boolean state) {
+    public synchronized void output(boolean state) {
         this.latchbyte = this.nowButtons & 0xFF;//on garde que les 8 bit pour la nes
     }
 
@@ -43,7 +43,7 @@ public class NesController implements ControllerInterface, InputController {
 	/**
 	 * Permet de mettre a jour les valeurs (clicked buttons & press buttons)
 	 */
-	public void update() {
+	public synchronized void update() {
 		//calc cliked buttons
 		this.clickButtons = ~this.prevButtons & this.nowButtons;
 		this.prevButtons = this.nowButtons;
@@ -52,7 +52,7 @@ public class NesController implements ControllerInterface, InputController {
 	/**
 	 * Permet de reset les controles
 	 */
-	public void resetButtons() {
+	public synchronized void resetButtons() {
 		this.nowButtons = 0;
 		this.prevButtons = 0;
 		this.clickButtons = 0;
@@ -74,7 +74,7 @@ public class NesController implements ControllerInterface, InputController {
 	 * Permet de modifier le bouton held appuyer
 	 * @param held le held doit etre entre 1 et 8, en dehors tout les held seront défini à false
 	 */
-	public void setHeld(int held) {
+	public synchronized void setHeld(int held) {
 		this.nowButtons &= 0b1111_11110;//reset all held
 		//held
 		if (held >= 1 && held <= 8) {
@@ -86,7 +86,7 @@ public class NesController implements ControllerInterface, InputController {
 	 * Permet de relacher un bouton
 	 * @param button bouton relaché
 	 */
-	public void releaseButton(int button) {
+	public synchronized void releaseButton(int button) {
 		this.nowButtons &= ~button;
 	}
 	
@@ -94,7 +94,7 @@ public class NesController implements ControllerInterface, InputController {
 	 * Permet d'enfoncer un bouton
 	 * @param button bouton enfoncé
 	 */
-	public void pressButton(int button) {
+	public synchronized void pressButton(int button) {
 		this.nowButtons |= button;
 	}
 	

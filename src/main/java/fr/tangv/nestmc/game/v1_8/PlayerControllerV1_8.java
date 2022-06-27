@@ -59,6 +59,9 @@ public class PlayerControllerV1_8 extends PlayerController {
 		this.player = ((CraftPlayer) player).getHandle();
 	}
 
+	/**
+	 * Permet de récupéré les touche du joueur
+	 */
 	@Override
 	public void channelRead(ChannelHandlerContext chx, Object ob) throws Exception {
 		if (ob instanceof PacketPlayInSteerVehicle) {//vehicle input

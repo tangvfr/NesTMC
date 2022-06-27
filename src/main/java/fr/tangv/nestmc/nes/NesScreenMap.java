@@ -74,7 +74,7 @@ public abstract class NesScreenMap extends FourMapScreen implements GUIInterface
 	 * Méthode qui est appeler lorsque le PPU de la NES a calculer une frame
 	 */
 	@Override
-	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
+	public synchronized void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
 		//nespixels = 256x240
 		MapBuffer[] screens = this.getBitScreens();
 		
