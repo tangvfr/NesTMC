@@ -27,6 +27,13 @@ public interface SofaController {
 	public void show(Player player);
 	
 	/**
+	 * Permet de tester si un joueur vois le siège
+	 * @param player le joueur que l'on test
+	 * @return true si un joueur vois le siège
+	 */
+	public boolean in(Player player);
+	
+	/**
 	 * Permet de cacher le siège a un joueur
 	 * @param player le joueur a qui on cache le siège
 	 */
