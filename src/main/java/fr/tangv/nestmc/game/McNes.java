@@ -19,7 +19,7 @@ import fr.tangv.nestmc.nes.software.NesGui;
  */
 public abstract class McNes<T> extends TMCNes {
 
-	private final Object obSync = new Object();//for eaxmple to test
+	private final Object obSync = new Object();//for eaxmple to sync
 	
 	/*gestionnaire de tous les nes sur le serveur*/
 	private final McNesManager<T> manager;
@@ -140,11 +140,11 @@ public abstract class McNes<T> extends TMCNes {
 		if (isFirst) {//si c'est le premier controlleur
 			this.firstPlayer = this.manager.createPlayerController(player, (NesController) this.getFirstController());
 			this.firstRequest = null;
-			
+			this.openController(this.firstPlayer);
 		} else {//si c'est le deuxième controlleur controlleur
 			this.secondPlayer = this.manager.createPlayerController(player, (NesController) this.getSecondController());
 			this.secondRequest = null;
-			
+			this.openController(this.secondPlayer);
 		}
 	}
 	
@@ -184,10 +184,16 @@ public abstract class McNes<T> extends TMCNes {
 	 * @return un packet de mise a jour d'une map de l'écran de la nes
 	 */
 	@SuppressWarnings("unchecked")
-	public T getPacket(int index) {
+	private T getPacket(int index) {
 		return ((PacketMapBuffer<T>) ((FourMapScreen) this.getScreen()).getBitScreens()[index]).getPacket();
 	}
 
+	/**
+	 * Permet de crée un PlayerController en envoyant les bon packet au personne qui doivent le voir
+	 * @param control le PlayerController a cree
+	 */
+	public abstract void openController(PlayerController control);
+	
 	/**
 	 * Permet de detruire un PlayerController en envoyant les bon packet au personne qui le voyais
 	 * @param control le PlayerController a detruire

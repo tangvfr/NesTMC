@@ -10,7 +10,7 @@ public class NesTMC extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		
+		/**make test with itemframe and map in */
 	}
 	
 	@Override
