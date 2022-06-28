@@ -5,6 +5,7 @@ import fr.tangv.nestmc.draw.MapBuffer;
 /**
  * @author Tangv - https://tangv.fr
  * Permet de crée un map buffer avec l'id de la map qui corespond et le packet pour la mettre a jour
+ * @param <T> le type de packet envoier au joueur
  */
 public abstract class PacketMapBuffer<T> extends MapBuffer {
 	
@@ -18,7 +19,7 @@ public abstract class PacketMapBuffer<T> extends MapBuffer {
 	 * 
 	 * @param manager le gestionaire des maps
 	 */
-	public PacketMapBuffer(McNesManager manager) {
+	public PacketMapBuffer(McNesManager<T> manager) {
 		this.idMap = manager.nextIdMap();
 	}
 	

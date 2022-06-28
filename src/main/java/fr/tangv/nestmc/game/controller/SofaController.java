@@ -7,12 +7,6 @@ import org.bukkit.entity.Player;
  * Represente un siege pour un playerController
  */
 public interface SofaController {
-
-	/**
-	 * Permet de récupéré le propriétaire du siège
-	 * @return
-	 */
-	//public PlayerController getOwner();
 	
 	/**
 	 * Permet de créé le siège

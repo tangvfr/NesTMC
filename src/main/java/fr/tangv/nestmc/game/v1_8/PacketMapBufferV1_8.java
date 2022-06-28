@@ -22,7 +22,7 @@ public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {
 	 * 
 	 * @param manager le gestionaire des maps
 	 */
-	public PacketMapBufferV1_8(McNesManager manager) {
+	public PacketMapBufferV1_8(McNesManager<PacketPlayOutMap> manager) {
 		super(manager);
 		this.packet = new PacketPlayOutMap(super.getIdMap(), (byte) 0, new ArrayList<MapIcon>(), new byte[0], 0, 0, 0, 0);
 		ReflectionUtil.setValue("f", this.packet, 128);
