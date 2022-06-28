@@ -3,7 +3,7 @@ package fr.tangv.nestmc.game;
 import fr.tangv.nestmc.draw.MapBuffer;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de crée un map buffer avec l'id de la map qui corespond et le packet pour la mettre a jour
  */
 public abstract class PacketMapBuffer<T> extends MapBuffer {

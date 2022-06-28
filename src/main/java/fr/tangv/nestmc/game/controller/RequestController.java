@@ -5,7 +5,8 @@ import org.bukkit.entity.Player;
 import fr.tangv.nestmc.game.McNes;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
+ * 
  * Permet de formuler une requet
  */
 public class RequestController {
@@ -33,6 +34,7 @@ public class RequestController {
 		this.isFirst = isFirst;
 		this.timeEnd = System.currentTimeMillis();
 	}
+	
 	
 	public int isValid() {
 		// - > TIME_TO_SNEAK

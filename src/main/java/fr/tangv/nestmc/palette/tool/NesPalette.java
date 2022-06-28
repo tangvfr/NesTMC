@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.palette.tool;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Couleurs du ppu nes en rgb
  */
 public class NesPalette {

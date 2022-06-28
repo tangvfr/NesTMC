@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.palette.tool;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de généré nom des couleur des maps minecraft
  */
 public class MapColorGeneratorV1_8 {

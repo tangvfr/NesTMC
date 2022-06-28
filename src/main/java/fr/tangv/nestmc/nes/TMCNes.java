@@ -8,7 +8,7 @@ import fr.tangv.nestmc.nes.controller.NesController;
 
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * une nes utilisable pour son interface d'utilisation
  */
 public abstract class TMCNes {

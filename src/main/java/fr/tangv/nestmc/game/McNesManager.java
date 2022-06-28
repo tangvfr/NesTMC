@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.game;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de géré les différente NES sur le serveur
  */
 public class McNesManager {

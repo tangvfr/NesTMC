@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.palette.v1_8;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Couleurs des maps qui corespondes au mieux de celles de la palette du ppu nes
  */
 public class McNesPaletteV1_8 {

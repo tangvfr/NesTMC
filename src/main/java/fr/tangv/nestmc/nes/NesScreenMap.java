@@ -8,7 +8,7 @@ import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de crée un écran de 4 map pour une nes
  */
 public abstract class NesScreenMap extends FourMapScreen implements GUIInterface {

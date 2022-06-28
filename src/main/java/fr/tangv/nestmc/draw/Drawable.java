@@ -7,7 +7,7 @@ import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 import org.bukkit.map.MinecraftFont;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de dessiner
  */
 public abstract class Drawable implements Pixelable {

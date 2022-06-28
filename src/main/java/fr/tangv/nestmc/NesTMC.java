@@ -3,7 +3,7 @@ package fr.tangv.nestmc;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de démaré le plugin
  */
 public class NesTMC extends JavaPlugin {

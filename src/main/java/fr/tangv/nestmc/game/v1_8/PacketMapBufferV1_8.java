@@ -9,7 +9,7 @@ import net.minecraft.server.v1_8_R3.MapIcon;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de crée un map buffer envoyable
  */
 public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {

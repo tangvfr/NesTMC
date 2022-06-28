@@ -28,7 +28,7 @@ import net.minecraft.server.v1_8_R3.PlayerConnection;
 import net.minecraft.server.v1_8_R3.Vector3f;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de lier un joueur a un controlleur (une manette) pour la version 1.8.8
  */
 public class PlayerControllerV1_8 extends PlayerController {

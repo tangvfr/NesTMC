@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.draw;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  *	Permet de dessiner sur un buffer de map
  */
 public class MapScreen extends Drawable implements MapBuffered {

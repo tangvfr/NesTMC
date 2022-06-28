@@ -8,7 +8,7 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.software.NesGui;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * une nes dans minecraft
  */
 public abstract class McNes<T> extends TMCNes {
@@ -40,7 +40,7 @@ public abstract class McNes<T> extends TMCNes {
 	public abstract T[] getPackets();
 
 	@Override
-	public synchronized void closeController(int controllers) {
+	public void closeController(int controllers) {
 		if ((controllers & TMCNes.FIRST_CONTROLLER) != 0) {
 			this.firstPlayer.destruct(false);
 			/*hide*/

@@ -3,7 +3,7 @@ package fr.tangv.nestmc.game.controller;
 import org.bukkit.entity.Player;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Represente un siege pour un playerController
  */
 public interface SofaController {

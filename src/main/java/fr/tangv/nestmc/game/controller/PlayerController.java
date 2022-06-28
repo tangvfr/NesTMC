@@ -6,7 +6,7 @@ import fr.tangv.nestmc.nes.controller.NesController;
 import io.netty.channel.ChannelDuplexHandler;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de lier un joueur a un controlleur (une manette)
  */
 public abstract class PlayerController extends ChannelDuplexHandler implements SofaController {
