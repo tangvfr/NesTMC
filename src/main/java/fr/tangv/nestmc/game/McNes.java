@@ -2,7 +2,6 @@ package fr.tangv.nestmc.game;
 
 import java.util.List;
 
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import fr.tangv.nestmc.draw.FourMapScreen;
@@ -23,8 +22,6 @@ public abstract class McNes<T> extends TMCNes {
 	
 	/*gestionnaire de tous les nes sur le serveur*/
 	private final McNesManager<T> manager;
-	/*block representent l'écran de la nes*/
-	private final Block[] blocks;
 	/*requets pour demmandé les controlleurs*/
 	private RequestController firstRequest = null;
 	private RequestController secondRequest = null;
@@ -41,7 +38,7 @@ public abstract class McNes<T> extends TMCNes {
 	 * 
 	 * 
 	 */
-	public McNes(McNesManager<T> manager, Block[] blocks) {//cette objet peux etre use par plussieur truc pensser a sync-- et cons a revoir
+	public McNes(McNesManager<T> manager) {//cette objet peux etre use par plussieur truc pensser a sync-- et cons a revoir
 		super(new NesGui(new PacketMapBuffer[] {
 				manager.createPacketMapBuffer(),
 				manager.createPacketMapBuffer(),
@@ -49,7 +46,6 @@ public abstract class McNes<T> extends TMCNes {
 				manager.createPacketMapBuffer()
 		}));
 		this.manager = manager;
-		this.blocks = blocks;
 	}
 
 	@Override
