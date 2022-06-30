@@ -25,9 +25,9 @@ public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {
 	public PacketMapBufferV1_8(McNesManager<PacketPlayOutMap> manager) {
 		super(manager);
 		this.packet = new PacketPlayOutMap(super.getIdMap(), (byte) 0, new ArrayList<MapIcon>(), new byte[0], 0, 0, 0, 0);
-		ReflectionUtil.setValue("f", this.packet, 128);
-		ReflectionUtil.setValue("g", this.packet, 128);
-		ReflectionUtil.setValue("h", this.packet, this.getBuffer());
+		ReflectionUtil.setValue(this.packet, "f", 128);
+		ReflectionUtil.setValue(this.packet, "g", 128);
+		ReflectionUtil.setValue(this.packet, "h", this.getBuffer());
 	}
 
 	@Override

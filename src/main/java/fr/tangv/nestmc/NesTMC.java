@@ -37,15 +37,7 @@ public class NesTMC extends JavaPlugin {
 	private TestListener listener;
 	
 	@Override
-	public void onEnable() {		
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			EntityPlayer ep = ((CraftPlayer) player).getHandle();
-			PlayerConnection co = ep.playerConnection;
-			Channel ch = co.networkManager.channel;
-			ch.pipeline().addBefore("packet_handler", ep.getName(), this.listener);
-		}
-		
-
+	public void onEnable() {
 		McNesManager<PacketPlayOutMap> mnm = new McNesManager<PacketPlayOutMap>() {
 			
 			@Override
@@ -70,7 +62,7 @@ public class NesTMC extends JavaPlugin {
 			public void clearScreen(byte color) {}
 		};
 		DrawableTest.testDrawable(draw);
-		draw.setColor(MapColorV1_8.TRANSPARENT_NORMAL);
+		draw.setColor(MapColorV1_8.BLACK_DARK);
 		draw.fillCircle(64, 64, 6);
 		
 
@@ -98,6 +90,14 @@ public class NesTMC extends JavaPlugin {
 
 		this.listener = new TestListener(this, pmb.getIdMap());
 		Bukkit.getPluginManager().registerEvents(this.listener, this);
+		
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			EntityPlayer ep = ((CraftPlayer) player).getHandle();
+			PlayerConnection co = ep.playerConnection;
+			this.listener.co = co;
+			Channel ch = co.networkManager.channel;
+			ch.pipeline().addBefore("packet_handler", ep.getName(), this.listener);
+		}
 	}
 	
 	@Override

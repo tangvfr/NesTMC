@@ -5,10 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+import org.apache.commons.lang.Validate;
+
 public class ReflectionUtil {
 
-	public static void setValue(String name, Object object, Object value) {
+	public static void setValue(Object object, String name, Object value) {
 		Field field = getField(name, object.getClass());
+		Validate.notNull(field, "Field not found");
 		field.setAccessible(true);
 		try {
 			field.set(object, value);
@@ -17,8 +20,9 @@ public class ReflectionUtil {
 		}
 	}
 
-	public static void setStaticValue(String name, Class<?> clazz, Object value) {
+	public static void setStaticValue(Class<?> clazz, String name, Object value) {
 		Field field = getField(name, clazz);
+		Validate.notNull(field, "Field not found");
 		field.setAccessible(true);
 		try {
 			field.set(null, value);
@@ -27,8 +31,9 @@ public class ReflectionUtil {
 		}
 	}
 
-	public static Object getValue(String name, Object object) {
+	public static Object getValue(Object object, String name) {
 		Field field = getField(name, object.getClass());
+		Validate.notNull(field, "Field not found");
 		field.setAccessible(true);
 		try {
 			return field.get(object);
@@ -38,8 +43,9 @@ public class ReflectionUtil {
 		}
 	}
 
-	public static Object getStaticValue(String name, Class<?> clazz) {
+	public static Object getStaticValue(Class<?> clazz, String name) {
 		Field field = getField(name, clazz);
+		Validate.notNull(field, "Field not found");
 		field.setAccessible(true);
 		try {
 			return field.get(null);
@@ -49,11 +55,13 @@ public class ReflectionUtil {
 		}
 	}
 
-	public static Object excuteMethod(String name, Object object, Object... args) {
+	public static Object excuteMethod(Object object, String name, Object... args) {
 		Class<?>[] clazzs = new Class<?>[args.length];
-		for (int i = 0; i < clazzs.length; i++)
+		for (int i = 0; i < clazzs.length; i++) {
 			clazzs[i] = args[i].getClass();
-		Method method = getMethod(name, object.getClass(), clazzs);
+		}
+		Method method = ReflectionUtil.getMethod(name, object.getClass(), clazzs);
+		Validate.notNull(method, "Method not found");
 		method.setAccessible(true);
 		try {
 			return method.invoke(object, args);
