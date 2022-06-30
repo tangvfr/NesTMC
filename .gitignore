@@ -5,6 +5,7 @@ gradle
 build
 target
 bin
+.vscode
 
 # File
 gradlew
