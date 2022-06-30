@@ -184,7 +184,7 @@ public abstract class McNes<T> extends TMCNes {
 	 * @return un packet de mise a jour d'une map de l'écran de la nes
 	 */
 	@SuppressWarnings("unchecked")
-	private T getPacket(int index) {
+	public T getPacket(int index) {
 		return ((PacketMapBuffer<T>) ((FourMapScreen) this.getScreen()).getBitScreens()[index]).getPacket();
 	}
 
