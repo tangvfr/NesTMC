@@ -18,9 +18,9 @@ repositories {
 }
 
 dependencies {
-    shadow "org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT" // The full Spigot server with no shadowing. Requires mavenLocal.
-    shadow "org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT" // The full Spigot server with no shadowing. Requires mavenLocal.
-    implementation files("libs/halfNES_062.jar")
+    shadow 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
+    shadow 'org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
+    implementation project(':halfNes')
 }
 
 shadowJar {

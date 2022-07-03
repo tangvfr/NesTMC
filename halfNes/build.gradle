@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+version = '062-NesTMC'
+group = 'com.grapeshot.halfnes'
+
+sourceCompatibility = 8
+targetCompatibility = 8
+compileJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'

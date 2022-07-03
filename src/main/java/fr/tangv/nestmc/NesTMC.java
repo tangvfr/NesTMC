@@ -19,11 +19,14 @@ import fr.tangv.nestmc.game.v1_8.PacketMapBufferV1_8;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.palette.tool.DrawableTest;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
+import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import io.netty.channel.Channel;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.Items;
 import net.minecraft.server.v1_8_R3.MapIcon;
+import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSetSlot;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
@@ -38,7 +41,7 @@ public class NesTMC extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		McNesManager<PacketPlayOutMap> mnm = new McNesManager<PacketPlayOutMap>() {
+		McNesManager<Packet<PacketListenerPlayOut>> mnm = new McNesManager<Packet<PacketListenerPlayOut>>() {
 			
 			@Override
 			public PlayerController createPlayerController(Player player, NesController controller) {
@@ -46,8 +49,13 @@ public class NesTMC extends JavaPlugin {
 			}
 			
 			@Override
-			public PacketMapBuffer<PacketPlayOutMap> createPacketMapBuffer() {
+			public PacketMapBuffer<Packet<PacketListenerPlayOut>> createPacketMapBuffer() {
 				return null;
+			}
+
+			@Override
+			public byte[] getPalette() {
+				return McNesPaletteV1_8.MC_NES_PALETTE;
 			}
 		};
 		

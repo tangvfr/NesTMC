@@ -1,17 +1,13 @@
 package fr.tangv.nestmc.test.screen;
 
-import java.util.prefs.Preferences;
-
-import javax.swing.JFrame;
-
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.PrefsSingleton;
 import com.grapeshot.halfnes.ui.PuppetController;
+import com.grapeshot.halfnes.ui.PuppetKeyListener;
 
 import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.nes.NesScreenMap;
+import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import fr.tangv.nestmc.test.drawable.MapBufferFrame;
-import fr.tangv.nestmc.test.emulator.PuppetKeyListener;
 
 public class FScreenEmulatorTest {
 
@@ -26,24 +22,18 @@ public class FScreenEmulatorTest {
 		}
 		
 		//keyboard
-		PuppetKeyListener c1 = new PuppetKeyListener();
-		JFrame frame = new JFrame("Keyboard");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.addKeyListener(c1);
-		frame.setResizable(false);
-		frame.setSize(256, 64);
-		frame.setVisible(true);
+		PuppetKeyListener c1 = PuppetKeyListener.createFrame(null);
 		
 		//init nes
-		NES nes = new NES(new NesScreenMap(maps) {
+		NES nes = new NES(new NesScreenMap(maps, McNesPaletteV1_8.MC_NES_PALETTE) {
 			@Override
 			public void loadROMs(String arg0) {
-				// TODO Auto-generated method stub
+				System.out.println(arg0);
 			}
 
 			@Override
 			public void messageBox(String arg0) {
-				// TODO Auto-generated method stub
+				System.out.println("sgbox: "+arg0);
 			}
 
 			@Override
@@ -53,26 +43,23 @@ public class FScreenEmulatorTest {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+				System.out.println("I started");
 			}
 		});
 	    PuppetController c2 = new PuppetController();
 	    nes.setControllers(c1, c2);
 	    
 	    //pref
-	    Preferences prefs = PrefsSingleton.get();
+	    /*Preferences prefs = PrefsSingleton.get();
 	    prefs.putBoolean("soundEnable", true);
 	    prefs.putBoolean("soundFiltering", false);
-	    prefs.putInt("outputvol", 0);//to muet game
+	    prefs.putInt("outputvol", 0);//to muet game*/
 	
 	    nes.loadROM(args[0]);
 	    
-	    new Thread(() -> {
-	       nes.run();
-	    }, "Game Thread").start();
-	    
-	    new Thread(() -> {
+	    Thread display = new Thread(() -> {
 			while(nes.runEmulation) {
+				System.out.println(nes.getFrameTime());
 				for (int i = 0; i < 4; i++) {
 					frames[i].repaint();
 				}
@@ -82,7 +69,12 @@ public class FScreenEmulatorTest {
 					e.printStackTrace();
 				}
 			}
-		}, "Render MapBufferFrame").start();
+		}, "Render MapBufferFrame");
+	    
+	    new Thread(() -> {
+	       nes.run();
+	    }, "Game Thread").start();
+	    display.start();
 	}
 	
 }

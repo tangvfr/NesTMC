@@ -35,11 +35,11 @@ import net.minecraft.server.v1_8_R3.PlayerConnection;
 public class TestListener extends ChannelDuplexHandler implements Listener {
 
 	private final JavaPlugin plugin;
-	private final short idMap;
+	private final int idMap;
 	public PlayerConnection co;
 	private EntityItemFrame eif;
 
-	public TestListener(JavaPlugin plugin, short idMap) {
+	public TestListener(JavaPlugin plugin, int idMap) {
 		this.plugin = plugin;
 		this.idMap = idMap;
 		Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {

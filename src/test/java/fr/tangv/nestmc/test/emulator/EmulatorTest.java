@@ -1,10 +1,8 @@
 package fr.tangv.nestmc.test.emulator;
 
-import java.util.prefs.Preferences;
-
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.PrefsSingleton;
 import com.grapeshot.halfnes.ui.PuppetController;
+import com.grapeshot.halfnes.ui.PuppetKeyListener;
 
 public class EmulatorTest {
 
@@ -15,10 +13,10 @@ public class EmulatorTest {
         nes.setControllers(c1, c2);
         
         //pref
-        Preferences prefs = PrefsSingleton.get();
+        /*Preferences prefs = PrefsSingleton.get();
         prefs.putBoolean("soundEnable", true);
         prefs.putBoolean("soundFiltering", false);
-        prefs.putInt("outputvol", 0);//to muet game
+        prefs.putInt("outputvol", 0);//to muet game*/
 
         nes.loadROM(args[0]);
         

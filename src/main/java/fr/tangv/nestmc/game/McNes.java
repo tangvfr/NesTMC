@@ -2,26 +2,34 @@ package fr.tangv.nestmc.game;
 
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import fr.tangv.nestmc.draw.Drawable;
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
+import fr.tangv.nestmc.nes.software.NesOs;
+import fr.tangv.nestmc.nes.software.TMCNesOs;
 
 /**
  * @author Tangv - https://tangv.fr
  * une nes dans minecraft
- * @param <T> le type de packet envoie au joueur
+ * @param <T> le type de packet envoier au joueur
  */
 public abstract class McNes<T> extends TMCNes {
 
-	private final Object obSync = new Object();//for eaxmple to sync
+	/*objet pour sycronizer les données*/
+	private final Object obSync = new Object();
 	
 	/*gestionnaire de tous les nes sur le serveur*/
 	private final McNesManager<T> manager;
+	/*position de la nes sur la map*/
+	private final Location location;
+	
 	/*requets pour demmandé les controlleurs*/
 	private RequestController firstRequest = null;
 	private RequestController secondRequest = null;
@@ -31,30 +39,50 @@ public abstract class McNes<T> extends TMCNes {
 
 	/**
 	 * Permet de construire une nes qui serait dans minecraft
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
+	 * @param manager gestionnaire des nes sur le serveur
+	 * @param loc possition de la nes dans le monde
 	 */
-	public McNes(McNesManager<T> manager) {//cette objet peux etre use par plussieur truc pensser a sync-- et cons a revoir
-		super(new NesGui(new PacketMapBuffer[] {
-				manager.createPacketMapBuffer(),
-				manager.createPacketMapBuffer(),
-				manager.createPacketMapBuffer(),
-				manager.createPacketMapBuffer()
-		}));
+	public McNes(McNesManager<T> manager, Location loc) {
+		super(
+			new NesGui(
+				new PacketMapBuffer[] {
+					manager.createPacketMapBuffer(),
+					manager.createPacketMapBuffer(),
+					manager.createPacketMapBuffer(),
+					manager.createPacketMapBuffer()
+					},
+				manager.getPalette()
+				),
+			new TMCNesOs()
+			);
 		this.manager = manager;
+		this.location = loc;
 	}
 
 	@Override
 	public void update() {
-		//udp input
-		//udp menu // action
-		synchronized (this.getScreen()) {
-			//draw  //anvant de draw ou envoie les pquet de l'ecran penser a synchronized--
-			//send
+		//update input
+		synchronized (this.obSync) {
+			if (this.firstPlayer != null) this.firstPlayer.updateController();
+			if (this.secondPlayer != null) this.secondPlayer.updateController();
+		}
+		
+		NesOs os = this.getOs();
+		//update os
+		os.update(this, this.getFirstController(), this.getSecondController(), this.getMixedController());
+		Drawable screen = this.getScreen();
+		
+		synchronized (screen) {
+			//render os on screen
+			os.render(this, screen);
+			//send packet to player
+			if (os.isSend()) {
+				@SuppressWarnings("unchecked")
+				PacketMapBuffer<T>[] packets = (PacketMapBuffer<T>[]) ((FourMapScreen) this.getScreen()).getBitScreens();
+				for (int i = 0; i < 4; i++) {
+					this.sendPacket(packets[i].getPacket());
+				}
+			}
 		}
 	}
 	
@@ -64,56 +92,64 @@ public abstract class McNes<T> extends TMCNes {
 	 * @param isFirst true si c'est une requête pour le premier controlleur
 	 * @return -1 impossible, 0 demmande faite, sinon le nombre de ms avant l'expiration de la dernier requêt
 	 */
-	public int request(Player player, boolean isFirst) {
-		int r;
-		int col = 8000;//tmp
+	public void request(Player player, boolean isFirst) {
+		RequestController rcontrol = null;
+		int remainingTime;
+		int col = 8000;//temps de validiter d'une requet
 		
-		//--test--
-		if (isFirst) {//si le premier
-			//si le premier est libre
-			if (this.firstPlayer == null) {
-				//test si la requet est dispo ou expiré
-				if (this.firstRequest == null) {
-					r = 0;
+		synchronized (this.obSync) {
+			if (isFirst) {//si le premier
+				//si le premier est libre
+				if (this.firstPlayer == null) {
+					remainingTime = this.validdity(this.firstRequest);
+					//test de r si la requet est accepter
+					if (remainingTime == 0) {
+						rcontrol = new RequestController(player, this, true, col);
+						this.firstRequest = rcontrol;
+					}
 				} else {
-					r = this.firstRequest.calcValidity();
+					remainingTime = -1;
 				}
-				//test de r si la requet est accepter
-				if (r == 0) {
-					this.firstRequest = new RequestController(player, this, true, col);
-					this.manager.addRequest(this.firstRequest);
-				}
-			} else {
-				r = -1;
-			}
-		} else {//si le second
-			//si le deucieme est libre
-			if (this.secondPlayer == null) {
-				//test si la requet est dispo ou expiré
-				if (this.secondRequest == null) {
-					r = 0;
+			} else {//si le second
+				//si le deucieme est libre
+				if (this.secondPlayer == null) {
+					remainingTime = this.validdity(this.secondRequest);
+					//test de r si la requet est accepter
+					if (remainingTime == 0) {
+						rcontrol = new RequestController(player, this, false, col);
+						this.secondRequest = rcontrol;
+					}
 				} else {
-					r = this.secondRequest.calcValidity();
+					remainingTime = -1;
 				}
-				//test de r si la requet est accepter
-				if (r == 0) {
-					this.secondRequest = new RequestController(player, this, false, col);
-					this.manager.addRequest(this.secondRequest);
-				}
-			} else {
-				r = -1;
 			}
 		}
 		
-		//--messages--
-		if (r == -1) {
-			player.sendMessage("Place deja prise !");
-		} else if (r <= 0) {
-			player.sendMessage("Tu as 8sec pour t'asseoir !");
-		} else {
-			player.sendMessage("Une personne essay d'avoir la place il lui reste "+((r / 1000) + 1)+"sec !");
+		//ajout la requets si elle est crée
+		if (rcontrol != null) {
+			this.manager.addRequest(this.firstRequest);
 		}
-		return r;
+		player.sendMessage(this.requestMsg(remainingTime));
+	}
+	
+	/**
+	 * Permet d'obtenir le message en focntion du temps restant pour faire une requet de controlleur
+	 * @param time temps en ms avant de pouvoir faire une rêquet, -1 pour jamais
+	 */
+	private String requestMsg(int time) {
+		if (time <= -1) return "Place deja prise !";
+		if (time == 0) return "Tu as 8sec pour t'asseoir !";
+		return "Une personne essay d'avoir la place il lui reste "+((time / 1000) + 1)+"sec !";
+	}
+	
+	/**
+	 * Permet de renvoyer le temps de validiter d'une requet
+	 * @param req la requet
+	 * @return le temps de validity restante de la requet
+	 */
+	private int validdity(RequestController req) {
+		if (req == null) return 0;
+		return req.calcValidity();
 	}
 	
 	/**
@@ -134,12 +170,16 @@ public abstract class McNes<T> extends TMCNes {
 	public void openController(Player player, boolean isFirst) {
 		this.manager.removeRequest(player);
 		if (isFirst) {//si c'est le premier controlleur
-			this.firstPlayer = this.manager.createPlayerController(player, (NesController) this.getFirstController());
-			this.firstRequest = null;
+			synchronized (this.obSync) {
+				this.firstPlayer = this.manager.createPlayerController(player, (NesController) this.getFirstController());
+				this.firstRequest = null;
+			}
 			this.openController(this.firstPlayer);
 		} else {//si c'est le deuxième controlleur controlleur
-			this.secondPlayer = this.manager.createPlayerController(player, (NesController) this.getSecondController());
-			this.secondRequest = null;
+			synchronized (this.obSync) {
+				this.secondPlayer = this.manager.createPlayerController(player, (NesController) this.getSecondController());
+				this.secondRequest = null;
+			}
 			this.openController(this.secondPlayer);
 		}
 	}
@@ -149,17 +189,26 @@ public abstract class McNes<T> extends TMCNes {
 	 * @param isFirst true si c'est le premier controlleur
 	 */
 	private void closeController(boolean isFirst) {
+		PlayerController control = null;
+		
 		if (isFirst) {
-			if (this.firstPlayer != null) {
-				this.closeController(this.firstPlayer);
-				this.firstPlayer = null;
+			synchronized (this.obSync) {
+				if (this.firstPlayer != null) {
+					control = this.firstPlayer;
+					this.firstPlayer = null;
+				}
 			}
 		} else {
-			if (this.secondPlayer != null) {
-				this.closeController(this.secondPlayer);
-				this.secondPlayer = null;
+			synchronized (this.obSync) {
+				if (this.secondPlayer != null) {
+					control = this.secondPlayer;
+					this.secondPlayer = null;
+				}
 			}
 		}
+		
+		if (control != null)
+			this.closeController(control);
 	}
 
 	@Override
@@ -175,13 +224,35 @@ public abstract class McNes<T> extends TMCNes {
 	}
 
 	/**
-	 * Permet d'obtenir un packet nms pour mettre a jour l'une des maps qui forme l'écran
-	 * @param index index de la map du pakcet souhaité
-	 * @return un packet de mise a jour d'une map de l'écran de la nes
+	 * Permet de récupérer le objet de syncronisation de la McNes
+	 * @return l'objet de syncronisation de la McNes
 	 */
-	@SuppressWarnings("unchecked")
-	public T getPacket(int index) {
-		return ((PacketMapBuffer<T>) ((FourMapScreen) this.getScreen()).getBitScreens()[index]).getPacket();
+	public Object getObSync() {
+		return this.obSync;
+	}
+	
+	/**
+	 * Permet de récupérer la location de la nes
+	 * @return la location de la nes
+	 */
+	public Location getLocation() {
+		return this.location;
+	}
+
+	/**
+	 * Permet de récupérer le premier controlleur
+	 * @return le premier controlleur (peu être null)
+	 */
+	public PlayerController getFirstPlayer() {
+		return this.firstPlayer;
+	}
+
+	/**
+	 * Permet de récupérer le deuxième controlleur
+	 * @return le deuxième controlleur (peu être null)
+	 */
+	public PlayerController getSecondPlayer() {
+		return this.secondPlayer;
 	}
 
 	/**
@@ -219,5 +290,10 @@ public abstract class McNes<T> extends TMCNes {
 	 * Permet de détruire la nes - nms
 	 */
 	public abstract void destruct();
+	
+	/**
+	 * Permet d'envoyer un packet a tous les joueurs qui peuvent voir la nes
+	 */
+	public abstract void sendPacket(T packet);
 
 }

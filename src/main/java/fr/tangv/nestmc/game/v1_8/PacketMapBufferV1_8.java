@@ -6,13 +6,15 @@ import fr.tangv.nestmc.game.McNesManager;
 import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.util.ReflectionUtil;
 import net.minecraft.server.v1_8_R3.MapIcon;
+import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
 
 /**
  * @author Tangv - https://tangv.fr
  * Permet de crée un map buffer envoyable
  */
-public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {
+public class PacketMapBufferV1_8 extends PacketMapBuffer<Packet<PacketListenerPlayOut>> {
 
 	/*le packet pour mettre a jour la map*/
 	private final PacketPlayOutMap packet;
@@ -22,7 +24,7 @@ public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {
 	 * 
 	 * @param manager le gestionaire des maps
 	 */
-	public PacketMapBufferV1_8(McNesManager<PacketPlayOutMap> manager) {
+	public PacketMapBufferV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager) {
 		super(manager);
 		this.packet = new PacketPlayOutMap(super.getIdMap(), (byte) 0, new ArrayList<MapIcon>(), new byte[0], 0, 0, 0, 0);
 		ReflectionUtil.setValue(this.packet, "f", 128);
@@ -31,7 +33,7 @@ public class PacketMapBufferV1_8 extends PacketMapBuffer<PacketPlayOutMap> {
 	}
 
 	@Override
-	public PacketPlayOutMap getPacket() {
+	public Packet<PacketListenerPlayOut> getPacket() {
 		return this.packet;
 	}
 	

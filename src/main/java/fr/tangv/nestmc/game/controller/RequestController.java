@@ -44,7 +44,7 @@ public class RequestController {
 	 */
 	public int calcValidity() {
 		long cooldown = this.cooldown - (System.currentTimeMillis() - this.createdTime);
-		if (cooldown < 0) {
+		if (cooldown <= 0) {
 			cooldown = 0;
 			this.nes.timeoutRequest(this.player, this.isFirst);
 		}

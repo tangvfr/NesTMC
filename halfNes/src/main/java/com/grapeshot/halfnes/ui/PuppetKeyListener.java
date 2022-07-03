@@ -1,12 +1,28 @@
-package fr.tangv.nestmc.test.emulator;
+package com.grapeshot.halfnes.ui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import com.grapeshot.halfnes.ui.PuppetController;
+import javax.swing.JFrame;
 
+/**
+ * @author Tangv - https://tangv.fr
+ * Puppet controller with KeyListener
+ */
 public class PuppetKeyListener extends PuppetController implements KeyListener {
 
+	public static PuppetKeyListener createFrame(String name) {
+		//keyboard
+		PuppetKeyListener control = new PuppetKeyListener();
+		JFrame frame = new JFrame("Keyboard "+name);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addKeyListener(control);
+		frame.setResizable(false);
+		frame.setSize(256, 64);
+		frame.setVisible(true);
+		return control;
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	

@@ -5,8 +5,8 @@ import fr.tangv.nestmc.nes.NesScreenMap;
 
 public class NesGui extends NesScreenMap {
 
-	public NesGui(MapBuffer[] bitScreens) {
-		super(bitScreens);
+	public NesGui(MapBuffer[] bitScreens, byte[] colors) {
+		super(bitScreens, colors);
 	}
 
 	@Override

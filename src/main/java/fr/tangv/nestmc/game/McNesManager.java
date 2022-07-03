@@ -23,6 +23,10 @@ public abstract class McNesManager<T> {
 		
 	}
 	
+	public void stop() {
+		
+	}
+	
 	/**
 	 * Permet de récupéré la prochaine id de map en partant de la fin des id possible
 	 * @return l'id de prochaine map
@@ -33,8 +37,8 @@ public abstract class McNesManager<T> {
 		return idMap;
 	}
 	
-	public void stop() {
-		
+	public RequestController getRequest(Player player) {
+		return null;
 	}
 	
 	public void addRequest(RequestController req) {
@@ -58,5 +62,11 @@ public abstract class McNesManager<T> {
 	 * @return le flux de map envoyable
 	 */
 	public abstract PacketMapBuffer<T> createPacketMapBuffer();
+	
+	/**
+	 * Permet de renvoier la palette de couleur de map qui corespond a la palette de couleur de la nes
+	 * @return la palette des couleurs pour la nes
+	 */
+	public abstract byte[] getPalette();
 	
 }

@@ -1,0 +1,15 @@
+# Folder
+.gradle
+.settings
+gradle
+build
+target
+bin
+.vscode
+
+# File
+gradlew
+gradlew.bat
+gradle.properties
+.project
+.classpath
