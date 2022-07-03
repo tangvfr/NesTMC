@@ -38,7 +38,7 @@ public abstract class McNesManager<T> {
 	}
 	
 	public RequestController getRequest(Player player) {
-		return null;
+		return null;//return request
 	}
 	
 	public void addRequest(RequestController req) {

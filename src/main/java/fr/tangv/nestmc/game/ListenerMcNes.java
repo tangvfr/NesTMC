@@ -19,9 +19,7 @@ import fr.tangv.nestmc.game.controller.RequestController;
  */
 public class ListenerMcNes implements Listener {
 	
-	/**
-	 * le gestionnaire de console
-	 */
+	/*le gestionnaire de console*/
 	private final McNesManager<?> manager;
 	
 	/**
@@ -47,7 +45,7 @@ public class ListenerMcNes implements Listener {
 			) {
 			Location loc = e.getClickedBlock().getRelative(face).getLocation();
 			loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
-			//
+			//create new nes
 		} else {
 			e.getPlayer().sendMessage("Sense invalid !");
 		}
