@@ -41,7 +41,7 @@ public class NesTMC extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		McNesManager<Packet<PacketListenerPlayOut>> mnm = new McNesManager<Packet<PacketListenerPlayOut>>() {
+		McNesManager<Packet<PacketListenerPlayOut>> mnm = new McNesManager<Packet<PacketListenerPlayOut>>(null, 0) {
 			
 			@Override
 			public PlayerController createPlayerController(Player player, NesController controller) {

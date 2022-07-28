@@ -16,13 +16,13 @@ public class TMCNesOs extends NesOs {
 	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
 		// TODO Auto-generated method stub
-
+		//when player exit think to destruct controller
 	}
 
 	@Override
 	public void render(TMCNes nes, Drawable draw) {
-		// TODO Auto-generated method stub
-
+		
+		this.setSend(true);
 	}
 
 }

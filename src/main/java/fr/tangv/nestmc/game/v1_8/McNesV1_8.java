@@ -4,19 +4,24 @@
 package fr.tangv.nestmc.game.v1_8;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
+import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import net.minecraft.server.v1_8_R3.EntityItemFrame;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EnumDirection;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
+import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntity;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
@@ -29,12 +34,15 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@SuppressWarnings("unchecked")
 	private final Packet<PacketListenerPlayOut>[] spawnItemFrames = new Packet[8];
+	private final PacketPlayOutEntityDestroy despawnItemFrames;
 	//id des itemframes pour l'ecran de la nes
 	private final int idItemFrames[] = new int[4];
+	//liste des joueur qui voie la nes
+	private final ConcurrentLinkedDeque<EntityPlayer> viewers;
 
-	
 	public McNesV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager, Location loc) {
 		super(manager, loc);
+		this.viewers = new ConcurrentLinkedDeque<EntityPlayer>();
 		//data
 		EnumDirection dir = EnumDirection.fromAngle(loc.getYaw());
 		PacketMapBufferV1_8[] maps = (PacketMapBufferV1_8[])((FourMapScreen) this.getScreen()).getBitScreens();
@@ -58,10 +66,20 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		//haut gauche
 		vec.add(left);
 		this.setScreenMap(maps, 0, vec, dir);
+		
+		//despawn packet
+		this.despawnItemFrames = new PacketPlayOutEntityDestroy(this.idItemFrames);
 	}
 	
+	/**
+	 * Permet d'initialiser une map qui constitue l'ecran de la NES
+	 * @param maps list des maps
+	 * @param index indice de la partie d'ecran entre 0 et 3 
+	 * @param vec location de la map
+	 * @param dir direction de la map
+	 */
 	private void setScreenMap(PacketMapBufferV1_8[] maps, int index, Vector vec, EnumDirection dir) {
-		EntityItemFrame eif = NesV1_8Util.createMapItemFrame(maps[0].getIdMap(), vec, dir);
+		EntityItemFrame eif = NesV1_8Util.createMapItemFrame(maps[index].getIdMap(), vec, dir);
 		//packet entity
 		int i = index * 2;
 		this.spawnItemFrames[i] = new PacketPlayOutSpawnEntity(eif, 71, dir.b());
@@ -70,27 +88,37 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		//id entity
 		this.idItemFrames[index] = eif.getId();
 	}
-
+	
 	/**
-	 * Permet de faire spawn a un joueur les écrans de la nes
+	 * Permet de faire apparaître a un joueur les écrans de la nes
 	 * @param co la connection du joueur
 	 */
-	private void sendItemsFrame(PlayerConnection co) {
+	private void spawnItemsFrame(PlayerConnection co) {
 		for (Packet<PacketListenerPlayOut> packet : this.spawnItemFrames) {
 			co.sendPacket(packet);
 		}
 	}
+	
+	/**
+	 * Permet de faire disparaître a un joueur les écrans de la nes
+	 * @param co la connection du joueur
+	 */
+	private void despawnItemsFrame(PlayerConnection co) {
+		co.sendPacket(this.despawnItemFrames);
+	}
 
 	@Override
 	public void openController(PlayerController control) {
-		// TODO Auto-generated method stub
-		
+		for (EntityPlayer ep : this.viewers) {
+			control.show(ep.getBukkitEntity());
+		}
 	}
 
 	@Override
 	public void closeController(PlayerController control) {
-		// TODO Auto-generated method stub
-		
+		for (EntityPlayer ep : this.viewers) {
+			control.hide(ep.getBukkitEntity());
+		}
 	}
 
 	@Override
@@ -101,14 +129,78 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@Override
 	public void show(Player player) {
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		PlayerConnection co = ep.playerConnection;
+		//spawn
+		this.spawnItemsFrame(co);
 		
+		//first map view
+		synchronized (this.getScreen()) {
+			for (PacketMapBuffer<Packet<PacketListenerPlayOut>> packet : this.getMapPackets()) {
+				co.sendPacket(packet.getPacket());
+			}
+		}
 		
+		//show crontroller
+		synchronized (this.getObSync()) {
+			//first
+			PlayerController pc = this.getFirstPlayer();
+			if (pc != null) {
+				pc.show(player);
+			}
+			//second
+			pc = this.getSecondPlayer();
+			if (pc != null) {
+				pc.show(player);
+			}
+		}
+		
+		//player add in list
+		this.viewers.add(ep);
 	}
 
 	@Override
+	public boolean canSee(Player player) {
+		return this.viewers.contains(((CraftPlayer) player).getHandle());
+	}
+	
+	@Override
 	public void hide(Player player, boolean quit) {
-		// TODO Auto-generated method stub
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		//despawn
+		this.despawnItemsFrame(ep.playerConnection);
 		
+		//si le joueur a quitter ou s'eloigne de trop
+		int controller = 0;//0 ne ferme aucun controlleur
+		synchronized (this.getObSync()) {
+			PlayerController pc = this.getFirstPlayer();
+			if (pc.getPlayer().equals(player)) {
+				pc.destruct(quit);
+			} else {
+				pc = this.getSecondPlayer();
+				if (pc.getPlayer().equals(player)) {
+					pc.destruct(quit);
+				}
+			}
+		}
+		this.closeController(controller);
+		
+		//hide crontroller
+		synchronized (this.getObSync()) {
+			//first
+			PlayerController pc = this.getFirstPlayer();
+			if (pc != null) {
+				pc.hide(player);
+			}
+			//second
+			pc = this.getSecondPlayer();
+			if (pc != null) {
+				pc.hide(player);
+			}
+		}
+		
+		//player remove in list
+		this.viewers.remove(ep);
 	}
 
 	@Override
@@ -119,8 +211,9 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@Override
 	public void sendPacket(Packet<PacketListenerPlayOut> packet) {
-		// TODO Auto-generated method stub
-		
+		for (EntityPlayer ep : this.viewers) {
+			ep.playerConnection.sendPacket(packet);
+		}
 	}
 
 }

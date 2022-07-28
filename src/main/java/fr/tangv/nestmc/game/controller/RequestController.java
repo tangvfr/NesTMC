@@ -39,6 +39,14 @@ public class RequestController {
 	}
 
 	/**
+	 * Permet de récupérer le joueur de la requête
+	 * @return le joueur de la requête
+	 */
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	/**
 	 * Permet d'obtenir la durée de validité restante et de suprimé la requet si le temps est déppaser
 	 * @return la durée de validité restante en ms
 	 */

@@ -77,13 +77,20 @@ public abstract class McNes<T> extends TMCNes {
 			os.render(this, screen);
 			//send packet to player
 			if (os.isSend()) {
-				@SuppressWarnings("unchecked")
-				PacketMapBuffer<T>[] packets = (PacketMapBuffer<T>[]) ((FourMapScreen) this.getScreen()).getBitScreens();
-				for (int i = 0; i < 4; i++) {
-					this.sendPacket(packets[i].getPacket());
+				for (PacketMapBuffer<T> packet : this.getMapPackets()) {
+					this.sendPacket(packet.getPacket());
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Permet d'obtenir les 4 map qui ont les packets
+	 * @return les 4 map qui ont les packets
+	 */
+	@SuppressWarnings("unchecked")
+	public PacketMapBuffer<T>[] getMapPackets() {
+		return (PacketMapBuffer<T>[]) ((FourMapScreen) this.getScreen()).getBitScreens();
 	}
 	
 	/**
@@ -224,7 +231,7 @@ public abstract class McNes<T> extends TMCNes {
 	}
 
 	/**
-	 * Permet de récupérer le objet de syncronisation de la McNes
+	 * Permet de récupérer l'objet de syncronisation de la McNes
 	 * @return l'objet de syncronisation de la McNes
 	 */
 	public Object getObSync() {
@@ -278,6 +285,13 @@ public abstract class McNes<T> extends TMCNes {
 	 * @param player le joueur a qui on affiche la nes
 	 */
 	public abstract void show(Player player);
+	
+	/**
+	 * Permet de savoir si un joueur vois la nes
+	 * @param player le joueur que l'on souhaite tester
+	 * @return true si le joueur voie deja la nes
+	 */
+	public abstract boolean canSee(Player player);
 
 	/**
 	 * Permet de cacher la nes a un joueur - nms

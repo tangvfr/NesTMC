@@ -40,6 +40,7 @@ public abstract class TMCNes {
 		this.mixed = new MixedInputController(first, second);
 		this.os = os;
 		
+		//make methodes
 		//nes.runEmulation;
 		//nes.getCurrentRomName();
 		//nes.get

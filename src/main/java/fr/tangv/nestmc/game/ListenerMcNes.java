@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
 
@@ -34,7 +35,6 @@ public class ListenerMcNes implements Listener {
 	public void onClick(PlayerInteractEvent e) {
 		if (e.getMaterial() != Material.SEEDS) return;
 		
-		//l'action
 		e.setCancelled(true);
 		BlockFace face = e.getBlockFace();
 		
@@ -45,9 +45,10 @@ public class ListenerMcNes implements Listener {
 			) {
 			Location loc = e.getClickedBlock().getRelative(face).getLocation();
 			loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
+			//manager.
 			//create new nes
 		} else {
-			e.getPlayer().sendMessage("Sense invalid !");
+			e.getPlayer().sendMessage("Invalid direction !");
 		}
 	}
 	
@@ -60,6 +61,11 @@ public class ListenerMcNes implements Listener {
 		if (req != null && req.calcValidity() > 0) {
 			req.accept();
 		}
+	}
+	
+	@EventHandler
+	public void onMove(PlayerMoveEvent e) {
+		this.manager.updateAroundConsoles(e.getPlayer());
 	}
 	
 }
