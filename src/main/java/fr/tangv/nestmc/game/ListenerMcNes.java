@@ -8,11 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.util.Vector;
 
 import fr.tangv.nestmc.game.controller.RequestController;
-
 
 /**
  * @author Tangv - https://tangv.fr
@@ -26,7 +26,7 @@ public class ListenerMcNes implements Listener {
 	/**
 	 * Permet de construire un captureur d'action
 	 * @param manager les gestionnaire de console du serveur
-	 */
+	 */ 
 	public ListenerMcNes(McNesManager<?> manager) {
 		this.manager = manager;
 	}
@@ -42,18 +42,17 @@ public class ListenerMcNes implements Listener {
 			|| face == BlockFace.EAST
 			|| face == BlockFace.SOUTH
 			|| face == BlockFace.WEST
-			) {
+			) {//test si la face est compatible
 			Location loc = e.getClickedBlock().getRelative(face).getLocation();
 			loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
-			//manager.
-			//create new nes
-		} else {
+			this.manager.createNes(loc);//creation de la console
+		} else {//si la face ne peux pas correspondre
 			e.getPlayer().sendMessage("Invalid direction !");
 		}
 	}
 	
 	@EventHandler
-	public void onClick(PlayerToggleSneakEvent e) {
+	public void onSneak(PlayerToggleSneakEvent e) {
 		Player player = e.getPlayer();
 		RequestController req = this.manager.getRequest(player);
 		
@@ -66,6 +65,11 @@ public class ListenerMcNes implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		this.manager.updateAroundConsoles(e.getPlayer());
+	}
+	
+	@EventHandler
+	public void onQuit(PlayerQuitEvent e) {
+		this.manager.quit(e.getPlayer());
 	}
 	
 }

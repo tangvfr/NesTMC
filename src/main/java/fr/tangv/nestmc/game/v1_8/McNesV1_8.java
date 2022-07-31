@@ -4,7 +4,7 @@
 package fr.tangv.nestmc.game.v1_8;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -38,11 +38,16 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 	//id des itemframes pour l'ecran de la nes
 	private final int idItemFrames[] = new int[4];
 	//liste des joueur qui voie la nes
-	private final ConcurrentLinkedDeque<EntityPlayer> viewers;
+	private final ConcurrentLinkedQueue<EntityPlayer> viewers;
 
+	/**
+	 * Permet de construire une console nes pour la version 1.8
+	 * @param manager le egstionaire de console
+	 * @param loc la localisation de la nes et sa direction
+	 */
 	public McNesV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager, Location loc) {
 		super(manager, loc);
-		this.viewers = new ConcurrentLinkedDeque<EntityPlayer>();
+		this.viewers = new ConcurrentLinkedQueue<EntityPlayer>();
 		//data
 		EnumDirection dir = EnumDirection.fromAngle(loc.getYaw());
 		PacketMapBufferV1_8[] maps = (PacketMapBufferV1_8[])((FourMapScreen) this.getScreen()).getBitScreens();
@@ -123,8 +128,9 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@Override
 	public void create(List<Player> list) {
-		// TODO Auto-generated method stub
-		
+		for (Player player : list) {//on affiche la nes pour les joueur qui son censé la voir
+			this.show(player);
+		}
 	}
 
 	@Override
@@ -205,8 +211,11 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@Override
 	public void destruct() {
-		// TODO Auto-generated method stub
-		
+		EntityPlayer ep;
+		//clear all player
+		while ((ep = this.viewers.peek()) != null) {//pour tous les joueur qui voie on les hide(hide les suprime)
+			this.hide(ep.getBukkitEntity(), false);
+		}
 	}
 
 	@Override

@@ -30,6 +30,7 @@ public abstract class TMCNes {
 	/**
 	 * Permet de crée une nes utilisable pour son interface d'utilisation
 	 * @param screen l'écran de la nes
+	 * @param os système d'explotation de la console
 	 */
 	public TMCNes(NesScreenMap screen, NesOs os) {
 		NesController first = new NesController();
