@@ -99,9 +99,6 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	public void stop() {
 		this.cancel();
 		HandlerList.unregisterAll(this.listener);
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			this.playerReload(player);
-		}
 		//this.requests.clear();//pas besoin theoriquement
 		
 		//clear nes

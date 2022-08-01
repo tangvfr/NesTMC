@@ -12,7 +12,7 @@ import fr.tangv.nestmc.game.McNes;
  */
 public class PlayerInteractNesEvent extends Event {
 
-	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private static final HandlerList HANDLERS = new HandlerList();
 	
 	private final McNes<?> nes;//console avec laquelle a interagie le joueur
 	private final boolean attack;//si le joueur a fait un clique gauche
@@ -63,9 +63,13 @@ public class PlayerInteractNesEvent extends Event {
 		return this.player;
 	}
 
-	@Override
-	public HandlerList getHandlers() {
-		return PlayerInteractNesEvent.HANDLERS_LIST;
-	}
+	public static HandlerList getHandlerList() {
+        return PlayerInteractNesEvent.HANDLERS;
+    }
+
+    @Override
+    public HandlerList getHandlers() {
+        return PlayerInteractNesEvent.HANDLERS;
+    }
 	
 }
