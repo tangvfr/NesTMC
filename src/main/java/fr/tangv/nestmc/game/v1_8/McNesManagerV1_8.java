@@ -5,6 +5,7 @@ package fr.tangv.nestmc.game.v1_8;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import fr.tangv.nestmc.NesTMC;
@@ -16,8 +17,10 @@ import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.MovedTestNesOs;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -55,8 +58,33 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 	}
 
 	@Override
-	protected NesOs createNesOs() {
+	public NesOs createNesOs() {
 		return new MovedTestNesOs();//for test
+	}
+
+	@Override
+	public void playerJoin(Player player) {
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		ep.playerConnection.networkManager.channel.pipeline().addBefore(
+				"interact_handler",
+				ep.getName(), 
+				new PlayerInteractNesEventChannelV1_8(this, player)
+			);
+	}
+	
+	@Override
+	public void playerReload(Player player) {
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		ep.playerConnection.networkManager.channel.pipeline().remove(ep.getName());
+	}
+	
+	@Override
+	public void playerQuit(Player player) {
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		PlayerConnection co = ep.playerConnection;
+		co.networkManager.channel.eventLoop().submit(() -> {
+			co.networkManager.channel.pipeline().remove(ep.getName());
+		});
 	}
 
 }

@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerInteractNesEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -26,7 +28,7 @@ public class ListenerMcNes implements Listener {
 	
 	/**
 	 * Permet de construire un captureur d'action
-	 * @param manager les gestionnaire de console du serveur
+	 * @param manager le gestionnaire de console du serveur
 	 */ 
 	public ListenerMcNes(McNesManager<?> manager) {
 		this.manager = manager;
@@ -37,8 +39,9 @@ public class ListenerMcNes implements Listener {
 		if (e.getMaterial() == Material.SEEDS
 			&& e.getAction() == Action.RIGHT_CLICK_BLOCK
 		) {
-			e.setCancelled(true);
+			Player player = e.getPlayer();
 			BlockFace face = e.getBlockFace();
+			e.setCancelled(true);
 			
 			if (face == BlockFace.NORTH
 				|| face == BlockFace.EAST
@@ -47,9 +50,11 @@ public class ListenerMcNes implements Listener {
 				) {//test si la face est compatible
 				Location loc = e.getClickedBlock().getRelative(face).getLocation();
 				loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
-				this.manager.createNes(loc);//creation de la console
+				if (this.manager.createNes(loc) == null) {//creation de la console
+					player.sendMessage("Nombre de nes maximal atteint");
+				}
 			} else {//si la face ne peux pas correspondre
-				e.getPlayer().sendMessage("Invalid direction !");
+				player.sendMessage("Invalid direction !");
 			}
 		}
 	}
@@ -71,8 +76,20 @@ public class ListenerMcNes implements Listener {
 	}
 	
 	@EventHandler
+	public void onNes(PlayerInteractNesEvent e) {
+		System.out.println("my event !"+e.toString());
+	}
+	
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		this.manager.playerJoin(e.getPlayer());
+	}
+	
+	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
-		this.manager.quit(e.getPlayer());
+		Player player = e.getPlayer();
+		this.manager.quit(player);
+		this.manager.playerQuit(player);
 	}
 	
 }

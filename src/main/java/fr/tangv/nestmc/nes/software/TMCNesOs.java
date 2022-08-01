@@ -14,6 +14,11 @@ import fr.tangv.nestmc.nes.controller.InputController;
 public class TMCNesOs extends NesOs {
 	
 	@Override
+	public void addMessageBox(String msg) {
+		System.out.println("msgbox: "+msg);
+	}
+	
+	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
 		
 	}

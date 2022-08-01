@@ -30,15 +30,15 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	/**
 	 * id de map en partant de la fin des id possible
 	 */
-	private short nextIdMap;
+	private short nextIdMap = Short.MAX_VALUE;
 	/*
 	 * liste des consoles
 	 */
-	private final ConcurrentLinkedQueue<McNes<T>> consoles;
+	private final ConcurrentLinkedQueue<McNes<T>> consoles = new ConcurrentLinkedQueue<McNes<T>>();
 	/*
 	 * liste des requêtes des joueurs
 	 */
-	private final ConcurrentHashMap<UUID, RequestController> requests;
+	private final ConcurrentHashMap<UUID, RequestController> requests = new ConcurrentHashMap<UUID, RequestController>();
 	/*
 	 * configuration dans laquelle est stocker les nes du serveur
 	 */
@@ -47,10 +47,18 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * distance maximal pour voir une nes
 	 */
 	private final double maxRange;
+	/**
+	 * nombre maximal de nes autoriser sur le serveur
+	 */
+	private final int maxNes;
 	/*
 	 * gestionnaire d'event
 	 */
-	private ListenerMcNes listener;
+	private final ListenerMcNes listener = new ListenerMcNes(this);
+	/*
+	 * le plugin auquel appartient le gestionnaire
+	 */
+	private final NesTMC plugin;
 
 	/**
 	 * Permet de construire un gestionnaire de consoles
@@ -58,12 +66,10 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * @param config la configuration et les messages des console
 	 */
 	public McNesManager(NesTMC plugin, YamlConfiguration config) {//https://minecraft-heads.com/custom-heads/decoration/2001-nes
-		this.nextIdMap = Short.MAX_VALUE;
-		this.consoles = new ConcurrentLinkedQueue<McNes<T>>();
-		this.requests = new ConcurrentHashMap<UUID, RequestController>();
-		this.listener = new ListenerMcNes(this);
+		this.plugin = plugin;
 		this.config = config;
 		this.maxRange = 16D;//replamce here
+		this.maxNes = 2;//replamce here
 		//saved consoles is loading
 		//his.config.get
 		
@@ -93,6 +99,9 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	public void stop() {
 		this.cancel();
 		HandlerList.unregisterAll(this.listener);
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			this.playerReload(player);
+		}
 		//this.requests.clear();//pas besoin theoriquement
 		
 		//clear nes
@@ -154,24 +163,41 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	}
 	
 	/**
-	 * Permet de crée et d'ajouter à la liste des consoles une nouvelle NES
-	 * @param nes la nes a ajouter
+	 * Permet de récupé la console a qui appartiens l'itemframe
+	 * @param idItemFrame identifiant de l'itemframe
+	 * @return la console a qui appartiens l'itemframe qui consistitue son écran
 	 */
-	public McNes<T> createNes(Location loc) {
-		McNes<T> nes = this.newConsole(loc);
-		Validate.notNull(nes, "Nes can't create ! (Created Nes is NULL)");
-		
-		//joueur qui peuvent voir la nes
-		ArrayList<Player> players = new ArrayList<Player>();
-		for (Player player : Bukkit.getOnlinePlayers()) {//pour tout les joueur connecter
-			if (player.getLocation().distance(loc) <= this.maxRange) {//si a moins de maxRange block de la nes
-				players.add(player);
+	public McNes<T> getNes(int idItemFrame) {
+		for (McNes<T> nes : this.consoles) {
+			if (nes.haveIdItemFram(idItemFrame)) {
+				return nes;
 			}
 		}
-		
-		//add consoles
-		nes.create(players);
-		this.consoles.add(nes);
+		return null;
+	}
+	
+	/**
+	 * Permet de crée et d'ajouter à la liste des consoles une nouvelle NES
+	 * @param nes la nes a ajouter, null si le nombre de nes maximal est atteint
+	 */
+	public McNes<T> createNes(Location loc) {
+		McNes<T> nes = null;
+		if (this.consoles.size() < this.maxNes) {
+			nes = this.newConsole(loc);
+			Validate.notNull(nes, "Nes can't create ! (Created Nes is NULL)");
+			
+			//joueur qui peuvent voir la nes
+			ArrayList<Player> players = new ArrayList<Player>();
+			for (Player player : Bukkit.getOnlinePlayers()) {//pour tout les joueur connecter
+				if (player.getLocation().distance(loc) <= this.maxRange) {//si a moins de maxRange block de la nes
+					players.add(player);
+				}
+			}
+			
+			//add consoles
+			nes.create(players);
+			this.consoles.add(nes);
+		}
 		return nes;
 	}
 	
@@ -186,22 +212,6 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 		}
 		return rm;
 	}
-	
-	/**
-	 * Permet d'ajouter une console à la liste
-	 * @param nes la nes a ajouter
-	 */
-	/*private void addNes(McNes<T> nes) {
-		this.consoles.add(nes);
-	}*/
-	
-	/**
-	 * Permet suprimer une console de la liste
-	 * @param nes la nes a suprimer
-	 */
-	/*private boolean removeNes(McNes<T> nes) {
-		return this.consoles.remove(nes);
-	}*/
 	
 	/**
 	 * Permet de récupéré une requêt de controlleur dans la liste des requêtes
@@ -259,6 +269,29 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * Permet de crée une instance de système d'explotation pour une console
 	 * @return le système d'explotation
 	 */
-	protected abstract NesOs createNesOs();
+	public abstract NesOs createNesOs();
+	
+	/**
+	 * Est apeller lorsqu'un joueur se connecte
+	 */
+	public abstract void playerJoin(Player player);
+
+	/**
+	 * Est apeller pour tous les joueur lorsque le manager est stopper
+	 */
+	public abstract void playerReload(Player player);
+	
+	/**
+	 * Est apeller lorsqu'un joueur se déconnecte
+	 */
+	public abstract void playerQuit(Player player);
+
+	/**
+	 * Permet de récupérer le plugin du gestionnaire
+	 * @return le plugin du gestionnaire
+	 */
+	public NesTMC getPlugin() {
+		return this.plugin;
+	}
 	
 }

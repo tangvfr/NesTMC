@@ -42,11 +42,12 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	/**
 	 * Permet de construire une console nes pour la version 1.8
-	 * @param manager le egstionaire de console
-	 * @param loc la localisation de la nes et sa direction
+	 * @param manager gestionnaire des nes sur le serveur
+	 * @param loc possition de la nes dans le monde
+	 * @param os système d'exploitation de la nes
 	 */
 	public McNesV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager, Location loc) {
-		super(manager, loc);
+		super(manager, loc, manager.createNesOs());
 		this.viewers = new ConcurrentLinkedQueue<EntityPlayer>();
 		//data
 		EnumDirection dir = EnumDirection.fromAngle(loc.getYaw());
@@ -224,6 +225,16 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		for (EntityPlayer ep : this.viewers) {
 			ep.playerConnection.sendPacket(packet);
 		}
+	}
+
+	@Override
+	public boolean haveIdItemFram(int idItemFrame) {
+		for (int i = 0; i < 4; i++) {
+			if (idItemFrames[i] == idItemFrame) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

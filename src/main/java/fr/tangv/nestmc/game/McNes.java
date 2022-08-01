@@ -1,7 +1,12 @@
 package fr.tangv.nestmc.game;
 
+import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -13,7 +18,6 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
 import fr.tangv.nestmc.nes.software.NesOs;
-import fr.tangv.nestmc.nes.software.MovedTestNesOs;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -41,22 +45,54 @@ public abstract class McNes<T> extends TMCNes {
 	 * Permet de construire une nes qui serait dans minecraft
 	 * @param manager gestionnaire des nes sur le serveur
 	 * @param loc possition de la nes dans le monde
+	 * @param os système d'exploitation de la nes
 	 */
-	public McNes(McNesManager<T> manager, Location loc) {
+	public McNes(McNesManager<T> manager, Location loc, NesOs os) {
 		super(
-			new NesGui(
-				new PacketMapBuffer[] {
-					manager.createPacketMapBuffer(),
-					manager.createPacketMapBuffer(),
-					manager.createPacketMapBuffer(),
-					manager.createPacketMapBuffer()
-					},
-				manager.getPalette()
+				new NesGui(
+					os,
+					new PacketMapBuffer[] {
+						manager.createPacketMapBuffer(),
+						manager.createPacketMapBuffer(),
+						manager.createPacketMapBuffer(),
+						manager.createPacketMapBuffer()
+						},
+					manager.getPalette(),
+					manager.getPlugin().getDataFolder().getAbsolutePath() + File.separatorChar + "save" + File.separatorChar + McNes.generateUIDNES(loc) + File.separatorChar
 				),
-			manager.createNesOs()
+				os
 			);
 		this.manager = manager;
 		this.location = loc;
+	}
+	
+	/**
+	 * Permet de généré une emprinte de la console dans le monde
+	 * @param loc location de la nes
+	 * @return l'emprinte généré
+	 */
+	private static String generateUIDNES(Location loc) {
+		try {
+			return Hex.encodeHexString(MessageDigest.getInstance(MessageDigestAlgorithms.SHA_1).digest(
+					(loc.getBlockX() + '.' + loc.getBlockY() + '.' + loc.getBlockZ() + '.' + loc.getWorld().getName())
+				.getBytes()));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Permet de suprimé tout les sauvegarde de la nes
+	 */
+	public void clearSaveFolder() {
+		File folder = new File(manager.getPlugin().getDataFolder().getAbsolutePath() + File.separatorChar + "save" + File.separatorChar + McNes.generateUIDNES(this.getLocation()));
+		if (folder.exists() && folder.isDirectory()) {
+			for (File file : folder.listFiles()) {//pour tout les fichier de sauvegarde dans le dossier de la console
+				file.delete();
+			}
+			folder.delete();
+		}
 	}
 
 	@Override
@@ -247,7 +283,7 @@ public abstract class McNes<T> extends TMCNes {
 	}
 
 	/**
-	 * Permet de récupérer le premier controlleur
+	 * Permet de récupérer le premier controlleur (pour utiliser sync avec obSync)
 	 * @return le premier controlleur (peu être null)
 	 */
 	public PlayerController getFirstPlayer() {
@@ -255,13 +291,20 @@ public abstract class McNes<T> extends TMCNes {
 	}
 
 	/**
-	 * Permet de récupérer le deuxième controlleur
+	 * Permet de récupérer le deuxième controlleur (pour utiliser sync avec obSync)
 	 * @return le deuxième controlleur (peu être null)
 	 */
 	public PlayerController getSecondPlayer() {
 		return this.secondPlayer;
 	}
-
+	
+	/**
+	 * Permet de savoir si une itemframe constitue son écran
+	 * @param idItemFrame identifiant de l'itemframe
+	 * @return true si l'itemframe constitue l'écran de la console
+	 */
+	public abstract boolean haveIdItemFram(int idItemFrame);
+	
 	/**
 	 * Permet de crée un PlayerController en envoyant les bon packet au personne qui doivent le voir
 	 * @param control le PlayerController a cree

@@ -7,7 +7,7 @@ package fr.tangv.nestmc.nes.software;
  * @author Tangv - https://tangv.fr
  * Le système d'exploitation d'une NES (menu permettant de géré la nes)
  */
-public abstract class NesOs implements TMCNesInteractor {
+public abstract class NesOs implements TMCNesInteractor, MessagebleOs {
 
 	/*si les paket doivent etre envoyer, par default true*/
 	private boolean send = true;

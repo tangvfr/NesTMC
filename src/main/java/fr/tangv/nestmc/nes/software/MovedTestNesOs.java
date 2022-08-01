@@ -49,4 +49,9 @@ public class MovedTestNesOs extends NesOs {
 		this.setSend(true);
 	}
 
+	@Override
+	public void addMessageBox(String msg) {
+		//never
+	}
+
 }
