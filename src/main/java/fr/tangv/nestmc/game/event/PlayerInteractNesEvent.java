@@ -1,6 +1,7 @@
-package org.bukkit.event.player;
+package fr.tangv.nestmc.game.event;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import fr.tangv.nestmc.game.McNes;
@@ -9,21 +10,23 @@ import fr.tangv.nestmc.game.McNes;
  * @author Tangv - https://tangv.fr
  * Evenement appler lorsqu'un joueur interagie avec une NES dans le monde
  */
-public class PlayerInteractNesEvent extends PlayerEvent {
+public class PlayerInteractNesEvent extends Event {
 
 	private static final HandlerList HANDLERS_LIST = new HandlerList();
 	
 	private final McNes<?> nes;//console avec laquelle a interagie le joueur
 	private final boolean attack;//si le joueur a fait un clique gauche
+	private final Player player;//joueur qui a provoqué l'evenement
 	
 	/**
 	 * Permet de construire une interaction avec une NES dans le monde
 	 * @param player joueur qui interagie
 	 * @param nes console avec laquelle a interagie le joueur
-	 * @param attack true si le joueur a fait un clique gauche
+	 * @param attack true si le joueur a fait un clique sur l'écran
 	 */
 	public PlayerInteractNesEvent(Player player, McNes<?> nes, boolean attack) {
-		super(player, false);
+		super(false);
+		this.player = player;
 		this.nes = nes;
 		this.attack = attack;
 	}
@@ -50,6 +53,14 @@ public class PlayerInteractNesEvent extends PlayerEvent {
 	 */
 	public McNes<?> getNes() {
 		return this.nes;
+	}
+
+	/**
+	 * Permet de récupérer le joueur qui a fait le clique
+	 * @return le joueur qui a fait le clique
+	 */
+	public Player getPlayer() {
+		return this.player;
 	}
 
 	@Override

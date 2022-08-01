@@ -5,10 +5,10 @@ package fr.tangv.nestmc.game.v1_8;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractNesEvent;
 
 import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
+import fr.tangv.nestmc.game.event.PlayerInteractNesEvent;
 import fr.tangv.nestmc.util.ReflectionUtil;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
