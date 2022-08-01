@@ -66,7 +66,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 	public void playerJoin(Player player) {
 		EntityPlayer ep = ((CraftPlayer) player).getHandle();
 		ep.playerConnection.networkManager.channel.pipeline().addBefore(
-				"interact_handler",
+				"packet_handler",
 				ep.getName(), 
 				new PlayerInteractNesEventChannelV1_8(this, player)
 			);
