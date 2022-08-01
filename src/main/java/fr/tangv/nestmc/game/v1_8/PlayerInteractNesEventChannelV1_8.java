@@ -51,11 +51,11 @@ public class PlayerInteractNesEventChannelV1_8 extends ChannelDuplexHandler {
 			 McNes<?> nes = this.manager.getNes(idE);
 			 if (nes != null) {
 				 //call event
-				 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(
-						 player,
-						 nes,
-						 ac == EnumEntityUseAction.ATTACK
-						 ));
+				 if (ac == EnumEntityUseAction.ATTACK) {//clique gauche
+					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nes, true));
+				 } else if (ac == EnumEntityUseAction.INTERACT) {//clique droit
+					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nes, false));
+				 }
 				 return;
 			 }
 		}

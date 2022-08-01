@@ -77,7 +77,7 @@ public class ListenerMcNes implements Listener {
 	
 	@EventHandler
 	public void onNes(PlayerInteractNesEvent e) {
-		System.out.println("my event !"+e.toString());
+		
 	}
 	
 	@EventHandler

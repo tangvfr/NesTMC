@@ -8,7 +8,7 @@ import fr.tangv.nestmc.game.McNes;
 
 /**
  * @author Tangv - https://tangv.fr
- * Evenement appler lorsqu'un joueur interagie avec une NES dans le monde
+ * @apiNote Evenement appeller lorsqu'un joueur interagie avec une NES dans le monde
  */
 public class PlayerInteractNesEvent extends Event {
 
@@ -71,5 +71,11 @@ public class PlayerInteractNesEvent extends Event {
     public HandlerList getHandlers() {
         return PlayerInteractNesEvent.HANDLERS;
     }
+
+	@Override
+	public String toString() {
+		return "PlayerInteractNesEvent [nes=" + this.nes + ", attack=" + this.attack + ", player=" + this.player
+				+ ", async=" + this.isAsynchronous() + "]";
+	}
 	
 }
