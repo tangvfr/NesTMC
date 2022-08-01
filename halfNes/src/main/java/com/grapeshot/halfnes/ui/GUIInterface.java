@@ -4,6 +4,7 @@
  */
 package com.grapeshot.halfnes.ui;
 
+import com.grapeshot.halfnes.FileUtils;
 import com.grapeshot.halfnes.NES;
 
 /**
@@ -28,4 +29,9 @@ public interface GUIInterface extends Runnable {
     public void render();
 
     public void loadROMs(String path);
+    
+    public default String getSavePath(String curRomPath, String curRomName) {
+    	return FileUtils.stripExtension(curRomPath) + ".sav";
+    }
+    
 }

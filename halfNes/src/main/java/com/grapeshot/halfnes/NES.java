@@ -185,19 +185,18 @@ public class NES {
     protected void saveSRAM(final boolean async) {
         if (mapper != null && mapper.hasSRAM() && mapper.supportsSaves()) {
             if (async) {
-                FileUtils.asyncwritetofile(mapper.getPRGRam(), FileUtils.stripExtension(curRomPath) + ".sav");
+                FileUtils.asyncwritetofile(mapper.getPRGRam(), this.gui.getSavePath(curRomPath, curRomName));
             } else {
-                FileUtils.writetofile(mapper.getPRGRam(), FileUtils.stripExtension(curRomPath) + ".sav");
+                FileUtils.writetofile(mapper.getPRGRam(), this.gui.getSavePath(curRomPath, curRomName));
             }
         }
     }
 
     protected void loadSRAM() {
-        final String name = FileUtils.stripExtension(curRomPath) + ".sav";
+        final String name = this.gui.getSavePath(curRomPath, curRomName);
         if (FileUtils.exists(name) && mapper.supportsSaves()) {
             mapper.setPRGRAM(FileUtils.readfromfile(name));
         }
-
     }
 
     public void quit() {

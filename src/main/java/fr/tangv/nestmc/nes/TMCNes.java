@@ -23,7 +23,7 @@ public abstract class TMCNes {
 	/*le controlleur partager*/
 	private final MixedInputController mixed;
 	/*la nes*/
-	private final NES nes;
+	private NES nes;
 	/*OS de la nes*/
 	private final NesOs os;
 	
@@ -36,16 +36,24 @@ public abstract class TMCNes {
 		NesController first = new NesController();
 		NesController second = new NesController();
 		this.screen = screen;
-		this.nes = new NES(screen);
 		this.nes.setControllers(first, second);
 		this.mixed = new MixedInputController(first, second);
 		this.os = os;
 		
 		//make methodes
-		//nes.runEmulation;
-		//nes.getCurrentRomName();
-		//nes.get
+		/*this.nes.getCurrentRomName();
+		this.nes.pause();
+		this.nes.resume();
+		this.nes.runEmulation;
 		
+		this.nes.reset();
+		this.nes.reloadROM();
+		
+		this.nes.loadROM(null);
+		
+		this.nes.quit();
+		this.nes = new NES(screen);
+		new Thread() {this.nes.run()};*/
 	}
 	
 	

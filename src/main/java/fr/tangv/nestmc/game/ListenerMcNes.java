@@ -6,6 +6,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -33,21 +34,23 @@ public class ListenerMcNes implements Listener {
 	
 	@EventHandler
 	public void onClick(PlayerInteractEvent e) {
-		if (e.getMaterial() != Material.SEEDS) return;
-		
-		e.setCancelled(true);
-		BlockFace face = e.getBlockFace();
-		
-		if (face == BlockFace.NORTH
-			|| face == BlockFace.EAST
-			|| face == BlockFace.SOUTH
-			|| face == BlockFace.WEST
-			) {//test si la face est compatible
-			Location loc = e.getClickedBlock().getRelative(face).getLocation();
-			loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
-			this.manager.createNes(loc);//creation de la console
-		} else {//si la face ne peux pas correspondre
-			e.getPlayer().sendMessage("Invalid direction !");
+		if (e.getMaterial() == Material.SEEDS
+			&& e.getAction() == Action.RIGHT_CLICK_BLOCK
+		) {
+			e.setCancelled(true);
+			BlockFace face = e.getBlockFace();
+			
+			if (face == BlockFace.NORTH
+				|| face == BlockFace.EAST
+				|| face == BlockFace.SOUTH
+				|| face == BlockFace.WEST
+				) {//test si la face est compatible
+				Location loc = e.getClickedBlock().getRelative(face).getLocation();
+				loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
+				this.manager.createNes(loc);//creation de la console
+			} else {//si la face ne peux pas correspondre
+				e.getPlayer().sendMessage("Invalid direction !");
+			}
 		}
 	}
 	

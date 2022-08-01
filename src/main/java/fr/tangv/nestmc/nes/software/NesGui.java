@@ -11,7 +11,7 @@ public class NesGui extends NesScreenMap {
 
 	@Override
 	public void loadROMs(String rom) {
-		System.out.println("loadrom: "+rom);
+		//never called method for tmc
 	}
 
 	@Override
@@ -20,11 +20,13 @@ public class NesGui extends NesScreenMap {
 	}
 
 	@Override
-	public void render() {}
+	public void render() {
+		//never called method for tmc
+	}
 
 	@Override
 	public void run() {
-		System.out.println("I run !");
+		//when nes is create
 	}
 
 }

@@ -9,9 +9,9 @@ import fr.tangv.nestmc.nes.controller.InputController;
 
 /**
  * @author Tangv - https://tangv.fr
- * Sytème d'exploitation des nes pour permet au joueur d'intergir avec la console
+ * Sytème d'exploitation qui permet de tester l'emulation
  */
-public class TMCNesOs extends NesOs {
+public class GameTestNesOs extends NesOs {
 	
 	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
@@ -20,7 +20,7 @@ public class TMCNesOs extends NesOs {
 
 	@Override
 	public void render(TMCNes nes, Drawable draw) {
-		
+		this.setSend(true);
 	}
 
 }

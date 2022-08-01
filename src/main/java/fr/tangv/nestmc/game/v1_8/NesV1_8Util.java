@@ -23,10 +23,10 @@ public class NesV1_8Util {
 	 * @return le veteur allant a gauche de la direction (direction vers nous)
 	 */
 	public static Vector leftVectorOf(EnumDirection dir) {
-		if (dir == EnumDirection.EAST) return new Vector(0, 0, -1);//NORTH
-		if (dir == EnumDirection.SOUTH) return new Vector(1, 0, 0);//EAST
-		if (dir == EnumDirection.WEST) return new Vector(0, 0, 1);//SOUTH
-		return new Vector(-1, 0, 0);//WEST
+		if (dir == EnumDirection.EAST) return new Vector(0, 0, 1);//NORTH
+		if (dir == EnumDirection.SOUTH) return new Vector(-1, 0, 0);//EAST
+		if (dir == EnumDirection.WEST) return new Vector(0, 0, -1);//SOUTH
+		return new Vector(1, 0, 0);//WEST
 	}
 	
 	/**

@@ -50,7 +50,8 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		this.viewers = new ConcurrentLinkedQueue<EntityPlayer>();
 		//data
 		EnumDirection dir = EnumDirection.fromAngle(loc.getYaw());
-		PacketMapBufferV1_8[] maps = (PacketMapBufferV1_8[])((FourMapScreen) this.getScreen()).getBitScreens();
+		@SuppressWarnings("unchecked")
+		PacketMapBuffer<Packet<PacketListenerPlayOut>>[] maps = (PacketMapBuffer<Packet<PacketListenerPlayOut>>[])((FourMapScreen) this.getScreen()).getBitScreens();
 		//vector
 		Vector left = NesV1_8Util.leftVectorOf(dir);
 		Vector up = new Vector(0, 1, 0);
@@ -83,7 +84,7 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 	 * @param vec location de la map
 	 * @param dir direction de la map
 	 */
-	private void setScreenMap(PacketMapBufferV1_8[] maps, int index, Vector vec, EnumDirection dir) {
+	private void setScreenMap(PacketMapBuffer<Packet<PacketListenerPlayOut>>[] maps, int index, Vector vec, EnumDirection dir) {
 		EntityItemFrame eif = NesV1_8Util.createMapItemFrame(maps[index].getIdMap(), vec, dir);
 		//packet entity
 		int i = index * 2;
@@ -180,11 +181,11 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		int controller = 0;//0 ne ferme aucun controlleur
 		synchronized (this.getObSync()) {
 			PlayerController pc = this.getFirstPlayer();
-			if (pc.getPlayer().equals(player)) {
+			if (pc != null && pc.getPlayer().equals(player)) {
 				pc.destruct(quit);
 			} else {
 				pc = this.getSecondPlayer();
-				if (pc.getPlayer().equals(player)) {
+				if (pc != null && pc.getPlayer().equals(player)) {
 					pc.destruct(quit);
 				}
 			}

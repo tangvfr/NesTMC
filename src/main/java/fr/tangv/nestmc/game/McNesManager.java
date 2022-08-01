@@ -13,13 +13,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.scheduler.BukkitTask;
 
 import fr.tangv.nestmc.NesTMC;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
 import fr.tangv.nestmc.nes.controller.NesController;
+import fr.tangv.nestmc.nes.software.NesOs;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -83,9 +82,8 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 */
 	public void update() {
 		Iterator<McNes<T>> it = this.consoles.iterator();
-		McNes<T> nes;
-		while ((nes = it.next()) != null) {//parcour tout les consoles du serveur
-			nes.update();
+		while (it.hasNext()) {//parcour tout les consoles du serveur
+			it.next().update();
 		}
 	}
 	
@@ -99,9 +97,8 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 		
 		//clear nes
 		Iterator<McNes<T>> it = this.consoles.iterator();
-		McNes<T> nes;
-		while ((nes = it.next()) != null) {
-			nes.destruct();
+		while (it.hasNext()) {//parcour tout les consoles du serveur
+			it.next().destruct();
 			//this.consoles.remove(nes);////pas besoin theoriquement
 		}
 		
@@ -257,5 +254,11 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * @return l'intance de la nouvelle console
 	 */
 	protected abstract McNes<T> newConsole(Location loc);
+
+	/**
+	 * Permet de crée une instance de système d'explotation pour une console
+	 * @return le système d'explotation
+	 */
+	protected abstract NesOs createNesOs();
 	
 }

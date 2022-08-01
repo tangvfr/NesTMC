@@ -13,7 +13,7 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
 import fr.tangv.nestmc.nes.software.NesOs;
-import fr.tangv.nestmc.nes.software.TMCNesOs;
+import fr.tangv.nestmc.nes.software.MovedTestNesOs;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -53,7 +53,7 @@ public abstract class McNes<T> extends TMCNes {
 					},
 				manager.getPalette()
 				),
-			new TMCNesOs()
+			manager.createNesOs()
 			);
 		this.manager = manager;
 		this.location = loc;

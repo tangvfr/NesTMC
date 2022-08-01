@@ -109,7 +109,7 @@ public class TestListener extends ChannelDuplexHandler implements Listener {
 
 	@Override
 	public void channelRead(ChannelHandlerContext chx, Object ob) throws Exception {
-		if (ob instanceof PacketPlayInUseEntity) {
+		if (ob instanceof PacketPlayInUseEntity) {//ajouter cela pour interagir avec le pannel "primaire de la NES"
 			 PacketPlayInUseEntity use = (PacketPlayInUseEntity) ob;
 			 EnumEntityUseAction ac = use.a();
 			 int idE = (int) ReflectionUtil.getValue(use, "a");
