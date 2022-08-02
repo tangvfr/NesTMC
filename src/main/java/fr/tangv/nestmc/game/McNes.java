@@ -151,7 +151,7 @@ public abstract class McNes<T> extends TMCNes {
 						this.firstRequest = rcontrol;
 					}
 				} else {
-					remainingTime = -1;
+					remainingTime = -1;//this.firstPlayer.getPlayer() == player ? -2 : -1;
 				}
 			} else {//si le second
 				//si le deucieme est libre
@@ -163,7 +163,7 @@ public abstract class McNes<T> extends TMCNes {
 						this.secondRequest = rcontrol;
 					}
 				} else {
-					remainingTime = -1;
+					remainingTime = -1;//this.secondPlayer.getPlayer() == player ? -2 : -1;
 				}
 			}
 		}
@@ -172,7 +172,10 @@ public abstract class McNes<T> extends TMCNes {
 		if (rcontrol != null) {
 			this.manager.addRequest(this.firstRequest);
 		}
-		player.sendMessage(this.requestMsg(remainingTime));
+		//message
+		//if (remainingTime > -2) {
+			player.sendMessage(this.requestMsg(remainingTime));
+		//}
 	}
 	
 	/**
@@ -230,8 +233,9 @@ public abstract class McNes<T> extends TMCNes {
 	/**
 	 * Permet de detruire un PlayerController en envoyant les bon packet au personne qui le voyais
 	 * @param isFirst true si c'est le premier controlleur
+	 * @param quit true si la raison de la fermeture est du a une déconnexion
 	 */
-	private void closeController(boolean isFirst) {
+	private void closeController(boolean isFirst, boolean quit) {
 		PlayerController control = null;
 		
 		if (isFirst) {
@@ -251,19 +255,24 @@ public abstract class McNes<T> extends TMCNes {
 		}
 		
 		if (control != null) {
+			control.destruct(quit);
 			this.closeController(control);
 		}
 	}
 
 	@Override
 	public void closeController(int controllers) {
+		//test de la raison
+		boolean quit = (controllers & TMCNes.QUIT) != 0;
+		
 		//fermeture du premier controlleur
 		if ((controllers & TMCNes.FIRST_CONTROLLER) != 0) {
-			this.closeController(true);
+			this.closeController(true, quit);
 		}
+		
 		//fermeture du second controlleur
 		if ((controllers & TMCNes.SECOND_CONTROLLER) != 0) {
-			this.closeController(false);
+			this.closeController(false, quit);
 		}
 	}
 
@@ -353,5 +362,13 @@ public abstract class McNes<T> extends TMCNes {
 	 * Permet d'envoyer un packet a tous les joueurs qui peuvent voir la nes
 	 */
 	public abstract void sendPacket(T packet);
+
+	/**
+	 * Permet d'obtenir le gesitonaire de la console
+	 * @return le gesitonaire de la console
+	 */
+	public McNesManager<T> getManager() {
+		return this.manager;
+	}
 
 }

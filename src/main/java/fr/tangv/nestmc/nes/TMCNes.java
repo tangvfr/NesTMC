@@ -19,6 +19,7 @@ public abstract class TMCNes {
 
 	public static final int FIRST_CONTROLLER = 0x01;
 	public static final int SECOND_CONTROLLER = 0x02;
+	public static final int QUIT = 0x04;
 
 	/*l'écran de la nes*/
 	private final NesScreenMap screen;

@@ -75,10 +75,10 @@ public class NesController implements ControllerInterface, InputController {
 	 * @param held le held doit etre entre 1 et 8, en dehors tout les held seront défini à false
 	 */
 	public synchronized void setHeld(int held) {
-		this.nowButtons &= 0b1111_11110;//reset all held
+		this.nowButtons &= 0b0000_0000_1_1111_1111;//reset all held
 		//held
 		if (held >= 1 && held <= 8) {
-			this.nowButtons |= 1 << held;
+			this.nowButtons |= 1 << held + 8;
 		}
 	}
 	

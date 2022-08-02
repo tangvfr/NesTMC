@@ -16,6 +16,7 @@ import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
 import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.game.controller.PlayerController;
+import fr.tangv.nestmc.nes.TMCNes;
 import net.minecraft.server.v1_8_R3.EntityItemFrame;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EnumDirection;
@@ -179,15 +180,15 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 		this.despawnItemsFrame(ep.playerConnection);
 		
 		//si le joueur a quitter ou s'eloigne de trop
-		int controller = 0;//0 ne ferme aucun controlleur
+		int controller = quit ? TMCNes.QUIT : 0;//0 ne ferme aucun controlleur
 		synchronized (this.getObSync()) {
 			PlayerController pc = this.getFirstPlayer();
 			if (pc != null && pc.getPlayer().equals(player)) {
-				pc.destruct(quit);
+				controller += TMCNes.FIRST_CONTROLLER;
 			} else {
 				pc = this.getSecondPlayer();
 				if (pc != null && pc.getPlayer().equals(player)) {
-					pc.destruct(quit);
+					controller += TMCNes.SECOND_CONTROLLER;
 				}
 			}
 		}

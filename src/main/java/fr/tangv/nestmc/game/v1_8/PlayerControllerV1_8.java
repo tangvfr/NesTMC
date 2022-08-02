@@ -80,13 +80,11 @@ public class PlayerControllerV1_8 extends PlayerController {
 			return;
 		} else if (ob instanceof PacketPlayInUseEntity) {//attack and interact
 			PacketPlayInUseEntity ue = (PacketPlayInUseEntity) ob;
-			//int id = (int) ReflectionUtil.getValue("a", ob);
-			//test is good entity
-			//if (id == this.vehicle.getId() || id == this.aim.getId() || id == this.sofa.getId()) {
-			//this is enable when on vehicle
-			if (ue.a() != EnumEntityUseAction.ATTACK) {
+			//test action
+			EnumEntityUseAction ac = ue.a();
+			if (ac == EnumEntityUseAction.ATTACK) {
 				this.getController().pressButton(InputController.ATTACK);
-			} else {
+			} else if (ac == EnumEntityUseAction.INTERACT_AT) {
 				this.getController().pressButton(InputController.INTERACT);
 			}
 			return;
@@ -165,18 +163,18 @@ public class PlayerControllerV1_8 extends PlayerController {
 		float yaw = this.player.yaw;
 		
 		//create vehicle
-		this.vehicle = new EntityHorse(null);//try with new EntityHorse(this.player.getWorld());----
-		//this.vehicle.setInvisible(true);
+		this.vehicle = new EntityHorse(this.player.getWorld());//new EntityHorse(null);//try with new EntityHorse(this.player.getWorld());
+		this.vehicle.setInvisible(true);
 		this.vehicle.setHealth(2F);
 		this.vehicle.setType(3);
 		this.vehicle.onGround = false;
 		this.vehicle.setPositionRotation(locX, locY - 1.2, locZ, yaw, 0);
 		this.vehicle.f(yaw);//set head rotation
-		
+
 		//create aim
 		this.aim = new EntityArmorStand(null);
 		this.aim.setPosition(locX, locY - 0.2, locZ);
-		//this.aim.setInvisible(true);
+		this.aim.setInvisible(true);
 
 		//create sofa
 		this.sofa = new EntityArmorStand(null);
@@ -185,14 +183,14 @@ public class PlayerControllerV1_8 extends PlayerController {
 		this.sofa.setSmall(true);
 		this.sofa.setInvisible(true);//work
 		this.sofa.setEquipment(4, new ItemStack(Item.getById(35), 1, isFirst ? 10 : 9));//4 = HEAD, 35 = WOOL, 10 = MAGENTA 9 = CYAN
-		
+
 		//only controller player
 		player.getInventory().setHeldItemSlot(4);//set held 4
 		this.player.playerConnection.sendPacket(new PacketPlayOutSpawnEntityLiving(this.aim));//spawn aim
 		//action
 		this.getController().resetButtons();
 		//handler
-		this.player.playerConnection.networkManager.channel.pipeline().addBefore("handler_sofa", "handler_sofa", this);
+		this.player.playerConnection.networkManager.channel.pipeline().addBefore(this.player.getName(), "control:"+this.player.getName(), this);
 	}
 
 	@Override
@@ -216,16 +214,19 @@ public class PlayerControllerV1_8 extends PlayerController {
 	public void destruct(boolean reasonQuit) {
 		//only controller player
 		this.player.playerConnection.sendPacket(new PacketPlayOutEntityDestroy(this.aim.getId()));//despawn aim
-		//action
+		//clear action
 		this.getController().resetButtons();
 		//handler
+		System.out.println("I am destruct");
 		Channel ch = this.player.playerConnection.networkManager.channel;
 		if (reasonQuit) {
 			ch.eventLoop().submit(() -> {
 				ch.pipeline().remove(this);
+				this.getController().resetButtons();//security clear
 			});
 		} else {
 			ch.pipeline().remove(this);
+			this.getController().resetButtons();//security clear
 		}
 	}
 	

@@ -61,9 +61,17 @@ public class RequestController {
 	
 	/**
 	 * Permet de validé la requet de creation du PlayerController pour la nes
+	 * @return false si le joueur est trop loin
 	 */
-	public void accept() {
-		this.nes.openController(this.player, this.isFirst);
+	public boolean accept() {
+		if (this.nes.canSee(this.player)) {
+			this.nes.openController(this.player, this.isFirst);
+			return true;
+		} else {
+			this.nes.getManager().removeRequest(this.player);
+			this.player.sendMessage("You are too far !");
+			return false;
+		}
 	}
 	
 }

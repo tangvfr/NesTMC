@@ -10,7 +10,7 @@ public interface SofaController {
 	
 	/**
 	 * Permet de créé le siège
-	 * @param first si c'est le premier controleur
+	 * @param isFirst si c'est le premier controleur
 	 */
 	public void create(boolean isFirst);
 	

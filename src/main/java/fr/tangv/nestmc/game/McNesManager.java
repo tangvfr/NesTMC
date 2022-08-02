@@ -89,7 +89,14 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	public void update() {
 		Iterator<McNes<T>> it = this.consoles.iterator();
 		while (it.hasNext()) {//parcour tout les consoles du serveur
-			it.next().update();
+			McNes<T> nes = it.next();
+			try {
+				nes.update();
+			} catch (Exception e) {
+				e.printStackTrace();
+				this.consoles.remove(nes);
+				nes.destruct();
+			}
 		}
 	}
 	
