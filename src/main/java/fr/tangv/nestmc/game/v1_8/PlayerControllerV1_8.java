@@ -34,7 +34,7 @@ import net.minecraft.server.v1_8_R3.Vector3f;
 public class PlayerControllerV1_8 extends PlayerController {
 
 	/*NMS du joueur de la manette*/
-	private EntityPlayer player;
+	private final EntityPlayer player;
 	
 	/*entité sur laquelle est assie le player*/
 	private EntityHorse vehicle;

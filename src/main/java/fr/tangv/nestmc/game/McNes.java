@@ -214,13 +214,13 @@ public abstract class McNes<T> extends TMCNes {
 		this.manager.removeRequest(player);
 		if (isFirst) {//si c'est le premier controlleur
 			synchronized (this.obSync) {
-				this.firstPlayer = this.manager.createPlayerController(player, (NesController) this.getFirstController());
+				this.firstPlayer = this.manager.createPlayerController(player, (NesController) this.getFirstController(), isFirst);
 				this.firstRequest = null;
 			}
 			this.openController(this.firstPlayer);
 		} else {//si c'est le deuxième controlleur controlleur
 			synchronized (this.obSync) {
-				this.secondPlayer = this.manager.createPlayerController(player, (NesController) this.getSecondController());
+				this.secondPlayer = this.manager.createPlayerController(player, (NesController) this.getSecondController(), isFirst);
 				this.secondRequest = null;
 			}
 			this.openController(this.secondPlayer);
@@ -250,8 +250,9 @@ public abstract class McNes<T> extends TMCNes {
 			}
 		}
 		
-		if (control != null)
+		if (control != null) {
 			this.closeController(control);
+		}
 	}
 
 	@Override

@@ -240,9 +240,10 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * Permet de crée une association entre un joueur et un controlleur de nes
 	 * @param player le joueur a associé au controlleur
 	 * @param controller lec ontrolleur de nes associé au joueur
+	 * @param isFirst true si c'est le premier controlleur
 	 * @return l'association entre le joueur et le controlleur
 	 */
-	public abstract PlayerController createPlayerController(Player player, NesController controller);
+	public abstract PlayerController createPlayerController(Player player, NesController controller, boolean isFirst);
 	
 	/**
 	 * Permet de crée un flux de map envoyable
