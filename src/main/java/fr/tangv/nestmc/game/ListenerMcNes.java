@@ -77,7 +77,12 @@ public class ListenerMcNes implements Listener {
 	
 	@EventHandler
 	public void onNes(PlayerInteractNesEvent e) {
-		
+		Player player = e.getPlayer();
+		if (e.isInteract()) {
+			McNes<?> nes = e.getNes();
+			nes.request(player, true);
+			System.out.println("Requet envoyé ! pour le first");
+		}
 	}
 	
 	@EventHandler

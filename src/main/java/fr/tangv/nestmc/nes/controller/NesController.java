@@ -14,7 +14,7 @@ public class NesController implements ControllerInterface, InputController {
     private int latchbyte = 0, outbyte = 0;
 
     @Override
-    public void strobe() {
+    public synchronized void strobe() {
         //shifts a byte out
         this.outbyte = this.latchbyte & 1;
         this.latchbyte = ((latchbyte >> 1) | 0x100);
@@ -26,12 +26,12 @@ public class NesController implements ControllerInterface, InputController {
     }
 
     @Override
-    public int peekOutput() {
+    public synchronized int peekOutput() {
         return this.latchbyte;
     }
 
     @Override
-    public int getbyte() {
+    public synchronized int getbyte() {
         return this.outbyte;
     }
 	
@@ -61,13 +61,13 @@ public class NesController implements ControllerInterface, InputController {
 	}
 	
 	@Override
-	public boolean isClicked(int button) {
-		return (button & this.clickButtons) != 0;
+	public synchronized boolean isClicked(int button) {
+		return (button & this.clickButtons) == button;
 	}
 	
 	@Override
-	public boolean isPress(int button) {
-		return (button & this.prevButtons) != 0;
+	public synchronized boolean isPress(int button) {
+		return (button & this.prevButtons) == button;
 	}
 	
 	/**
