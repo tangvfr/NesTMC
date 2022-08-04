@@ -4,7 +4,6 @@ import org.apache.commons.lang.Validate;
 
 import com.grapeshot.halfnes.NES;
 
-import fr.tangv.nestmc.draw.Drawable;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.MixedInputController;
 import fr.tangv.nestmc.nes.controller.NesController;
@@ -33,6 +32,8 @@ public abstract class TMCNes {
 	private final NesOs os;
 	/*la console nes associer*/
 	private NES nes = null;
+	/*thread de l'emulateur peu etre null*/
+	private Thread thread;
 	
 	/**
 	 * Permet de crée une nes utilisable pour son interface d'utilisation
@@ -124,7 +125,8 @@ public abstract class TMCNes {
 		this.nes = new NES(screen);
 		this.nes.setControllers(first, second);
 		this.nes.loadROM(rom.getPath());
-		new Thread(this.nes::run).run();//start nes
+		this.thread = new Thread(this.nes::run);
+		this.thread.run();//start nes
 	}
 	
 	/**
@@ -134,6 +136,14 @@ public abstract class TMCNes {
 		Validate.notNull(this.nes, "Aucune console nes n'est associé !");
 		this.nes.quit();
 		this.nes = null;
+	}
+	
+	/**
+	 * Permet de savoir si la nes est démaré
+	 * @return true si la nes est démaré
+	 */
+	public synchronized boolean isStart() {
+		return this.nes != null;
 	}
 	
 	/**
@@ -164,7 +174,7 @@ public abstract class TMCNes {
 	 * Permet d'obtenir l'écran dessinable de la TMCNes
 	 * @return l'écran dessinable de la TMCNes
 	 */
-	public Drawable getScreen() {
+	public NesScreen getScreen() {
 		return this.screen;
 	}
 	

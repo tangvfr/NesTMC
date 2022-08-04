@@ -7,6 +7,7 @@ import java.io.File;
 
 import com.grapeshot.halfnes.ROMLoader;
 import com.grapeshot.halfnes.mappers.BadMapperException;
+import com.grapeshot.halfnes.mappers.Mapper;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -35,6 +36,7 @@ public class NesRom {
 	public NesRom(String path) throws BadMapperException {
 		ROMLoader rom = new ROMLoader(path);
 		rom.parseHeader();
+		Mapper.getCorrectMapper(rom);//pour tester que le mapper est compatible
 		this.path = path;
 		this.save = rom.savesram;
 		this.name = new File(path).getName().replaceAll(".nes", "");

@@ -3,7 +3,7 @@
  */
 package fr.tangv.nestmc.nes.software;
 
-import fr.tangv.nestmc.draw.Drawable;
+import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 
@@ -14,6 +14,6 @@ import fr.tangv.nestmc.nes.controller.InputController;
 public interface TMCNesInteractor {
 
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn);
-	public void render(TMCNes nes, Drawable draw);
+	public void render(TMCNes nes, NesScreen screen);
 	
 }

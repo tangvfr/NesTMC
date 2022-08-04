@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import fr.tangv.nestmc.NesTMC;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
+import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesOs;
 
@@ -95,6 +96,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 			} catch (Exception e) {
 				e.printStackTrace();
 				this.consoles.remove(nes);
+				nes.closeController(TMCNes.FIRST_CONTROLLER + TMCNes.SECOND_CONTROLLER);
 				nes.destruct();
 			}
 		}
@@ -104,8 +106,8 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * Permet d'arrêter toutes les consoles du serveur et les actions qui leurs sont liées
 	 */
 	public void stop() {
-		this.cancel();
 		HandlerList.unregisterAll(this.listener);
+		this.cancel();
 		//this.requests.clear();//pas besoin theoriquement
 		
 		//clear nes

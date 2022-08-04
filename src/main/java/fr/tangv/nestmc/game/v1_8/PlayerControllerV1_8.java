@@ -103,7 +103,6 @@ public class PlayerControllerV1_8 extends PlayerController {
 			this.player.playerConnection.sendPacket(new PacketPlayOutHeldItemSlot(4));
 			return;
 		}
-		
 		//other
 		super.channelRead(chx, ob);
 	}
@@ -214,10 +213,14 @@ public class PlayerControllerV1_8 extends PlayerController {
 	public void destruct(boolean reasonQuit) {
 		//only controller player
 		this.player.playerConnection.sendPacket(new PacketPlayOutEntityDestroy(this.aim.getId()));//despawn aim
+		/*
+		Player player = this.getPlayer();
+		player.teleport(player, TeleportCause.PLUGIN);//to stop bug location when exit horse
+		*/
 		//clear action
 		this.getController().resetButtons();
 		//handler
-		System.out.println("I am destruct");
+		//System.out.println("I am destruct");
 		Channel ch = this.player.playerConnection.networkManager.channel;
 		if (reasonQuit) {
 			ch.eventLoop().submit(() -> {

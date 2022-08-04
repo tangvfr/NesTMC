@@ -3,19 +3,20 @@ package fr.tangv.nestmc.nes;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
 
-import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.draw.MapBuffer;
 
 /**
  * @author Tangv - https://tangv.fr
  * Permet de crée un écran de 4 map pour une nes
  */
-public abstract class NesScreenMap extends FourMapScreen implements GUIInterface {
+public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 
 	/*palette de couleur pour la nes*/
 	private final byte[] colors;
 	/*Nes a llaquelle apartien le Gui interface*/
 	private NES nes;
+	/*le dernier buffer d'image*/
+	private int[] nespixels;
 	
 	/**
 	 * Permet de crée l'écran de la nes sur 4 MapBuffer
@@ -25,6 +26,7 @@ public abstract class NesScreenMap extends FourMapScreen implements GUIInterface
 	public NesScreenMap(MapBuffer[] bitScreens, byte[] colors) {
 		super(bitScreens);
 		this.colors = colors;
+		this.nespixels = new int[256 * 240];//by default
 	}
 	
 	@Override
@@ -73,11 +75,8 @@ public abstract class NesScreenMap extends FourMapScreen implements GUIInterface
 		return i;
 	}
 	
-	/**
-	 * Méthode qui est appeler lorsque le PPU de la NES a calculer une frame
-	 */
 	@Override
-	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
+	public void drawNesScreen() {
 		//nespixels = 256x240
 		MapBuffer[] screens = this.getBitScreens();
 
@@ -87,6 +86,16 @@ public abstract class NesScreenMap extends FourMapScreen implements GUIInterface
 			
 			//bas de l'ecran les 112 dernier ligne
 			this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+		}
+	}
+	
+	/**
+	 * Méthode qui est appeler lorsque le PPU de la NES a calculer une frame
+	 */
+	@Override
+	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
+		synchronized (this) {
+			this.nespixels = nespixels;
 		}
 	}
 

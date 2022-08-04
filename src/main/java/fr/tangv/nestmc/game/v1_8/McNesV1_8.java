@@ -214,6 +214,9 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 
 	@Override
 	public void destruct() {
+		if (this.isStart()) {
+			this.stop();
+		}
 		EntityPlayer ep;
 		//clear all player
 		while ((ep = this.viewers.peek()) != null) {//pour tous les joueur qui voie on les hide(hide les suprime)

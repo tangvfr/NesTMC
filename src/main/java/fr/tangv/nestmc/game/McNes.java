@@ -10,10 +10,10 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import fr.tangv.nestmc.draw.Drawable;
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
+import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
@@ -106,7 +106,7 @@ public abstract class McNes<T> extends TMCNes {
 		NesOs os = this.getOs();
 		//update os
 		os.update(this, this.getFirstController(), this.getSecondController(), this.getMixedController());
-		Drawable screen = this.getScreen();
+		NesScreen screen = this.getScreen();
 		
 		synchronized (screen) {
 			//render os on screen

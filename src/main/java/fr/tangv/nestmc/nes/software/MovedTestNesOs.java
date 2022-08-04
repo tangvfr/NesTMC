@@ -3,7 +3,7 @@
  */
 package fr.tangv.nestmc.nes.software;
 
-import fr.tangv.nestmc.draw.Drawable;
+import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
@@ -36,15 +36,15 @@ public class MovedTestNesOs extends NesOs {
 	}
 
 	@Override
-	public void render(TMCNes nes, Drawable draw) {
-		draw.clearScreen(MapColorV1_8.YELLOW_NORMAL);
+	public void render(TMCNes nes, NesScreen screen) {
+		screen.clearScreen(MapColorV1_8.YELLOW_NORMAL);
 		//draw image
-		draw.setCof((byte) 1);
-		draw.drawBuffer(this.x, this.y, this.img, 38, 14);
+		screen.setCof((byte) 1);
+		screen.drawBuffer(this.x, this.y, this.img, 38, 14);
 		//draw texte
-		draw.setColor(MapColorV1_8.LAVA_LIGTH);
-		draw.setCof((byte) 4);
-		draw.drawText(80, 110, "Test !");
+		screen.setColor(MapColorV1_8.LAVA_LIGTH);
+		screen.setCof((byte) 4);
+		screen.drawText(80, 110, "Test !");
 		
 		this.setSend(true);
 	}
