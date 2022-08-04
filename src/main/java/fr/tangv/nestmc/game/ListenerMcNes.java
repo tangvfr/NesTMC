@@ -50,6 +50,7 @@ public class ListenerMcNes implements Listener {
 				) {//test si la face est compatible
 				Location loc = e.getClickedBlock().getRelative(face).getLocation();
 				loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
+				
 				if (this.manager.createNes(loc) == null) {//creation de la console
 					player.sendMessage("Nombre de nes maximal atteint");
 				}
@@ -81,6 +82,7 @@ public class ListenerMcNes implements Listener {
 		if (e.isInteract()) {
 			McNes<?> nes = e.getNes();
 			nes.request(player, true);
+			//1er MAGENTA, 2eme CYAN      & add time on click inv, and mouse & make message                
 			System.out.println("Requet envoyé ! pour le first");
 		}
 	}

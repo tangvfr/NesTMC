@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software;
+package fr.tangv.nestmc.nes.software.test;
 
 import com.grapeshot.halfnes.mappers.BadMapperException;
 
@@ -9,6 +9,7 @@ import fr.tangv.nestmc.nes.NesRom;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
+import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 /**
@@ -43,11 +44,15 @@ public class GameTestNesOs extends NesOs {
 			System.out.println("force exit nes !");
 			nes.closeController(TMCNes.FIRST_CONTROLLER);
 		} else if (mixedIn.isClicked(InputController.HEALD_8)) {
+			System.out.println("start");
 			try {
 				nes.start(new NesRom(System.getenv("testrom")));//patch plantage quand on veux eteindre nes car pas possible
 			} catch (BadMapperException e) {
 				e.printStackTrace();
 			}
+		} else if (mixedIn.isClicked(InputController.HEALD_7)) {
+			System.out.println("stop");
+			nes.stop();
 		}
 	}
 

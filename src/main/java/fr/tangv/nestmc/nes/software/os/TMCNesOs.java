@@ -1,11 +1,12 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software;
+package fr.tangv.nestmc.nes.software.os;
 
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
+import fr.tangv.nestmc.nes.software.NesOs;
 
 /**
  * @author Tangv - https://tangv.fr

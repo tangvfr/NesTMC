@@ -1,11 +1,12 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software;
+package fr.tangv.nestmc.nes.software.test;
 
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
+import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 /**

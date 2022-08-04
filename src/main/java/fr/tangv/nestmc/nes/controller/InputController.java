@@ -5,8 +5,8 @@ public interface InputController {
 	/*NES BUTTONS*/
 	public static int SPACE = 0x01;//A
 	public static int INTERACT = 0x02;//B
-	public static int ATTACK = 0x04;//SELECT
-	public static int OPEN_INV = 0x08;//START
+	public static int OPEN_INV = 0x04;//SELECT
+	public static int ATTACK = 0x08;//START
 	public static int UP = 0x10;//UP
 	public static int DOWN = 0x20;//DOWN
 	public static int LEFT = 0x40;//LEFT

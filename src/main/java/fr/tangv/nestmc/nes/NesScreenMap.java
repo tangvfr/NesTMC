@@ -11,6 +11,8 @@ import fr.tangv.nestmc.draw.MapBuffer;
  */
 public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 
+	private static final int LENGTH_SCREEN_BUFFER = 256 * 240;
+	
 	/*palette de couleur pour la nes*/
 	private final byte[] colors;
 	/*Nes a llaquelle apartien le Gui interface*/
@@ -26,7 +28,7 @@ public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 	public NesScreenMap(MapBuffer[] bitScreens, byte[] colors) {
 		super(bitScreens);
 		this.colors = colors;
-		this.nespixels = new int[256 * 240];//by default
+		this.nespixels = new int[NesScreenMap.LENGTH_SCREEN_BUFFER];//by default 0
 	}
 	
 	@Override
@@ -95,7 +97,9 @@ public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 	@Override
 	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
 		synchronized (this) {
-			this.nespixels = nespixels;
+			for (int i = 0; i < NesScreenMap.LENGTH_SCREEN_BUFFER; i++) {
+				this.nespixels[i] = nespixels[i];
+			}
 		}
 	}
 

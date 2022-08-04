@@ -126,7 +126,7 @@ public abstract class TMCNes {
 		this.nes.setControllers(first, second);
 		this.nes.loadROM(rom.getPath());
 		this.thread = new Thread(this.nes::run);
-		this.thread.run();//start nes
+		this.thread.start();//start nes
 	}
 	
 	/**
