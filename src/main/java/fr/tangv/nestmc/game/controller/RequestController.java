@@ -64,7 +64,7 @@ public class RequestController {
 	 * @return false si le joueur est trop loin
 	 */
 	public boolean accept() {
-		if (this.nes.canSee(this.player)) {
+		if (this.nes.canSee(this.player)) {//test si le joueur est assez proche de la nes et donc si il la vois
 			this.nes.openController(this.player, this.isFirst);
 			return true;
 		} else {

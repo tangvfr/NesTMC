@@ -125,7 +125,15 @@ public abstract class TMCNes {
 		this.nes = new NES(screen);
 		this.nes.setControllers(first, second);
 		this.nes.loadROM(rom.getPath());
-		this.thread = new Thread(this.nes::run);
+		//this.thread = new Thread(this.nes::run);
+		this.thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("the begin !!!");
+				TMCNes.this.nes.run();
+				System.out.println("the end !!!");
+			}
+		});
 		this.thread.start();//start nes
 	}
 	

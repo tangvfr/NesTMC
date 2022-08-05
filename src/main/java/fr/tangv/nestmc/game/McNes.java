@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import fr.tangv.nestmc.draw.FourMapScreen;
@@ -33,6 +34,8 @@ public abstract class McNes<T> extends TMCNes {
 	private final McNesManager<T> manager;
 	/*position de la nes sur la map*/
 	private final Location location;
+	/*priopriétaire*/
+	private final OfflinePlayer owner;
 	
 	/*requets pour demmandé les controlleurs*/
 	private RequestController firstRequest = null;
@@ -45,9 +48,10 @@ public abstract class McNes<T> extends TMCNes {
 	 * Permet de construire une nes qui serait dans minecraft
 	 * @param manager gestionnaire des nes sur le serveur
 	 * @param loc possition de la nes dans le monde
+	 * @param owner propriétaire de la console
 	 * @param os système d'exploitation de la nes
 	 */
-	public McNes(McNesManager<T> manager, Location loc, NesOs os) {
+	public McNes(McNesManager<T> manager, Location loc, OfflinePlayer owner, NesOs os) {
 		super(
 				new NesGui(
 					os,
@@ -64,6 +68,7 @@ public abstract class McNes<T> extends TMCNes {
 			);
 		this.manager = manager;
 		this.location = loc;
+		this.owner = owner;
 	}
 	
 	/**
@@ -170,7 +175,7 @@ public abstract class McNes<T> extends TMCNes {
 		
 		//ajout la requets si elle est crée
 		if (rcontrol != null) {
-			this.manager.addRequest(this.firstRequest);
+			this.manager.addRequest(rcontrol);
 		}
 		//message
 		//if (remainingTime > -2) {
@@ -369,6 +374,14 @@ public abstract class McNes<T> extends TMCNes {
 	 */
 	public McNesManager<T> getManager() {
 		return this.manager;
+	}
+
+	/**
+	 * Permet de récupérer le propriétaire de la NES
+	 * @return le propriétaire de la NES
+	 */
+	public OfflinePlayer getOwner() {
+		return this.owner;
 	}
 
 }

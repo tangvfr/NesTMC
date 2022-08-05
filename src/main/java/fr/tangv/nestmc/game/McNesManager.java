@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -184,12 +185,13 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	
 	/**
 	 * Permet de crée et d'ajouter à la liste des consoles une nouvelle NES
-	 * @param nes la nes a ajouter, null si le nombre de nes maximal est atteint
+	 * @param loc position de la console
+	 * @param owner propriétaire de la console
 	 */
-	public McNes<T> createNes(Location loc) {
+	public McNes<T> createNes(Location loc, OfflinePlayer owner) {
 		McNes<T> nes = null;
 		if (this.consoles.size() < this.maxNes) {
-			nes = this.newConsole(loc);
+			nes = this.newConsole(loc, owner);
 			Validate.notNull(nes, "Nes can't create ! (Created Nes is NULL)");
 			
 			//joueur qui peuvent voir la nes
@@ -268,9 +270,11 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	
 	/*
 	 * Permet d'instancier une nouvelle console nes
+	 * @param loc position de la console
+	 * @param owner propriétaire de la console
 	 * @return l'intance de la nouvelle console
 	 */
-	protected abstract McNes<T> newConsole(Location loc);
+	protected abstract McNes<T> newConsole(Location loc, OfflinePlayer player);
 
 	/**
 	 * Permet de crée une instance de système d'explotation pour une console

@@ -51,7 +51,7 @@ public class ListenerMcNes implements Listener {
 				Location loc = e.getClickedBlock().getRelative(face).getLocation();
 				loc.setDirection(new Vector(face.getModX(), face.getModY(), face.getModZ()));
 				
-				if (this.manager.createNes(loc) == null) {//creation de la console
+				if (this.manager.createNes(loc, player) == null) {//creation de la console
 					player.sendMessage("Nombre de nes maximal atteint");
 				}
 			} else {//si la face ne peux pas correspondre

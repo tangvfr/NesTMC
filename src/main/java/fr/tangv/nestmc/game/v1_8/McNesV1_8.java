@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -45,10 +46,10 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 	 * Permet de construire une console nes pour la version 1.8
 	 * @param manager gestionnaire des nes sur le serveur
 	 * @param loc possition de la nes dans le monde
-	 * @param os système d'exploitation de la nes
+	 * @param owner propriétaire de la console
 	 */
-	public McNesV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager, Location loc) {
-		super(manager, loc, manager.createNesOs());
+	public McNesV1_8(McNesManager<Packet<PacketListenerPlayOut>> manager, Location loc, OfflinePlayer owner) {
+		super(manager, loc, owner, manager.createNesOs());
 		this.viewers = new ConcurrentLinkedQueue<EntityPlayer>();
 		//data
 		EnumDirection dir = EnumDirection.fromAngle(loc.getYaw());

@@ -4,6 +4,7 @@
 package fr.tangv.nestmc.game.v1_8;
 
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -55,8 +56,8 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 	}
 	
 	@Override
-	protected McNes<Packet<PacketListenerPlayOut>> newConsole(Location loc) {
-		return new McNesV1_8(this, loc);
+	protected McNes<Packet<PacketListenerPlayOut>> newConsole(Location loc, OfflinePlayer owner) {
+		return new McNesV1_8(this, loc, owner);
 	}
 
 	@Override
