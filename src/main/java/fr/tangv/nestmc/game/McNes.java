@@ -314,11 +314,11 @@ public abstract class McNes<T> extends TMCNes {
 	}
 	
 	/**
-	 * Permet de savoir si une itemframe constitue son écran
+	 * Permet de savoir si une itemframe constitue l'écran
 	 * @param idItemFrame identifiant de l'itemframe
-	 * @return true si l'itemframe constitue l'écran de la console
+	 * @return 1 si l'itemframe constitue l'écran de gauche de la console, 2 pour la droite, 0 si elle ne le constitue pas
 	 */
-	public abstract boolean haveIdItemFram(int idItemFrame);
+	public abstract int haveIdItemFram(int idItemFrame);
 	
 	/**
 	 * Permet de crée un PlayerController en envoyant les bon packet au personne qui doivent le voir
@@ -384,4 +384,10 @@ public abstract class McNes<T> extends TMCNes {
 		return this.owner;
 	}
 
+	@Override
+	public boolean equals(Object ob) {
+		if (ob == null || !(ob instanceof McNes)) return false;
+		return ((McNes<?>) ob).location.equals(this.location);
+	}
+	
 }

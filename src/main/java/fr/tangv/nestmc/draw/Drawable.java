@@ -375,6 +375,16 @@ public abstract class Drawable implements Pixelable {
 	}
 	
 	/**
+	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
+	 * @param ox coordonnée inital de l'image en partant de la gauche
+	 * @param oy coordonnée inital de l'image en partant du haut
+	 * @param img image desinable
+	 */
+	public void drawBuffer(int ox, int oy, DrawableImage img) {
+		this.drawBuffer(ox, oy, img.getBuf(), img.getWidth(), img.getHeight());
+	}
+	
+	/**
 	 * Méthode qui permet de dessiner un caractère, regarder {@link #setCof(byte)}
 	 * @param ox coordonnée du debut du caractère en partant de la gauche
 	 * @param oy coordonnée du haut du caractère en partant du haut

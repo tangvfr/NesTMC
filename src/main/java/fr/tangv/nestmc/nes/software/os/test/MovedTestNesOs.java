@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software.test;
+package fr.tangv.nestmc.nes.software.os.test;
 
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;

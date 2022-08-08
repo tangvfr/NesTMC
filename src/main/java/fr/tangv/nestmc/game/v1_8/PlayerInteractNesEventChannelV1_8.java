@@ -6,8 +6,8 @@ package fr.tangv.nestmc.game.v1_8;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
+import fr.tangv.nestmc.game.event.NesClick;
 import fr.tangv.nestmc.game.event.PlayerInteractNesEvent;
 import fr.tangv.nestmc.util.ReflectionUtil;
 import io.netty.channel.ChannelDuplexHandler;
@@ -48,13 +48,13 @@ public class PlayerInteractNesEventChannelV1_8 extends ChannelDuplexHandler {
 			 int idE = (int) ReflectionUtil.getValue(use, "a");
 			 //System.out.println("ac: "+ac.name()+" id:"+idE);
 			 //test with screens
-			 McNes<?> nes = this.manager.getNes(idE);
-			 if (nes != null) {
+			 NesClick<?> nc = this.manager.getNes(idE);
+			 if (nc != null) {
 				 //call event
 				 if (ac == EnumEntityUseAction.ATTACK) {//clique gauche
-					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nes, true));
+					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nc.getNes(), nc.isLeft(), true));
 				 } else if (ac == EnumEntityUseAction.INTERACT) {//clique droit
-					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nes, false));
+					 Bukkit.getPluginManager().callEvent(new PlayerInteractNesEvent(player, nc.getNes(), nc.isLeft(), false));
 				 }
 				 return;
 			 }

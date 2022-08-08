@@ -8,7 +8,7 @@ import fr.tangv.nestmc.game.McNes;
 /**
  * @author Tangv - https://tangv.fr
  * 
- * Permet de formuler une requet
+ * Permet de formuler une requet pour accepder a une manette d'une nes
  */
 public class RequestController {
 	
@@ -72,6 +72,14 @@ public class RequestController {
 			this.player.sendMessage("You are too far !");
 			return false;
 		}
+	}
+
+	/**
+	 * Permet de récupérer la console a qui est affectué la requet
+	 * @return la console a qui est affectué la requet
+	 */
+	public McNes<?> getNes() {
+		return this.nes;
 	}
 	
 }

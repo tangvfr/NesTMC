@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software.test;
+package fr.tangv.nestmc.nes.software.os.test;
 
 import com.grapeshot.halfnes.mappers.BadMapperException;
 
@@ -46,7 +46,7 @@ public class GameTestNesOs extends NesOs {
 		} else if (mixedIn.isClicked(InputController.HEALD_8)) {
 			System.out.println("start");
 			try {
-				nes.start(new NesRom(System.getenv("testrom")));//patch plantage quand on veux eteindre nes car pas possible
+				nes.start(new NesRom(System.getenv("testrom")));
 			} catch (BadMapperException e) {
 				e.printStackTrace();
 			}

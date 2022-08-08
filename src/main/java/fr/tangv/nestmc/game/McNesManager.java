@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.BiConsumer;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import fr.tangv.nestmc.NesTMC;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
+import fr.tangv.nestmc.game.event.NesClick;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesOs;
@@ -172,12 +174,14 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	/**
 	 * Permet de récupé la console a qui appartiens l'itemframe
 	 * @param idItemFrame identifiant de l'itemframe
-	 * @return la console a qui appartiens l'itemframe qui consistitue son écran
+	 * @return l'interaction avec l'écran de la nes
 	 */
-	public McNes<T> getNes(int idItemFrame) {
+	public NesClick<T> getNes(int idItemFrame) {
+		int h;//reponse
 		for (McNes<T> nes : this.consoles) {
-			if (nes.haveIdItemFram(idItemFrame)) {
-				return nes;
+			h = nes.haveIdItemFram(idItemFrame);
+			if (h != 0) {
+				return new NesClick<T>(nes, h == 1);
 			}
 		}
 		return null;
@@ -215,6 +219,16 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 */
 	public boolean removeNes(McNes<T> nes) {
 		boolean rm = this.consoles.remove(nes);
+		//suprimer les requet en rapport avec l'ancienne console suprimé
+		this.requests.forEach(new BiConsumer<UUID, RequestController>() {
+			@Override
+			public void accept(UUID p, RequestController req) {
+				if (req.getNes().equals(nes)) {
+					McNesManager.this.requests.remove(p);
+				}
+			}
+		});
+		//destruction de la console
 		if (rm) {
 			nes.destruct();
 		}

@@ -233,13 +233,13 @@ public class McNesV1_8 extends McNes<Packet<PacketListenerPlayOut>> {
 	}
 
 	@Override
-	public boolean haveIdItemFram(int idItemFrame) {
+	public int haveIdItemFram(int idItemFrame) {
 		for (int i = 0; i < 4; i++) {
 			if (idItemFrames[i] == idItemFrame) {
-				return true;
+				return (i % 2) == 0 ? 1 : 2;
 			}
 		}
-		return false;
+		return 0;
 	}
 
 }

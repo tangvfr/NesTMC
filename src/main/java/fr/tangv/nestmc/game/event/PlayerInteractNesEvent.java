@@ -15,6 +15,7 @@ public class PlayerInteractNesEvent extends Event {
 	private static final HandlerList HANDLERS = new HandlerList();
 	
 	private final McNes<?> nes;//console avec laquelle a interagie le joueur
+	private final boolean left;//coter de l'écran cliquer
 	private final boolean attack;//si le joueur a fait un clique gauche
 	private final Player player;//joueur qui a provoqué l'evenement
 	
@@ -24,11 +25,28 @@ public class PlayerInteractNesEvent extends Event {
 	 * @param nes console avec laquelle a interagie le joueur
 	 * @param attack true si le joueur a fait un clique sur l'écran
 	 */
-	public PlayerInteractNesEvent(Player player, McNes<?> nes, boolean attack) {
+	public PlayerInteractNesEvent(Player player, McNes<?> nes, boolean left, boolean attack) {
 		super(false);
 		this.player = player;
 		this.nes = nes;
+		this.left = left;
 		this.attack = attack;
+	}
+	
+	/**
+	 * Permet de savoir si le joueur a cliquer sur une frame de gauche
+	 * @return true si le joueur a fait un clique sur une frame de gauche
+	 */
+	public boolean isLeft() {
+		return this.left;
+	}
+	
+	/**
+	 * Permet de savoir si le joueur a cliquer sur une frame de droite
+	 * @return true si le joueur a fait un clique sur une frame de droite
+	 */
+	public boolean isRight() {
+		return !this.left;
 	}
 	
 	/**
@@ -74,8 +92,7 @@ public class PlayerInteractNesEvent extends Event {
 
 	@Override
 	public String toString() {
-		return "PlayerInteractNesEvent [nes=" + this.nes + ", attack=" + this.attack + ", player=" + this.player
-				+ ", async=" + this.isAsynchronous() + "]";
+		return "PlayerInteractNesEvent [nes=" + this.nes + ", left=" + this.left + ", attack=" + this.attack + ", player=" + this.player + "]";
 	}
 	
 }

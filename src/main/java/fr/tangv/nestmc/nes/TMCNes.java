@@ -70,7 +70,7 @@ public abstract class TMCNes {
 	 * Permet de savoir si la console est entrain d'emuler ou non
 	 * @return true si la console est entrain d'emuler (fonctionner)
 	 */
-	public synchronized boolean emulationIsRunning() {
+	public synchronized boolean isRunning() {
 		Validate.notNull(this.nes, "Aucune console nes n'est associé !");
 		return this.nes.runEmulation;
 	}
