@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes.software.os.test;
+package fr.tangv.nestmc.nes.software.test;
 
 import com.grapeshot.halfnes.mappers.BadMapperException;
 

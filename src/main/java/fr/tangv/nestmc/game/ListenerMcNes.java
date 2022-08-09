@@ -82,8 +82,8 @@ public class ListenerMcNes implements Listener {
 		if (e.isInteract()) {
 			McNes<?> nes = e.getNes();
 			nes.request(player, e.isLeft());//click a gauche pour le premier controlleur
-			
-			//add time on click inv, and mouse (to simulate button of joypad) & make message(config) 
+			//save nes
+			//make message(config) 
 		}
 	}
 	

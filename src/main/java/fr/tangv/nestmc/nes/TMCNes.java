@@ -129,9 +129,7 @@ public abstract class TMCNes {
 		this.thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("the begin !!!");
 				TMCNes.this.nes.run();
-				System.out.println("the end !!!");
 			}
 		});
 		this.thread.start();//start nes
