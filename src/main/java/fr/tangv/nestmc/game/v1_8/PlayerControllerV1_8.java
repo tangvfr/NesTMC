@@ -3,7 +3,7 @@ package fr.tangv.nestmc.game.v1_8;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import fr.tangv.nestmc.game.controller.PlayerController;
+import fr.tangv.nestmc.game.controller.TickPlayerController;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.NesController;
 import io.netty.channel.Channel;
@@ -31,7 +31,7 @@ import net.minecraft.server.v1_8_R3.Vector3f;
  * @author Tangv - https://tangv.fr
  * Permet de lier un joueur a un controlleur (une manette) pour la version 1.8.8
  */
-public class PlayerControllerV1_8 extends PlayerController {
+public class PlayerControllerV1_8 extends TickPlayerController {
 
 	/*NMS du joueur de la manette*/
 	private final EntityPlayer player;
@@ -47,9 +47,10 @@ public class PlayerControllerV1_8 extends PlayerController {
 	 * Construteur de contrustruire un récupérateur d'entré d'un joueur
 	 * @param player joueur sur qui on va récupéré les infos
 	 * @param controller controler (manette) a la qu'elle on est associe
+	 * @param ticks nombre de ticks de persitance des boutons de souris et d'ouverture d'inventaire
 	 */
-	public PlayerControllerV1_8(Player player, NesController controller) {
-		super(player, controller);
+	public PlayerControllerV1_8(Player player, NesController controller, int ticks) {
+		super(player, controller, ticks);
 		this.player = ((CraftPlayer) player).getHandle();
 	}
 
@@ -75,7 +76,7 @@ public class PlayerControllerV1_8 extends PlayerController {
 			PacketPlayInEntityAction ea = (PacketPlayInEntityAction) ob;
 			
 			if (ea.b() == EnumPlayerAction.OPEN_INVENTORY) {//open inventory
-				this.getController().pressButton(InputController.OPEN_INV);
+				super.pressInventory();
 			}
 			return;
 		} else if (ob instanceof PacketPlayInUseEntity) {//attack and interact
@@ -83,9 +84,9 @@ public class PlayerControllerV1_8 extends PlayerController {
 			//test action
 			EnumEntityUseAction ac = ue.a();
 			if (ac == EnumEntityUseAction.ATTACK) {
-				this.getController().pressButton(InputController.ATTACK);
+				super.pressAttack();
 			} else if (ac == EnumEntityUseAction.INTERACT_AT) {
-				this.getController().pressButton(InputController.INTERACT);
+				super.pressInteract();
 			}
 			return;
 		} else if (ob instanceof PacketPlayInHeldItemSlot) {//held
@@ -139,17 +140,6 @@ public class PlayerControllerV1_8 extends PlayerController {
 			nc.releaseButton(btnPos);
 			nc.releaseButton(btnNeg);
 		}
-	}
-
-	@Override
-	public void updateController() {
-		NesController nc = this.getController();
-		nc.update();
-		//release les bouton qui le fond pas eux meme
-		nc.setHeld(0);
-		nc.releaseButton(InputController.OPEN_INV);
-		nc.releaseButton(InputController.ATTACK);
-		nc.releaseButton(InputController.INTERACT);
 	}
 	
 	@Override

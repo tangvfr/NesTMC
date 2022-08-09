@@ -40,7 +40,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 
 	@Override
 	public PlayerController createPlayerController(Player player, NesController controller, boolean isFirst) {
-		PlayerController pc = new PlayerControllerV1_8(player, controller);
+		PlayerController pc = new PlayerControllerV1_8(player, controller, 4);//config number
 		pc.create(isFirst);
 		return pc;
 	}
