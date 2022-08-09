@@ -41,8 +41,11 @@ public class GameTestNesOs extends NesOs {
 		input[16] = "U:" + (mixedIn.isPress(InputController.UP) ? "V" : "O");
 		
 		if (firstIn.isPress(InputController.SNEAK + InputController.OPEN_INV + InputController.SPACE)) {
-			System.out.println("force exit nes !");
+			System.out.println("force exit nes 1 !");
 			nes.closeController(TMCNes.FIRST_CONTROLLER);
+		} if (secondIn.isPress(InputController.SNEAK + InputController.OPEN_INV + InputController.SPACE)) {
+			System.out.println("force exit nes 2 !");
+			nes.closeController(TMCNes.SECOND_CONTROLLER);
 		} else if (mixedIn.isClicked(InputController.HEALD_8)) {
 			System.out.println("start");
 			try {

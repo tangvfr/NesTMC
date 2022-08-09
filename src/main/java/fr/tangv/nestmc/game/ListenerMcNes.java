@@ -83,7 +83,7 @@ public class ListenerMcNes implements Listener {
 			McNes<?> nes = e.getNes();
 			nes.request(player, e.isLeft());//click a gauche pour le premier controlleur
 			
-			//1er MAGENTA, 2eme CYAN      & add time on click inv, and mouse & make message                
+			//1er MAGENTA, 2eme CYAN      & add time on click inv, and mouse (to simulate button of joypad) & make message(config)               
 			System.out.println("Requet envoyé ! pour le " + (e.isLeft() ? "first" : "2eme"));
 		}
 	}

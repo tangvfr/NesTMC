@@ -179,7 +179,7 @@ public abstract class McNes<T> extends TMCNes {
 		}
 		//message
 		//if (remainingTime > -2) {
-			player.sendMessage(this.requestMsg(remainingTime));
+			player.sendMessage((isFirst ? "first" : "second") + ": " + this.requestMsg(remainingTime));
 		//}
 	}
 	
@@ -210,7 +210,7 @@ public abstract class McNes<T> extends TMCNes {
 	 */
 	public void timeoutRequest(Player player, boolean isFirst) {
 		this.manager.removeRequest(player);
-		player.sendMessage("Timeout sitdown ! (I will write real messsage)");
+		player.sendMessage((isFirst ? "first" : "second") + ": " + "Timeout sitdown ! (I will write real messsage)");
 	}
 	
 	/**
