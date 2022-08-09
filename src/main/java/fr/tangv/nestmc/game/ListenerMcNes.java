@@ -80,10 +80,7 @@ public class ListenerMcNes implements Listener {
 	public void onNes(PlayerInteractNesEvent e) {
 		Player player = e.getPlayer();
 		if (e.isInteract()) {
-			McNes<?> nes = e.getNes();
-			nes.request(player, e.isLeft());//click a gauche pour le premier controlleur
-			//save nes
-			//make message(config) 
+			e.getNes().request(player, e.isLeft());//click a gauche pour le premier controlleur
 		}
 	}
 	
