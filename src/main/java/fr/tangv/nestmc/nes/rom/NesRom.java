@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.tangv.nestmc.nes;
+package fr.tangv.nestmc.nes.rom;
 
 import java.io.File;
 
@@ -36,9 +36,10 @@ public class NesRom {
 	public NesRom(String path) throws BadMapperException {
 		ROMLoader rom = new ROMLoader(path);
 		rom.parseHeader();
-		Mapper.getCorrectMapper(rom);//pour tester que le mapper est compatible
+		Mapper mapper = Mapper.getCorrectMapper(rom);//pour tester que le mapper est compatible
+		this.save = mapper.supportsSaves();
+		mapper.destroy();
 		this.path = path;
-		this.save = rom.savesram;
 		this.name = new File(path).getName().replaceAll(".nes", "");
 	}
 

@@ -16,7 +16,7 @@ import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesOs;
-import fr.tangv.nestmc.nes.software.test.GameTestNesOs;
+import fr.tangv.nestmc.nes.software.os.TMCNesOs;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
@@ -40,7 +40,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 
 	@Override
 	public PlayerController createPlayerController(Player player, NesController controller, boolean isFirst) {
-		PlayerController pc = new PlayerControllerV1_8(player, controller, 2);//config number
+		PlayerController pc = new PlayerControllerV1_8(player, controller, this.config.getInt("param.pers_key_tick", 2));
 		pc.create(isFirst);
 		return pc;
 	}
@@ -62,7 +62,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 
 	@Override
 	public NesOs createNesOs() {
-		return new GameTestNesOs();//for test
+		return new TMCNesOs();
 	}
 
 	@Override

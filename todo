@@ -1,4 +1,8 @@
-#save nes after reload
-#make message(config) & value configurable
+O multi folder for rom repo
+
+-make message(config) & value configurable
+-save nes after reload
 #make os gui
 #make emulate mcnes (tmcnes in jframe)
+
+/reloadrom

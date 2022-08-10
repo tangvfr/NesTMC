@@ -2,7 +2,6 @@ package fr.tangv.nestmc.game;
 
 import java.io.File;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Hex;
@@ -81,7 +80,7 @@ public abstract class McNes<T> extends TMCNes {
 			return Hex.encodeHexString(MessageDigest.getInstance(MessageDigestAlgorithms.SHA_1).digest(
 					(loc.getBlockX() + '.' + loc.getBlockY() + '.' + loc.getBlockZ() + '.' + loc.getWorld().getName())
 				.getBytes()));
-		} catch (NoSuchAlgorithmException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

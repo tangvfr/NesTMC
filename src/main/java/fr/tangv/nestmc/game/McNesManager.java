@@ -46,7 +46,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	/*
 	 * configuration dans laquelle est stocker les nes du serveur
 	 */
-	private final YamlConfiguration config;
+	protected final YamlConfiguration config;
 	/**
 	 * distance maximal pour voir une nes
 	 */
@@ -72,8 +72,8 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	public McNesManager(NesTMC plugin, YamlConfiguration config) {//https://minecraft-heads.com/custom-heads/decoration/2001-nes
 		this.plugin = plugin;
 		this.config = config;
-		this.maxRange = 16D;//replamce here
-		this.maxNes = 2;//replamce here
+		this.maxRange = config.getDouble("param.max_range", 16D);
+		this.maxNes = config.getInt("param.max_nes", 2);
 		//saved consoles is loading
 		//his.config.get
 		
@@ -172,6 +172,20 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	}
 	
 	/**
+	 * Permet de savoir si une location est déja prise par une nes
+	 * @param loc location tester
+	 * @return true si une nes est déja sur la location
+	 */
+	public boolean haveNes(Location loc) {
+		Iterator<McNes<T>> it = this.consoles.iterator();
+		boolean find = false;
+		while (it.hasNext() && !find) {//parcour toutes les console tant que aucnune ne correspond
+			find = !it.next().getLocation().equals(loc);
+		}
+		return find;
+	}
+	
+	/**
 	 * Permet de récupé la console a qui appartiens l'itemframe
 	 * @param idItemFrame identifiant de l'itemframe
 	 * @return l'interaction avec l'écran de la nes
@@ -194,7 +208,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 */
 	public McNes<T> createNes(Location loc, OfflinePlayer owner) {
 		McNes<T> nes = null;
-		if (this.consoles.size() < this.maxNes) {
+		if (this.consoles.size() < this.maxNes && !this.haveNes(loc)) {
 			nes = this.newConsole(loc, owner);
 			Validate.notNull(nes, "Nes can't create ! (Created Nes is NULL)");
 			
