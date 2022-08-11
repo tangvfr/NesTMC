@@ -28,7 +28,7 @@ public class FScreenEmulatorTest {
 		NES nes = new NES(new NesScreenMap(maps, McNesPaletteV1_8.MC_NES_PALETTE) {
 			@Override
 			public void loadROMs(String arg0) {
-				System.out.println(arg0);
+				System.out.println("load: "+arg0);
 			}
 
 			@Override
@@ -59,7 +59,7 @@ public class FScreenEmulatorTest {
 	    
 	    Thread display = new Thread(() -> {
 			while(nes.runEmulation) {
-				System.out.println(nes.getFrameTime());
+				//System.out.println(nes.getFrameTime());
 				for (int i = 0; i < 4; i++) {
 					frames[i].repaint();
 				}

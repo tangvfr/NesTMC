@@ -1,13 +1,13 @@
-package fr.tangv.nestmc.nes.software.os.element;
+package fr.tangv.nestmc.nes.software.os.element.border;
 
 import fr.tangv.nestmc.nes.NesScreen;
-import fr.tangv.nestmc.nes.TMCNes;
+import fr.tangv.nestmc.nes.software.os.element.Element;
 
 /**
  * @author Tangv - https://tangv.fr
- * Element de base avec la possibilité de mettre des bords
+ * Bordure simple pour un Element
  */
-public abstract class BorderElement extends Element {
+public class BasicBorder extends Border {
 
 	private int topBorder;
 	private int bottomBorder;
@@ -28,9 +28,7 @@ public abstract class BorderElement extends Element {
 	 * @param rightBorder épaisseur du bord de droite
 	 * @param borderColor couleur des bords
 	 */
-	public BorderElement(int x, int y, int width, int height, byte background, int topBorder, int bottomBorder,
-			int leftBorder, int rightBorder, byte borderColor) {
-		super(x, y, width, height, background);
+	public BasicBorder(int topBorder, int bottomBorder, int leftBorder, int rightBorder, byte borderColor) {
 		this.topBorder = topBorder;
 		this.bottomBorder = bottomBorder;
 		this.leftBorder = leftBorder;
@@ -47,8 +45,7 @@ public abstract class BorderElement extends Element {
 	 * @param background coleur de fond
 	 * @param border épaisseur des bords
 	 */
-	public BorderElement(int x, int y, int width, int height, byte background, int border, byte borderColor) {
-		super(x, y, width, height, background);
+	public BasicBorder(int border, byte borderColor) {
 		this.topBorder = border;
 		this.bottomBorder = border;
 		this.leftBorder = border;
@@ -57,21 +54,20 @@ public abstract class BorderElement extends Element {
 	}
 	
 	@Override
-	public void render(TMCNes nes, NesScreen screen) {
-		super.render(nes, screen);
+	public void render(Element ele, NesScreen screen) {
 		if (!Element.colorIsInvisible(this.border)) {
 			//draw border
 			screen.setColor(border);
 			//horizontal border
-			int x = this.getX();
+			int x = ele.getX();
 			int mx = x - this.leftBorder;
-			screen.fillRect(mx, this.getY(), this.leftBorder, this.getHeight());//left border
-			screen.fillRect(x + this.getWidth(), this.getY(), this.rightBorder, this.getHeight());//right border
+			screen.fillRect(mx, ele.getY(), this.leftBorder, ele.getHeight());//left border
+			screen.fillRect(x + ele.getWidth(), ele.getY(), this.rightBorder, ele.getHeight());//right border
 			//vertical border
-			int lengthX = this.leftBorder + this.getWidth() + this.rightBorder;
-			int y = this.getY();
+			int lengthX = this.leftBorder + ele.getWidth() + this.rightBorder;
+			int y = ele.getY();
 			screen.fillRect(mx, y - this.topBorder, lengthX, this.topBorder);//top border
-			screen.fillRect(mx, y - this.getHeight(), lengthX, this.bottomBorder);//bottom border
+			screen.fillRect(mx, y + ele.getHeight(), lengthX, this.bottomBorder);//bottom border
 		}
 	}
 

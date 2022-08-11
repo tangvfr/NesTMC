@@ -4,6 +4,7 @@ import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.TMCNesInteractor;
+import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -17,7 +18,7 @@ public abstract class Element implements TMCNesInteractor {
 	 * @return true si la couleur est invisible
 	 */
 	public static boolean colorIsInvisible(byte color) {
-		return color >= 0 || color < 4;
+		return color >= 0 && color < 4;
 	}
 	
 	private int x;
@@ -25,6 +26,7 @@ public abstract class Element implements TMCNesInteractor {
 	private int width;
 	private int height;
 	private byte background;
+	private BasicBorder border = null;
 	
 	/**
 	 * Permet de construire un element de base
@@ -50,6 +52,9 @@ public abstract class Element implements TMCNesInteractor {
 		if (!Element.colorIsInvisible(this.background)) {//le fond n'est pas transparent
 			screen.setColor(this.background);
 			screen.fillRect(this.x, this.y, this.width, this.height);
+		}
+		if (this.border != null) {
+			this.border.render(this, screen);
 		}
 	}
 
@@ -131,6 +136,22 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setBackground(byte background) {
 		this.background = background;
+	}
+
+	/**
+	 * Permet de récupérer la bordure de l'element
+	 * @return la bordure de l'element, null pour aucune
+	 */
+	public BasicBorder getBorder() {
+		return this.border;
+	}
+
+	/**
+	 * Permet de modifier la bordure de l'element
+	 * @param border la nouvelle bordure de l'element, null pour aucune
+	 */
+	public void setBorder(BasicBorder border) {
+		this.border = border;
 	}
 
 }

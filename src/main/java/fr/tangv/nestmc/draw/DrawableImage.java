@@ -22,7 +22,7 @@ public class DrawableImage {
 	 * @param height longueur de l'image
 	 */
 	public DrawableImage(byte[] buf, int width, int height) {
-		Validate.isTrue(buf.length == width * height, "Invalide dimmension !");
+		Validate.isTrue(buf.length == (width * height), "Invalide dimmension ! length:" + buf.length + " width:" + width + " height:" + height);
 		this.buf = buf;
 		this.width = width;
 		this.height = height;

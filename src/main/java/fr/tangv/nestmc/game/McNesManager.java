@@ -79,7 +79,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 		
 		//init
 		Bukkit.getPluginManager().registerEvents(this.listener, plugin);
-		this.runTaskTimerAsynchronously(plugin, 0, 1);
+		this.runTaskTimerAsynchronously(plugin, 0, 0);
 	}
 	
 	@Override

@@ -1,8 +1,10 @@
 O multi folder for rom repo
 
+#make emulate mcnes (tmcnes in jframe)
+
 -make message(config) & value configurable
 -save nes after reload
+-add destruct nes - is linked
 #make os gui
-#make emulate mcnes (tmcnes in jframe)
 
 /reloadrom
