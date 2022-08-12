@@ -11,6 +11,7 @@ import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Align;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.border.CornerBasicBorder;
+import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -38,6 +39,7 @@ public class TestTMCNesOs extends NesOs {
 	private final ImageElement img3;
 	private final ImageElement img4;
 	private final ImageElement img5;
+	private final PanelElement pan;
 	
 	/**
 	 * Permet de construire un os qui test les different element
@@ -103,29 +105,33 @@ public class TestTMCNesOs extends NesOs {
 		//Image 5
 		this.img5 = new ImageElement(100, 170, 16, 16, TestTMCNesOs.BACK, TMCImageOs.JOYPAD_CONSOLE);
 		this.img5.setBorder(new BasicBorder(1, FRONT));
+		
+		//panel
+		this.pan = new PanelElement(0, 0, 256, 256, BLACK);
+		this.pan.addElement(this.ele1);
+		this.pan.addElement(this.ele2);
+		this.pan.addElement(this.ele3);
+		this.pan.addElement(this.ele4);
+		this.pan.addElement(this.ele5);
+		this.pan.addElement(this.text1);
+		this.pan.addElement(this.text2);
+		this.pan.addElement(this.text3);
+		this.pan.addElement(this.text4);
+		this.pan.addElement(this.img1);
+		this.pan.addElement(this.img2);
+		this.pan.addElement(this.img3);
+		this.pan.addElement(this.img4);
+		this.pan.addElement(this.img5);
 	}
 	
 	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
+		this.pan.update(nes, firstIn, secondIn, mixedIn);
 	}
 
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
-		screen.clearScreen(TestTMCNesOs.BLACK);
-		this.ele1.render(nes, screen);
-		this.ele2.render(nes, screen);
-		this.ele3.render(nes, screen);
-		this.ele4.render(nes, screen);
-		this.ele5.render(nes, screen);
-		this.text1.render(nes, screen);
-		this.text2.render(nes, screen);
-		this.text3.render(nes, screen);
-		this.text4.render(nes, screen);
-		this.img1.render(nes, screen);
-		this.img2.render(nes, screen);
-		this.img3.render(nes, screen);
-		this.img4.render(nes, screen);
-		this.img5.render(nes, screen);
+		this.pan.render(nes, screen);
 	}
 
 	@Override

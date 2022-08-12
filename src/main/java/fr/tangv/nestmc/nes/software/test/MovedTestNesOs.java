@@ -41,7 +41,7 @@ public class MovedTestNesOs extends NesOs {
 		screen.clearScreen(MapColorV1_8.YELLOW_NORMAL);
 		//draw image
 		screen.setCof((byte) 1);
-		screen.drawBuffer(this.x, this.y, TMCImageOs.NES_CONSOLE);
+		screen.drawImage(this.x, this.y, TMCImageOs.NES_CONSOLE);
 		//draw texte
 		screen.setColor(MapColorV1_8.LAVA_LIGTH);
 		screen.setCof((byte) 4);
