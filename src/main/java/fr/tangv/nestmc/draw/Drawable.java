@@ -347,7 +347,7 @@ public abstract class Drawable implements Pixelable {
 	}
 	
 	/**
-	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
+	 * Méthode qui permet de desiner l'image d'un buffer, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
 	 * @param ox coordonnée inital de l'image en partant de la gauche
 	 * @param oy coordonnée inital de l'image en partant du haut
 	 * @param img image sous forme de buffer
@@ -375,12 +375,12 @@ public abstract class Drawable implements Pixelable {
 	}
 	
 	/**
-	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
+	 * Méthode qui permet de desiner une image, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
 	 * @param ox coordonnée inital de l'image en partant de la gauche
 	 * @param oy coordonnée inital de l'image en partant du haut
 	 * @param img image desinable
 	 */
-	public void drawBuffer(int ox, int oy, DrawableImage img) {
+	public void drawImage(int ox, int oy, DrawableImage img) {
 		this.drawBuffer(ox, oy, img.getBuf(), img.getWidth(), img.getHeight());
 	}
 	
@@ -427,10 +427,19 @@ public abstract class Drawable implements Pixelable {
 	/**
 	 * Permet de retourner la largueur des textes en prennant en compte le cof
 	 * @param text texte dont on souhaite la largueur
-	 * @return la largueur du texte en focntion du cof
+	 * @return la largueur du texte en fonction du cof
 	 */
 	public int getWidthText(String text) {
 		return MinecraftFont.Font.getWidth(text) * this.cof;
+  	}
+	
+	/**
+	 * Permet de retourner la largueur d'un caratère en prennant en compte le cof
+	 * @param ch caratère dont on souhaite savoir la largueur
+	 * @return la largueur du texte en fonction du cof
+	 */
+	public int getWidthChar(char ch) {
+		return MinecraftFont.Font.getChar(ch).getWidth() * this.cof;
   	}
   
 	/**

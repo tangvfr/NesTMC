@@ -9,19 +9,14 @@ import fr.tangv.nestmc.nes.software.os.element.Element;
  */
 public class BasicBorder extends Border {
 
-	private int topBorder;
-	private int bottomBorder;
-	private int leftBorder;
-	private int rightBorder;
-	private byte border;
+	protected int topBorder;
+	protected int bottomBorder;
+	protected int leftBorder;
+	protected int rightBorder;
+	protected byte border;
 	
 	/**
-	 * Permet de construire un element de base avec des bord
-	 * @param x décalage horizontal
-	 * @param y décalage vertical
-	 * @param width largeur
-	 * @param height hauteur
-	 * @param background coleur de fond
+	 * Permet de construire une bordure de base
 	 * @param topBorder épaisseur du bord du haut
 	 * @param bottomBorder épaisseur du bord du bas
 	 * @param leftBorder épaisseur du bord de gauche
@@ -37,13 +32,9 @@ public class BasicBorder extends Border {
 	}
 	
 	/**
-	 * Permet de construire un element de base avec des bord
-	 * @param x décalage horizontal
-	 * @param y décalage vertical
-	 * @param width largeur
-	 * @param height hauteur
-	 * @param background coleur de fond
-	 * @param border épaisseur des bords
+	 * Permet de construire une bordure de base
+	 * @param border épaisseur de tous les bords
+	 * @param borderColor couleur des bords
 	 */
 	public BasicBorder(int border, byte borderColor) {
 		this.topBorder = border;
@@ -56,18 +47,26 @@ public class BasicBorder extends Border {
 	@Override
 	public void render(Element ele, NesScreen screen) {
 		if (!Element.colorIsInvisible(this.border)) {
-			//draw border
-			screen.setColor(border);
-			//horizontal border
+			//x
 			int x = ele.getX();
-			int mx = x - this.leftBorder;
-			screen.fillRect(mx, ele.getY(), this.leftBorder, ele.getHeight());//left border
-			screen.fillRect(x + ele.getWidth(), ele.getY(), this.rightBorder, ele.getHeight());//right border
-			//vertical border
-			int lengthX = this.leftBorder + ele.getWidth() + this.rightBorder;
+			int width = ele.getWidth();
+			int mix = x - this.leftBorder;
+			int max = x + width;
+			int lengthX = this.leftBorder + width + this.rightBorder;
+			
+			//y
+			int height = ele.getHeight();
 			int y = ele.getY();
-			screen.fillRect(mx, y - this.topBorder, lengthX, this.topBorder);//top border
-			screen.fillRect(mx, y + ele.getHeight(), lengthX, this.bottomBorder);//bottom border
+			int miy = y - this.topBorder;
+			int may = y + height;
+			
+			//horizontal border
+			screen.setColor(this.border);
+			screen.fillRect(mix, y, this.leftBorder, height);//left border
+			screen.fillRect(max, y, this.rightBorder, height);//right border
+			//vertical border
+			screen.fillRect(mix, miy, lengthX, this.topBorder);//top border
+			screen.fillRect(mix, may, lengthX, this.bottomBorder);//bottom border
 		}
 	}
 
@@ -144,8 +143,8 @@ public class BasicBorder extends Border {
 	}
 
 	/**
-	 * Permet de modifier le border de l'element
-	 * @param border le nouveau border de l'element
+	 * Permet de modifier le couelur du bord de l'element
+	 * @param border la nouvelle couleur du bord de l'element
 	 */
 	public void setBorderColor(byte color) {
 		this.border = color;
