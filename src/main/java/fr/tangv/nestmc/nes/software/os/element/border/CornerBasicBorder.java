@@ -38,19 +38,20 @@ public class CornerBasicBorder extends BasicBorder {
 	
 	@Override
 	public void render(Element ele, NesScreen screen) {
+		//x
+		int x = ele.getX();
+		int width = ele.getWidth();
+		int mix = x - this.leftBorder;
+		int max = x + width;
+		
+		//y
+		int height = ele.getHeight();
+		int y = ele.getY();
+		int miy = y - this.topBorder;
+		int may = y + height;
+		
+		//border
 		if (!Element.colorIsInvisible(this.border)) {
-			//x
-			int x = ele.getX();
-			int width = ele.getWidth();
-			int mix = x - this.leftBorder;
-			int max = x + width;
-			
-			//y
-			int height = ele.getHeight();
-			int y = ele.getY();
-			int miy = y - this.topBorder;
-			int may = y + height;
-			
 			//horizontal border
 			screen.setColor(this.border);
 			screen.fillRect(mix, y, this.leftBorder, height);//left border
@@ -58,7 +59,10 @@ public class CornerBasicBorder extends BasicBorder {
 			//vertical border
 			screen.fillRect(x, miy, width, this.topBorder);//top border
 			screen.fillRect(x, may, width, this.bottomBorder);//bottom border
-			
+		}
+		
+		//corner
+		if (!Element.colorIsInvisible(this.corner)) {
 			//draw corner
 			screen.setColor(this.corner);
 			screen.fillRect(mix, miy, this.leftBorder, this.topBorder);//top left

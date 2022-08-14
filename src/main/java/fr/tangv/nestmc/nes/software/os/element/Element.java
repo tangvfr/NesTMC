@@ -4,7 +4,7 @@ import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.TMCNesInteractor;
-import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
+import fr.tangv.nestmc.nes.software.os.element.border.Border;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -26,7 +26,7 @@ public abstract class Element implements TMCNesInteractor {
 	private int width;
 	private int height;
 	private byte background;
-	private BasicBorder border = null;
+	private Border border = null;
 	
 	/**
 	 * Permet de construire un element de base
@@ -142,7 +142,7 @@ public abstract class Element implements TMCNesInteractor {
 	 * Permet de récupérer la bordure de l'element
 	 * @return la bordure de l'element, null pour aucune
 	 */
-	public BasicBorder getBorder() {
+	public Border getBorder() {
 		return this.border;
 	}
 
@@ -150,7 +150,7 @@ public abstract class Element implements TMCNesInteractor {
 	 * Permet de modifier la bordure de l'element
 	 * @param border la nouvelle bordure de l'element, null pour aucune
 	 */
-	public void setBorder(BasicBorder border) {
+	public void setBorder(Border border) {
 		this.border = border;
 	}
 

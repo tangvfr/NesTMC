@@ -3,8 +3,6 @@ package fr.tangv.nestmc.nes.rom;
 import java.io.File;
 import java.util.LinkedList;
 
-import com.grapeshot.halfnes.mappers.BadMapperException;
-
 /**
  * @author Tangv - https://tangv.fr
  * Permet de regrouper différentes roms d'un même dossier
@@ -29,8 +27,8 @@ public class FolderRomRepository extends RomRepository {
 
 	/**
 	 * Permet d'obtenir la liste des roms dans 
-	 * @param folder
-	 * @return
+	 * @param folder dossier contenent les roms
+	 * @return liste des roms trouvé
 	 */
 	private static LinkedList<NesRom> getRoms(File folder) {
 		if (folder == null || !folder.exists() || !folder.isDirectory()) {

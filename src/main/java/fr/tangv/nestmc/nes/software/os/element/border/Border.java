@@ -15,4 +15,40 @@ public abstract class Border {
 	 */
 	public abstract void render(Element ele, NesScreen screen);
 
+	/**
+	 * Permet de calculer les pixels que la bodure prend sur l'axe X
+	 * @return la taille que sa prend sur l'axe X
+	 */
+	public abstract int calcXLength();
+	
+	/**
+	 * Permet de calculer les pixels que la bodure prend sur l'axe Y
+	 * @return la taille que sa prend sur l'axe Y
+	 */
+	public abstract int calcYLength();
+	
+	/**
+	 * Permet de récupérer l'épaisseur du bord du haut de l'element
+	 * @return l'épaisseur du bord du haut de l'element
+	 */
+	public abstract int getTopBorder();
+
+	/**
+	 * Permet de récupérer l'épaisseur du bord du bas de l'element
+	 * @return l'épaisseur du bord du bas de l'element
+	 */
+	public abstract int getBottomBorder();
+
+	/**
+	 * Permet de récupérer l'épaisseur du bord gauche de l'element
+	 * @return l'épaisseur du bord gauche de l'element
+	 */
+	public abstract int getLeftBorder();
+
+	/**
+	 * Permet de récupérer l'épaisseur du bord droit de l'element
+	 * @return l'épaisseur du bord droit de l'element
+	 */
+	public abstract int getRightBorder();
+	
 }

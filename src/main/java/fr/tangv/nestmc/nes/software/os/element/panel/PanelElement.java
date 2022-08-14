@@ -7,6 +7,7 @@ import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.os.element.Element;
+import fr.tangv.nestmc.nes.software.os.element.panel.manager.ElementManager;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -14,7 +15,7 @@ import fr.tangv.nestmc.nes.software.os.element.Element;
  */
 public class PanelElement extends Element {
 
-	private final LinkedList<Element> elements = new LinkedList<Element>();
+	private final LinkedList<ParamPanelElement> elements = new LinkedList<ParamPanelElement>();
 	private ElementManager manager = null;
 	
 	/**
@@ -47,9 +48,9 @@ public class PanelElement extends Element {
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
 		super.update(nes, firstIn, secondIn, mixedIn);
 		
-		Iterator<Element> it = this.elements.iterator();
+		Iterator<ParamPanelElement> it = this.elements.iterator();
 		while (it.hasNext()) {//fait l'update de tous les elements du panel
-			it.next().update(nes, firstIn, secondIn, mixedIn);
+			it.next().getElement().update(nes, firstIn, secondIn, mixedIn);
 		}
 	}
 	
@@ -57,31 +58,54 @@ public class PanelElement extends Element {
 	public void render(TMCNes nes, NesScreen screen) {
 		super.render(nes, screen);
 		
-		for (Element ele : this.elements) {//fait le rendu de tous les elements du panel
-			ele.render(nes, screen);
+		for (ParamPanelElement ele : this.elements) {//fait le rendu de tous les elements du panel
+			ele.getElement().render(nes, screen);
 		}
 	}
 	
 	/**
-	 * Permet d'ajouter un element
+	 * Permet d'ajouter un element avec comme paramètre 0
+	 * Penser a definir votre gestionnaire d'alignement {@link #setManager(ElementManager)}
 	 * @param ele element ajouté
 	 */
 	public void addElement(Element ele) {
-		this.elements.add(ele);
+		this.addElement(ele, 0);
+	}
+	
+	/**
+	 * Permet d'ajouter un element
+	 * Penser a definir votre gestionnaire d'alignement {@link #setManager(ElementManager)}
+	 * @param ele element ajouté
+	 * @param param paramètre d'ajout
+	 */
+	public void addElement(Element ele, int param) {
+		this.elements.add(new ParamPanelElement(ele, param));
 		if (this.manager != null) {
-			//this.manager.
+			this.manager.align(this.elements, this);
 		}
 	}
 	
 	/**
 	 * Permet d'enlever un element
 	 * @param ele element supprimé
+	 * @return true si l'element a bien été suprimé
+	 * @deprecated peut provoqué des alignements incorrecte
 	 */
-	public void removeElement(Element ele) {
-		this.elements.remove(ele);
+	@SuppressWarnings("unlikely-arg-type")
+	public boolean removeElement(Element ele) {
+		boolean rm = this.elements.remove(ele);
 		if (this.manager != null) {
-			//this.manager.
+			this.manager.align(this.elements, this);
 		}
+		return rm;
+	}
+	
+	/**
+	 * Permet d'obtenir le nombre d'element
+	 * @return le nombre d'element
+	 */
+	public int countElement() {
+		return this.elements.size();
 	}
 
 	/**

@@ -12,6 +12,8 @@ import fr.tangv.nestmc.nes.software.os.element.align.Align;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.border.CornerBasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
+import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
+import fr.tangv.nestmc.nes.software.os.element.panel.manager.FullerElementManager;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -40,11 +42,16 @@ public class TestTMCNesOs extends NesOs {
 	private final ImageElement img4;
 	private final ImageElement img5;
 	private final PanelElement pan;
+	private final PanelElement pe;
+	
+	private boolean peEnable;
 	
 	/**
 	 * Permet de construire un os qui test les different element
 	 */
 	public TestTMCNesOs() {
+		this.peEnable = false;
+		
 		//Element 1
 		this.ele1 = new Element(8, 8, 32, 32, TestTMCNesOs.BACK) {};
 
@@ -91,7 +98,7 @@ public class TestTMCNesOs extends NesOs {
 		this.img2.setVerticalAlign(Align.CENTER);
 		this.img2.setHorizontalAlign(Align.CENTER);
 		this.img2.setImgCof((byte) 2);
-		this.img2.setBorder(new BasicBorder(1, FRONT));
+		this.img2.setBorder(new BasicBorder(1, TestTMCNesOs.FRONT));
 		
 		//Image 3
 		this.img3 = new ImageElement(100, 80, 40, 32, TestTMCNesOs.BACK, TMCImageOs.JOYPAD_CONSOLE);
@@ -100,14 +107,14 @@ public class TestTMCNesOs extends NesOs {
 
 		//Image 4
 		this.img4 = new ImageElement(100, 128, 40, 32, TestTMCNesOs.BACK, null);
-		this.img4.setBorder(new BasicBorder(1, WHITE));
+		this.img4.setBorder(new BasicBorder(1, TestTMCNesOs.WHITE));
 		
 		//Image 5
 		this.img5 = new ImageElement(100, 170, 16, 16, TestTMCNesOs.BACK, TMCImageOs.JOYPAD_CONSOLE);
-		this.img5.setBorder(new BasicBorder(1, FRONT));
+		this.img5.setBorder(new BasicBorder(1, TestTMCNesOs.FRONT));
 		
 		//panel
-		this.pan = new PanelElement(0, 0, 256, 256, BLACK);
+		this.pan = new PanelElement(0, 0, 256, 256, TestTMCNesOs.BLACK);
 		this.pan.addElement(this.ele1);
 		this.pan.addElement(this.ele2);
 		this.pan.addElement(this.ele3);
@@ -122,16 +129,47 @@ public class TestTMCNesOs extends NesOs {
 		this.pan.addElement(this.img3);
 		this.pan.addElement(this.img4);
 		this.pan.addElement(this.img5);
+		
+		//test center
+		this.pe = new PanelElement(0, 0, 160, 128, (byte) 63, new FullerElementManager(FullerElementManager.VERTICAL));
+		ViewElement ve = new ViewElement(0, 0, 256, 256, TestTMCNesOs.TRANS);
+		ve.setHorizontalAlign(Align.CENTER);
+		ve.setVerticalAlign(Align.CENTER);
+		ve.setView(this.pe);
+				
+		TextElement te = new TextElement(0, 0, 30, 9, (byte) 83, "Test", (byte) 82);
+		te.setHorizontalAlign(Align.CENTER);
+		te.setVerticalAlign(Align.CENTER);
+		te.setBorder(new BasicBorder(1, TestTMCNesOs.WHITE));
+		
+		TextElement t2 = new TextElement(0, 0, 50, 7, (byte) 86, "Second", (byte) 82);
+		t2.setBorder(new CornerBasicBorder(1, 2, 3, 6, (byte) 102, TRANS));
+		TextElement t3 = new TextElement(0, 0, 20, 7, (byte) 87, "Three", (byte) 82);
+		
+		//test panel
+		this.pe.addElement(te, FullerElementManager.MIN_SIZE);
+		this.pe.addElement(t2, FullerElementManager.MAX_SIZE);
+		this.pe.addElement(t3, FullerElementManager.MIN_SIZE);
 	}
 	
 	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {
+		if (mixedIn.isClicked(InputController.HEALD_1)) {
+			this.peEnable = !this.peEnable;
+		}
+		
 		this.pan.update(nes, firstIn, secondIn, mixedIn);
+		if (this.peEnable) {
+			this.pe.update(nes, firstIn, secondIn, mixedIn);
+		}
 	}
 
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
 		this.pan.render(nes, screen);
+		if (this.peEnable) {
+			this.pe.render(nes, screen);
+		}
 	}
 
 	@Override

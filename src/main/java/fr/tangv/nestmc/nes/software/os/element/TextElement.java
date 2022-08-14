@@ -11,6 +11,9 @@ import fr.tangv.nestmc.nes.TMCNes;
  */
 public class TextElement extends AlignedElement {
 
+	public static final int MIN_HEIGHT = 7;//taille mini pour afficher el texte
+	public static final int GOOD_HEIGHT = 9;//bonne taille pour afficher du texte
+	
 	private String text;
 	private byte textCof = 1;
 	private byte textColor;

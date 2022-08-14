@@ -4,10 +4,12 @@ import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.draw.MapBuffered;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
+import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import fr.tangv.nestmc.test.drawable.MapBufferFrame;
+import fr.tangv.nestmc.test.emulator.FrameController;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -51,6 +53,9 @@ public class TestFakeTMCNes extends TMCNes {
 				}
 			}
 		}, "Fake minecraft ticks").start();
+		
+		FrameController.createFrame((NesController) this.getSecondController(), "Second");
+		FrameController.createFrame((NesController) this.getFirstController(), "First");
 	}
 	
 	private final void copyBitScreenToScreen(MapBuffered[] bitScreen) {
@@ -77,10 +82,8 @@ public class TestFakeTMCNes extends TMCNes {
 	@Override
 	public void update() {
 		//update input
-		/*synchronized (this.obSync) {
-			if (this.firstPlayer != null) this.firstPlayer.updateController();
-			if (this.secondPlayer != null) this.secondPlayer.updateController();
-		}*/
+		((NesController) this.getFirstController()).update();
+		((NesController) this.getSecondController()).update();
 		
 		NesOs os = this.getOs();
 		//update os

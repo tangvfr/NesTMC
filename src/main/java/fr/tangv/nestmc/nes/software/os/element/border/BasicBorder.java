@@ -70,10 +70,7 @@ public class BasicBorder extends Border {
 		}
 	}
 
-	/**
-	 * Permet de récupérer l'épaisseur du bord du haut de l'element
-	 * @return l'épaisseur du bord du haut de l'element
-	 */
+	@Override
 	public int getTopBorder() {
 		return this.topBorder;
 	}
@@ -86,10 +83,8 @@ public class BasicBorder extends Border {
 		this.topBorder = topBorder;
 	}
 
-	/**
-	 * Permet de récupérer l'épaisseur du bord du bas de l'element
-	 * @return l'épaisseur du bord du bas de l'element
-	 */
+
+	@Override
 	public int getBottomBorder() {
 		return this.bottomBorder;
 	}
@@ -102,10 +97,8 @@ public class BasicBorder extends Border {
 		this.bottomBorder = bottomBorder;
 	}
 
-	/**
-	 * Permet de récupérer l'épaisseur du bord gauche de l'element
-	 * @return l'épaisseur du bord gauche de l'element
-	 */
+
+	@Override
 	public int getLeftBorder() {
 		return this.leftBorder;
 	}
@@ -118,10 +111,8 @@ public class BasicBorder extends Border {
 		this.leftBorder = leftBorder;
 	}
 
-	/**
-	 * Permet de récupérer l'épaisseur du bord droit de l'element
-	 * @return l'épaisseur du bord droit de l'element
-	 */
+
+	@Override
 	public int getRightBorder() {
 		return this.rightBorder;
 	}
@@ -171,6 +162,16 @@ public class BasicBorder extends Border {
 		this.bottomBorder = yBorder;
 		this.leftBorder = xBorder;
 		this.rightBorder = xBorder;
+	}
+	
+	@Override
+	public int calcXLength() {
+		return this.leftBorder + this.rightBorder;
+	}
+	
+	@Override
+	public int calcYLength() {
+		return this.topBorder + this.bottomBorder;
 	}
 
 }
