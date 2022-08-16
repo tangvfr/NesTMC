@@ -2,24 +2,17 @@ package fr.tangv.nestmc.nes.software.os.element.panel.manager;
 
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.border.Border;
 import fr.tangv.nestmc.nes.software.os.element.panel.ParamPanelElement;
 
 /**
  * @author Tangv - https://tangv.fr
- * Permet d'aligner des element en prenent une petit partie en fonction de la taille de l'element ou le faire prendre un max de place dans un même axe
+ * Permet d'aligner des elements de façon uniforme
  */
-public class FullerElementManager implements ElementManager {
-
-	/**
-	 * Fait prendre le maximum de place restante
-	 */
-	public static final int MAX_SIZE = 0;//par default c'est 0 le paramètre
-	/**
-	 * Fait prendre la place minium néssesaire
-	 */
-	public static final int MIN_SIZE = 1;
+public class DiviserElementManager implements ElementManager {
 	
 	/*
 	 * Orientations
@@ -27,15 +20,26 @@ public class FullerElementManager implements ElementManager {
 	public static final boolean HORIZONTAL = true;
 	public static final boolean VERTICAL = false;
 	
-	
 	private final boolean horizontal;//sense d'alignement
+	private int space;//espac entre les element
 	
 	/**
-	 * Permet de construire un aligneur rempliseur
+	 * Permet de construire un aligneur divisseur
+	 * @param horizontal true pour un aligneur horizontal, false pour un aligneur vertical
+	 * @param space espacement entre les différent element
+	 */
+	public DiviserElementManager(boolean horizontal, int space) {
+		Validate.isTrue(space >= 0, "Sapce can't be negative !", space);
+		this.horizontal = horizontal;
+		this.space = space;
+	}
+	
+	/**
+	 * Permet de construire un aligneur divisseur avec aucun esapacement
 	 * @param horizontal true pour un aligneur horizontal, false pour un aligneur vertical
 	 */
-	public FullerElementManager(boolean horizontal) {
-		this.horizontal = horizontal;
+	public DiviserElementManager(boolean horizontal) {
+		this(horizontal, 0);
 	}
 	
 	@Override
@@ -51,43 +55,39 @@ public class FullerElementManager implements ElementManager {
 		int height = container.getHeight();
 		int x = container.getX();
 		int y = container.getY();
-		int freeEle = 0;//element en full
+		int countEle = list.size();//nombre d'element
 		int rest = container.getWidth();
 		int offset = 0;
 		Element ele;//element traiter
 		Border border;//bordure de l'element traité
+		boolean first = true;
 		
 		//calcule du reste de pixel
 		for (ParamPanelElement ppe: list) {
 			ele = ppe.getElement();
-			
-			if (ppe.getParam() == FullerElementManager.MIN_SIZE) {//taille constante X
-				rest -= ele.getWidth();//retire les constance
-			} else {
-				freeEle++;
-			}
-			
 			border = ele.getBorder();
+			
 			if (border != null) {
 				rest -= border.calcXLength();//retire les constance
 			}
 		}
 		
+		if (countEle > 1) {
+			rest -= (countEle - 1) * this.space;
+		}
+		
 		//test si il y a la place
 		if (rest <= 0) {
 			throw new IllegalArgumentException("Container is too small !");
-		} else if (freeEle != 0) {
-			rest /= freeEle;//répartition de l'espace restant
+		} else if (countEle != 0) {
+			rest /= countEle;//répartition des espacement
 		}
 		
 		//mise a jour de la taille et position des element
 		for (ParamPanelElement ppe: list) {
 			ele = ppe.getElement();
 			border = ele.getBorder();
-			
-			if (ppe.getParam() != FullerElementManager.MIN_SIZE) {//taille en fonction du reste
-				ele.setWidth(rest);
-			}
+			ele.setWidth(rest);
 			
 			//position et décalage
 			if (border != null) {
@@ -106,6 +106,8 @@ public class FullerElementManager implements ElementManager {
 				ele.setX(x + offset);
 				offset += ele.getWidth();
 			}
+			
+			offset += this.space;
 		}
 	}
 	
@@ -113,23 +115,24 @@ public class FullerElementManager implements ElementManager {
 		int width = container.getWidth();
 		int x = container.getX();
 		int y = container.getY();
-		int freeEle = 0;//element en full
+		int countEle = list.size();//nombre d'element
 		int rest = container.getHeight();
 		int offset = 0;
 		Element ele;//element traiter
 		Border border;//bordure de l'element traité
+		boolean first = true;
 		
 		//calcule du reste de pixel
 		for (ParamPanelElement ppe: list) {
-			ele = ppe.getElement();
-			
-			if (ppe.getParam() == FullerElementManager.MIN_SIZE) {//taille constante X
-				rest -= ele.getHeight();//retire les constance
+			if (first) {
+				first = false;
 			} else {
-				freeEle++;
+				rest -= this.space;
 			}
 			
+			ele = ppe.getElement();
 			border = ele.getBorder();
+			
 			if (border != null) {
 				rest -= border.calcYLength();//retire les constance
 			}
@@ -138,18 +141,15 @@ public class FullerElementManager implements ElementManager {
 		//test si il y a la place
 		if (rest <= 0) {
 			throw new IllegalArgumentException("Container is too small !");
-		} else if (freeEle != 0) {
-			rest /= freeEle;//répartition de l'espace restant
+		} else if (countEle != 0) {
+			rest /= countEle;//répartition des espacement
 		}
 		
 		//mise a jour de la taille et position des element
 		for (ParamPanelElement ppe: list) {
 			ele = ppe.getElement();
 			border = ele.getBorder();
-			
-			if (ppe.getParam() != FullerElementManager.MIN_SIZE) {//taille en fonction du reste
-				ele.setHeight(rest);
-			}
+			ele.setHeight(rest);
 			
 			//position et décalage
 			if (border != null) {
@@ -159,7 +159,7 @@ public class FullerElementManager implements ElementManager {
 				//primary
 				offset += border.getTopBorder();
 				ele.setY(y + offset);
-				offset += ele.getHeight() + border.getBottomBorder();
+				offset += ele.getHeight() + border.getLeftBorder();
 			} else {
 				//second
 				ele.setWidth(width);
@@ -168,7 +168,25 @@ public class FullerElementManager implements ElementManager {
 				ele.setY(y + offset);
 				offset += ele.getHeight();
 			}
+			
+			offset += this.space;
 		}
+	}
+
+	/**
+	 * Permet de récupérer l'espace entre les element
+	 * @return l'espace entre les element
+	 */
+	public int getSpace() {
+		return this.space;
+	}
+
+	/**
+	 * Permet de modifier l'espace entre les element
+	 * @param space le nouvlle espace entre les element
+	 */
+	public void setSpace(int space) {
+		this.space = space;
 	}
 	
 }

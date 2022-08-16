@@ -153,5 +153,7 @@ public abstract class Element implements TMCNesInteractor {
 	public void setBorder(Border border) {
 		this.border = border;
 	}
+	
+	//public void updateSizeAndPosition();
 
 }

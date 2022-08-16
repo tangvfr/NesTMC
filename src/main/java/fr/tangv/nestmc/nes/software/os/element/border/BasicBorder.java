@@ -77,7 +77,7 @@ public class BasicBorder extends Border {
 
 	/**
 	 * Permet de modifier l'épaisseur du bord du haut de l'element
-	 * @param bottomBorder la nouvelle épaisseur du haut du bas de l'element
+	 * @param topBorder la nouvelle épaisseur du haut du bas de l'element
 	 */
 	public void setTopBorder(int topBorder) {
 		this.topBorder = topBorder;
@@ -150,6 +150,20 @@ public class BasicBorder extends Border {
 		this.bottomBorder = border;
 		this.leftBorder = border;
 		this.rightBorder = border;
+	}
+	
+	/**
+	 * Permet de modifier l'épaisseur des bords de l'element
+	 * @param topBorder la nouvelle épaisseur du haut du bas de l'element
+	 * @param bottomBorder la nouvelle épaisseur du bord du bas de l'element
+	 * @param leftBorder la nouvelle épaisseur du bord gauche de l'element
+	 * @param rightBorder la nouvelle épaisseur du bord droit de l'element
+	 */
+	public void setBorder(int topBorder, int bottomBorder, int leftBorder, int rightBorder ) {
+		this.topBorder = topBorder;
+		this.bottomBorder = bottomBorder;
+		this.leftBorder = leftBorder;
+		this.rightBorder = rightBorder ;
 	}
 	
 	/**

@@ -55,7 +55,8 @@ public class TestFakeTMCNes extends TMCNes {
 		}, "Fake minecraft ticks").start();
 		
 		FrameController.createFrame((NesController) this.getSecondController(), "Second");
-		FrameController.createFrame((NesController) this.getFirstController(), "First");
+		this.frame.getFrame().addKeyListener(new FrameController((NesController) this.getFirstController()));
+		this.frame.getFrame().toFront();
 	}
 	
 	private final void copyBitScreenToScreen(MapBuffered[] bitScreen) {

@@ -9,13 +9,13 @@ import fr.tangv.nestmc.nes.software.os.element.panel.ParamPanelElement;
  * @author Tangv - https://tangv.fr
  * Permet d'aligner des élements
  */
-public abstract class ElementManager {
+public interface ElementManager {
 
 	/**
 	 * Permet de definir la taille et la posistion d'elements par rapport a un contenneur
 	 * @param elements elements à aligner
 	 * @param panel contenneur
 	 */
-	public abstract void align(List<ParamPanelElement> elements, Element container);
+	public void align(List<ParamPanelElement> elements, Element container);
 	
 }

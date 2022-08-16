@@ -122,6 +122,9 @@ public class PanelElement extends Element {
 	 */
 	public void setManager(ElementManager manager) {
 		this.manager = manager;
+		if (this.manager != null) {
+			this.manager.align(this.elements, this);
+		}
 	}
 	
 }
