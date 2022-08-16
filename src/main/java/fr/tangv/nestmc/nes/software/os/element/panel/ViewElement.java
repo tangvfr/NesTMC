@@ -5,7 +5,6 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.os.element.AlignedElement;
 import fr.tangv.nestmc.nes.software.os.element.Element;
-import fr.tangv.nestmc.nes.software.os.element.align.Align;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -73,58 +72,23 @@ public class ViewElement extends AlignedElement {
 	 */
 	public void setView(Element view) {
 		this.view = view;
-		this.update();
+		this.updateSizeAndPosition();
 	}
 	
 	@Override
-	public void setHorizontalAlign(Align align) {
-		super.setHorizontalAlign(align);
-		this.update();
-	}
-	
-	@Override
-	public void setVerticalAlign(Align align) {
-		super.setVerticalAlign(align);
-		this.update();
-	}
-	
-	@Override
-	public void setHeight(int height) {
-		super.setHeight(height);
-		this.update();
-	}
-	
-	@Override
-	public void setWidth(int width) {
-		super.setWidth(width);
-		this.update();
-	}
-	
-	@Override
-	public void setX(int x) {
-		super.setX(x);
-		this.update();
-	}
-	
-	@Override
-	public void setY(int y) {
-		super.setY(y);
-		this.update();
-	}
-	
-	/**
-	 * Permet de mettre a jour l'alignement de l'element
-	 */
-	public void update() {
+	public void updateSizeAndPosition() {
 		if (this.view != null) {
 			this.view.setX(this.getX() + this.getHorizontalAlign().calcOffset(
 					this.getWidth(),
 					this.view.getWidth()
 					));
+			
 			this.view.setY(this.getY() + this.getVerticalAlign().calcOffset(
 					this.getHeight(),
 					this.view.getHeight()
 					));
+			
+			this.view.updateSizeAndPosition();
 		}
 	}
 	

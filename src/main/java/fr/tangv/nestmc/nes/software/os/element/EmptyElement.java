@@ -15,4 +15,7 @@ public class EmptyElement extends Element {
 		super(0, 0, width, height, (byte) 0);
 	}
 
+	@Override
+	public void updateSizeAndPosition() {}
+	
 }

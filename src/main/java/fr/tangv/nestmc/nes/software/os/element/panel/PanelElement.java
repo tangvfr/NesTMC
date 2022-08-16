@@ -80,9 +80,7 @@ public class PanelElement extends Element {
 	 */
 	public void addElement(Element ele, int param) {
 		this.elements.add(new ParamPanelElement(ele, param));
-		if (this.manager != null) {
-			this.manager.align(this.elements, this);
-		}
+		this.updateSizeAndPosition();
 	}
 	
 	/**
@@ -94,9 +92,7 @@ public class PanelElement extends Element {
 	@SuppressWarnings("unlikely-arg-type")
 	public boolean removeElement(Element ele) {
 		boolean rm = this.elements.remove(ele);
-		if (this.manager != null) {
-			this.manager.align(this.elements, this);
-		}
+		this.updateSizeAndPosition();
 		return rm;
 	}
 	
@@ -122,8 +118,17 @@ public class PanelElement extends Element {
 	 */
 	public void setManager(ElementManager manager) {
 		this.manager = manager;
+		this.updateSizeAndPosition();
+	}
+	
+	@Override
+	public void updateSizeAndPosition() {
 		if (this.manager != null) {
 			this.manager.align(this.elements, this);
+		}
+		
+		for (ParamPanelElement ele : this.elements) {
+			ele.getElement().updateSizeAndPosition();
 		}
 	}
 	

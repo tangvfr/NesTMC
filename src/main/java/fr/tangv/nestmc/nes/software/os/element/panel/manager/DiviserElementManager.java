@@ -64,16 +64,18 @@ public class DiviserElementManager implements ElementManager {
 		
 		//calcule du reste de pixel
 		for (ParamPanelElement ppe: list) {
+			if (first) {
+				first = false;
+			} else {
+				rest -= this.space;
+			}
+			
 			ele = ppe.getElement();
 			border = ele.getBorder();
 			
 			if (border != null) {
 				rest -= border.calcXLength();//retire les constance
 			}
-		}
-		
-		if (countEle > 1) {
-			rest -= (countEle - 1) * this.space;
 		}
 		
 		//test si il y a la place

@@ -55,22 +55,22 @@ public class TestTMCNesOs extends NesOs {
 		this.peEnable = 0;
 		
 		//Element 1
-		this.ele1 = new Element(8, 8, 32, 32, TestTMCNesOs.BACK) {};
+		this.ele1 = new Element(8, 8, 32, 32, TestTMCNesOs.BACK) {@Override public void updateSizeAndPosition() {}};
 
 		//Element 2
-		this.ele2 = new Element(8, 72, 32, 32, TestTMCNesOs.BACK) {};
+		this.ele2 = new Element(8, 72, 32, 32, TestTMCNesOs.BACK) {@Override public void updateSizeAndPosition() {}};
 		this.ele2.setBorder(new BasicBorder(2, TestTMCNesOs.FRONT));
 
 		//Element 3
-		this.ele3 = new Element(8, 136, 32, 32, TestTMCNesOs.BACK) {};
+		this.ele3 = new Element(8, 136, 32, 32, TestTMCNesOs.BACK) {@Override public void updateSizeAndPosition() {}};
 		this.ele3.setBorder(new BasicBorder(8, 4, 0, 2, TestTMCNesOs.FRONT));
 		
 		//Element 4
-		this.ele4 = new Element(8, 190, 16, 16, TestTMCNesOs.BACK) {};
+		this.ele4 = new Element(8, 190, 16, 16, TestTMCNesOs.BACK) {@Override public void updateSizeAndPosition() {}};
 		this.ele4.setBorder(new CornerBasicBorder(8, 1, 6, 2, TestTMCNesOs.FRONT, TestTMCNesOs.WHITE));
 
 		//Element 5
-		this.ele5 = new Element(8, 220, 16, 16, TestTMCNesOs.BACK) {};
+		this.ele5 = new Element(8, 220, 16, 16, TestTMCNesOs.BACK) {@Override public void updateSizeAndPosition() {}};
 		this.ele5.setBorder(new CornerBasicBorder(3, TestTMCNesOs.FRONT, TestTMCNesOs.WHITE));
 		
 		//Text 1

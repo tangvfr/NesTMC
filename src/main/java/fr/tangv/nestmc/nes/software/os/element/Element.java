@@ -104,6 +104,7 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setX(int x) {
 		this.x = x;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -112,6 +113,7 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setY(int y) {
 		this.y = y;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -120,6 +122,7 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setWidth(int width) {
 		this.width = width;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -128,6 +131,7 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -152,8 +156,12 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public void setBorder(Border border) {
 		this.border = border;
+		this.updateSizeAndPosition();
 	}
 	
-	//public void updateSizeAndPosition();
+	/*
+	 * Permet de mettre à jour la taille et la position des elements enfant
+	 */
+	public abstract void updateSizeAndPosition();
 
 }

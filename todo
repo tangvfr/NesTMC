@@ -1,12 +1,10 @@
 O multi folder for rom repo
 O make emulate mcnes (tmcnes in jframe)
-
-#make manager element divisé & grid(avec index pour l'objet)
-#make os gui 
+O diviseur aligneur
 
 -make message(config) & value configurable
+#make os gui
+
 -save nes after reload
 -add destruct nes - is linked (in controller)
 /reloadrom
-
-#make os gui

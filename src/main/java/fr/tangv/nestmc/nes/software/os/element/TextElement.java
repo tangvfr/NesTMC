@@ -131,4 +131,9 @@ public class TextElement extends AlignedElement {
 		this.textColor = textColor;
 	}
 	
+	@Override
+	public void updateSizeAndPosition() {
+		//need screen info font
+	}
+	
 }

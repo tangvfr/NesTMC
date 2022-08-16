@@ -40,6 +40,7 @@ public abstract class AlignedElement extends Element {
 	public void setHorizontalAlign(Align align) {
 		Validate.notNull(align, "Align can't null");
 		this.horizontalAlign = align;
+		this.updateSizeAndPosition();
 	}
 	
 	/**
@@ -57,6 +58,7 @@ public abstract class AlignedElement extends Element {
 	public void setVerticalAlign(Align align) {
 		Validate.notNull(align, "Align can't null");
 		this.verticalAlign = align;
+		this.updateSizeAndPosition();
 	}
 	
 }

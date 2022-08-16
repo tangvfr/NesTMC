@@ -12,6 +12,8 @@ public class ImageElement extends AlignedElement {
 
 	private byte imgCof = 1;
 	private DrawableImage img;
+	private int offsetX;
+	private int offsetY;
 	
 	/**
 	 * Permet de construire un element contenant une image
@@ -30,20 +32,10 @@ public class ImageElement extends AlignedElement {
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
 		super.render(nes, screen);
+		
 		if (this.img != null) {//check si il y a une image
-			int height = this.getHeight();
-			int width = this.getWidth();
-			int heightImg = this.img.getHeight() * this.imgCof;
-			int widthImg = this.img.getWidth() * this.imgCof;
-			
-			if (width >= widthImg && height >= heightImg) {//test si l'image rentre
-				screen.setCof(this.imgCof);
-				screen.drawImage(
-						this.getX() + this.getHorizontalAlign().calcOffset(width, widthImg),
-						this.getY() + this.getVerticalAlign().calcOffset(height, heightImg),
-						this.img
-						);
-			}
+			screen.setCof(this.imgCof);
+			screen.drawImage(this.offsetX, this.offsetY, this.img);
 		}
 	}
 	
@@ -61,6 +53,7 @@ public class ImageElement extends AlignedElement {
 	 */
 	public void setImgCof(byte cof) {
 		this.imgCof = cof;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -77,6 +70,22 @@ public class ImageElement extends AlignedElement {
 	 */
 	public void setImg(DrawableImage img) {
 		this.img = img;
+		this.updateSizeAndPosition();
+	}
+	
+	@Override
+	public void updateSizeAndPosition() {
+		if (this.img != null) {
+			int height = this.getHeight();
+			int width = this.getWidth();
+			int heightImg = this.img.getHeight() * this.imgCof;
+			int widthImg = this.img.getWidth() * this.imgCof;
+			
+			if (width >= widthImg && height >= heightImg) {//test si l'image rentre
+				this.offsetX = this.getX() + this.getHorizontalAlign().calcOffset(width, widthImg);
+				this.offsetY = this.getY() + this.getVerticalAlign().calcOffset(height, heightImg);
+			}
+		}
 	}
 	
 }
