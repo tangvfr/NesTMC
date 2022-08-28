@@ -5,7 +5,7 @@ package fr.tangv.nestmc.game.v1_8;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -16,7 +16,8 @@ import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesOs;
-import fr.tangv.nestmc.nes.software.os.TMCNesOs;
+import fr.tangv.nestmc.nes.software.os.tmcos.TMCNesOs;
+import fr.tangv.nestmc.nes.software.test.GameTestNesOs;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
@@ -34,7 +35,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 	 * @param plugin le plugin du gestionaire
 	 * @param config la configuration et les messages des console
 	 */
-	public McNesManagerV1_8(NesTMC plugin, YamlConfiguration config) {
+	public McNesManagerV1_8(NesTMC plugin, FileConfiguration config) {
 		super(plugin, config);
 	}
 
@@ -62,7 +63,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 
 	@Override
 	public NesOs createNesOs() {
-		return new TMCNesOs();
+		return new GameTestNesOs();
 	}
 
 	@Override

@@ -34,6 +34,22 @@ public class TextElement extends AlignedElement {
 		this.text = text;
 		this.textColor = textColor;
 	}
+	
+	/**
+	 * Permet de construire un element contenant du texte par default est en alignement start
+	 * @param x décalage horizontal
+	 * @param y décalage vertical
+	 * @param width largeur
+	 * @param height hauteur
+	 * @param background coleur de fond
+	 * @param text texte dessiner
+	 * @param textColor couleur du texte
+	 * @param textCof taille du texte
+	 */
+	public TextElement(int x, int y, int width, int height, byte background, String text, byte textColor, byte textCof) {
+		this(x, y, width, height, background, text, textColor);
+		this.textCof = textCof;
+	}
 
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {

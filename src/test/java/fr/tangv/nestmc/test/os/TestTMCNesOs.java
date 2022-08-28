@@ -7,10 +7,13 @@ import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.nes.software.img.TMCImageOs;
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
+import fr.tangv.nestmc.nes.software.os.element.ScrollElement;
 import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Align;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.border.CornerBasicBorder;
+import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
+import fr.tangv.nestmc.nes.software.os.element.focus.FocusExecution;
 import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.DiviserElementManager;
@@ -45,6 +48,7 @@ public class TestTMCNesOs extends NesOs {
 	private final PanelElement pan;
 	private final PanelElement pe;
 	private final PanelElement pe2;
+	private final FocusElement fe;
 	
 	private int peEnable;
 	
@@ -177,6 +181,68 @@ public class TestTMCNesOs extends NesOs {
 			this.pe2.addElement(t2);
 			this.pe2.addElement(t3);
 		}
+		
+		{//color scroll
+			this.fe = new FocusElement(0, 0, 256, 256, TestTMCNesOs.TRANS, (byte) 129, (byte) 130);
+			fe.setHorizontalAlign(Align.CENTER);
+			fe.setVerticalAlign(Align.START);
+			PanelElement pe = new PanelElement(0, 0, 160, 160, (byte) 79, new FullerElementManager(FullerElementManager.VERTICAL));
+			
+			//color scroll
+			byte back = (byte) 10;
+			byte color1 = (byte) 8;
+			byte color2 = (byte) 9;
+			BasicBorder bb = new BasicBorder(1, (byte) 11);
+			
+			ScrollElement se1 = new ScrollElement(0, 0, 0, 0, back, 0, 0, color1, color2);
+			ScrollElement se2 = new ScrollElement(0, 0, 0, 0, back, 0, 2, color1, color2);
+			ScrollElement se3 = new ScrollElement(0, 0, 0, 0, back, 0, 3, color1, color2);
+			ScrollElement se4 = new ScrollElement(0, 0, 0, 0, back, 0, 5, color1, color2);
+			ScrollElement se5 = new ScrollElement(0, 0, 0, 0, back, 0, 12, color1, color2);
+			
+			//border
+			se1.setBorder(bb);
+			se2.setBorder(bb);
+			se3.setBorder(bb);
+			se4.setBorder(bb);
+			se5.setBorder(bb);
+
+			//add in panel
+			pe.addElement(se1, FullerElementManager.MAX_SIZE);
+			pe.addElement(se2, FullerElementManager.MAX_SIZE);
+			pe.addElement(se3, FullerElementManager.MAX_SIZE);
+			pe.addElement(se4, FullerElementManager.MAX_SIZE);
+			pe.addElement(se5, FullerElementManager.MAX_SIZE);
+			//action
+			this.fe.setView(pe);
+			this.fe.addAction(InputController.UP, new FocusExecution() {
+				@Override
+				public void execute(int buttons, FocusElement ele, InputController input, TMCNes nes) {
+					int dec = input.isPress(InputController.SNEAK) ? 5 : 1;
+					se1.decScroll(dec);
+					se2.decScroll(dec);
+					se3.decScroll(dec);
+					se4.decScroll(dec);
+					se5.decScroll(dec);
+				}
+			});
+			this.fe.addAction(InputController.DOWN, new FocusExecution() {
+				@Override
+				public void execute(int buttons, FocusElement ele, InputController input, TMCNes nes) {int inc = input.isPress(InputController.SNEAK) ? 5 : 1;
+					se1.incScroll(inc);
+					se2.incScroll(inc);
+					se3.incScroll(inc);
+					se4.incScroll(inc);
+					se5.incScroll(inc);
+				}
+			});
+			this.fe.addAction(InputController.SPACE, new FocusExecution() {
+				@Override
+				public void execute(int buttons, FocusElement ele, InputController input, TMCNes nes) {
+					ele.setFocus(!ele.isFocus());
+				}
+			});
+		}
 	}
 	
 	@Override
@@ -184,7 +250,7 @@ public class TestTMCNesOs extends NesOs {
 		if (mixedIn.isClicked(InputController.HEALD_1)) {
 			this.peEnable++;
 			
-			if (this.peEnable > 2) {
+			if (this.peEnable > 3) {
 				this.peEnable = 0;
 			}
 		}
@@ -195,6 +261,9 @@ public class TestTMCNesOs extends NesOs {
 		}
 		if (this.peEnable == 2) {
 			this.pe2.update(nes, firstIn, secondIn, mixedIn);
+		}
+		if (this.peEnable == 3) {
+			this.fe.update(nes, firstIn, secondIn, mixedIn);
 		}
 	}
 
@@ -207,6 +276,9 @@ public class TestTMCNesOs extends NesOs {
 		}
 		if (this.peEnable == 2) {
 			this.pe2.render(nes, screen);
+		}
+		if (this.peEnable == 3) {
+			this.fe.render(nes, screen);
 		}
 	}
 

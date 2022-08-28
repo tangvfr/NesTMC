@@ -20,7 +20,8 @@ public class NesTMC extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		this.manager = new McNesManagerV1_8(this, null);
+		this.saveDefaultConfig();
+		this.manager = new McNesManagerV1_8(this, this.getConfig());
 		for (Player player : Bukkit.getOnlinePlayers()) {//pour tous les joueur
 			this.manager.playerJoin(player);
 		}

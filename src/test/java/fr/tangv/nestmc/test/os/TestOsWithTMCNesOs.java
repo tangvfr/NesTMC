@@ -1,6 +1,6 @@
 package fr.tangv.nestmc.test.os;
 
-import fr.tangv.nestmc.nes.software.os.TMCNesOs;
+import fr.tangv.nestmc.nes.software.os.tmcos.TMCNesOs;
 
 /**
  * @author Tangv - https://tangv.fr

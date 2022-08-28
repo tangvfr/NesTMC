@@ -11,7 +11,7 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -46,7 +46,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	/*
 	 * configuration dans laquelle est stocker les nes du serveur
 	 */
-	protected final YamlConfiguration config;
+	protected final FileConfiguration config;
 	/**
 	 * distance maximal pour voir une nes
 	 */
@@ -69,7 +69,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * @param plugin le plugin du gestionaire
 	 * @param config la configuration et les messages des console
 	 */
-	public McNesManager(NesTMC plugin, YamlConfiguration config) {//https://minecraft-heads.com/custom-heads/decoration/2001-nes
+	public McNesManager(NesTMC plugin, FileConfiguration config) {//https://minecraft-heads.com/custom-heads/decoration/2001-nes
 		this.plugin = plugin;
 		this.config = config;
 		this.maxRange = config.getDouble("param.max_range", 16D);
