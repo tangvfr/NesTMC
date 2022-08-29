@@ -30,6 +30,14 @@ public abstract class RomRepository implements Iterable<NesRom> {
 	public NesRom getRom(int index) {
 		return this.roms.get(index);
 	}
+	
+	/**
+	 * Permet de savoir si le répertoire de rom nes est vide
+	 * @return true si le répertoire est vide
+	 */
+	public boolean isEmpty() {
+		return this.roms.isEmpty();
+	}
 
 	/**
 	 * Permet de savoir le nombre de roms

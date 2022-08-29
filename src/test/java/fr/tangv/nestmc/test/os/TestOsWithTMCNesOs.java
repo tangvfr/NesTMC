@@ -1,5 +1,6 @@
 package fr.tangv.nestmc.test.os;
 
+import fr.tangv.nestmc.nes.rom.FolderRomRepository;
 import fr.tangv.nestmc.nes.software.os.tmcos.TMCNesOs;
 
 /**
@@ -9,7 +10,7 @@ import fr.tangv.nestmc.nes.software.os.tmcos.TMCNesOs;
 public class TestOsWithTMCNesOs {
 
 	public static void main(String[] args) {
-		new TestFakeTMCNes(new TMCNesOs(), args[0]);
+		new TestFakeTMCNes(new TMCNesOs(new FolderRomRepository(args[0])), args[0]);
 	}
 	
 }

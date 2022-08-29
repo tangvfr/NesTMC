@@ -40,7 +40,7 @@ public class FolderRomRepository extends RomRepository {
 		File file;
 		files.add(folder);
 		
-		//pour tout les dossier et sous dossier du folder
+		//pour tout les dossier et sous dossier du folder de maniere profonde
 		while (!files.isEmpty()) {//tant qu'il aura des fichiers a traiter
 			file = files.pollFirst();
 			

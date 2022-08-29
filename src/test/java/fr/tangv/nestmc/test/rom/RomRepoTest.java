@@ -12,7 +12,7 @@ public class RomRepoTest {
 	public static void main(String[] args) {
 		System.out.println("List des roms:");
 		for (NesRom rom : new FolderRomRepository(args[0])) {
-			System.out.println("  - " + rom.getName());
+			System.out.println((rom.canSave() ? "  S- " : "  - ") + rom.getName());
 		}
 	}
 

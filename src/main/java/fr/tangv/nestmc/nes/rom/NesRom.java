@@ -37,7 +37,7 @@ public class NesRom {
 		ROMLoader rom = new ROMLoader(path);
 		rom.parseHeader();
 		Mapper mapper = Mapper.getCorrectMapper(rom);//pour tester que le mapper est compatible
-		this.save = mapper.supportsSaves();
+		this.save = rom.savesram;
 		mapper.destroy();
 		this.path = path;
 		this.name = new File(path).getName().replaceAll(".nes", "");
