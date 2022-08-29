@@ -1,5 +1,7 @@
 package fr.tangv.nestmc.nes.software;
 
+import java.io.File;
+
 import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.nes.NesScreenMap;
 
@@ -30,6 +32,11 @@ public class NesGui extends NesScreenMap {
 		super(bitScreens, colors);
 		this.msgOs = msgOs;
 		this.saveFolder = saveFolder;
+		//create folder
+		File folder = new File(saveFolder);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
 	}
 
 	@Override

@@ -162,6 +162,14 @@ public class TMCNesOs extends NesOs {
 				}
 			}
 		}
+		
+		//focred exit
+		if (firstIn.isClicked(InputController.HEALD_8) && firstIn.isPress(InputController.SPACE)) {
+			nes.closeController(McNes.FIRST_CONTROLLER);
+		}
+		if (secondIn.isClicked(InputController.HEALD_8) && secondIn.isPress(InputController.SPACE)) {
+			nes.closeController(McNes.SECOND_CONTROLLER);
+		}
 	}
 
 	@Override
