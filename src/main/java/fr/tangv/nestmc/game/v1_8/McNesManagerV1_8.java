@@ -17,7 +17,6 @@ import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.nes.software.os.tmcos.TMCNesOs;
-import fr.tangv.nestmc.nes.software.test.GameTestNesOs;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
@@ -29,7 +28,7 @@ import net.minecraft.server.v1_8_R3.PlayerConnection;
  * Gestionnaire des nes sur le serveur minecraft 1.8
  */
 public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>> {
-
+	
 	/**
 	 * Permet de construire un gestionnaire de consoles
 	 * @param plugin le plugin du gestionaire
@@ -63,7 +62,7 @@ public class McNesManagerV1_8 extends McNesManager<Packet<PacketListenerPlayOut>
 
 	@Override
 	public NesOs createNesOs() {
-		return new GameTestNesOs();
+		return new TMCNesOs(this.getRepo());
 	}
 
 	@Override

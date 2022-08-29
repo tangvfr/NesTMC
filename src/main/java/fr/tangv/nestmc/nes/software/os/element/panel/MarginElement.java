@@ -1,7 +1,5 @@
 package fr.tangv.nestmc.nes.software.os.element.panel;
 
-import javax.swing.text.View;
-
 import fr.tangv.nestmc.nes.software.os.element.Element;
 
 /**
@@ -19,12 +17,12 @@ public class MarginElement extends ViewElement {
 	 * Permet de modifier les bords de l'element
 	 * @param border la nouvelle épaisseur des bords l'element
 	 */
-	public void setBorder(int border) {
+	/*public void setBorder(int border) {
 		this.topBorder = border;
 		this.bottomBorder = border;
 		this.leftBorder = border;
 		this.rightBorder = border;
-	}
+	}*/
 	
 	/**
 	 * Permet de modifier l'épaisseur des bords de l'element
@@ -33,19 +31,32 @@ public class MarginElement extends ViewElement {
 	 * @param leftBorder la nouvelle épaisseur du bord gauche de l'element
 	 * @param rightBorder la nouvelle épaisseur du bord droit de l'element
 	 */
-	public void setBorder(int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
+	/*public void setBorder(int topBorder, int bottomBorder, int leftBorder, int rightBorder) {
 		this.topBorder = topBorder;
 		this.bottomBorder = bottomBorder;
 		this.leftBorder = leftBorder;
 		this.rightBorder = rightBorder ;
-	}
+	}*/
 	
+	/**
+	 * Permet de construire 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param background
+	 */
+	public MarginElement(int x, int y, int width, int height, byte background) {
+		super(x, y, width, height, background);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Permet de modifier les bords de l'element
 	 * @param borderX la nouvelle épaisseur des bords horizontaux de l'element
 	 * @param borderY la nouvelle épaisseur des bords verticaux de l'element
 	 */
-	public void setBorder(int xBorder, int yBorder) {
+	/*public void setBorder(int xBorder, int yBorder) {
 		this.topBorder = yBorder;
 		this.bottomBorder = yBorder;
 		this.leftBorder = xBorder;

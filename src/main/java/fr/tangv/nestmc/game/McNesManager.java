@@ -22,6 +22,8 @@ import fr.tangv.nestmc.game.controller.RequestController;
 import fr.tangv.nestmc.game.event.NesClick;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
+import fr.tangv.nestmc.nes.rom.FolderRomRepository;
+import fr.tangv.nestmc.nes.rom.RomRepository;
 import fr.tangv.nestmc.nes.software.NesOs;
 
 /**
@@ -63,6 +65,10 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 * le plugin auquel appartient le gestionnaire
 	 */
 	private final NesTMC plugin;
+	/*
+	 * repertoire de roms disponible
+	 */
+	private final RomRepository repo;
 
 	/**
 	 * Permet de construire un gestionnaire de consoles
@@ -74,6 +80,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 		this.config = config;
 		this.maxRange = config.getDouble("param.max_range", 16D);
 		this.maxNes = config.getInt("param.max_nes", 2);
+		this.repo = new FolderRomRepository(config.getString("roms_folder", "./roms"));
 		//saved consoles is loading
 		//his.config.get
 		
@@ -331,6 +338,14 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 	 */
 	public NesTMC getPlugin() {
 		return this.plugin;
+	}
+
+	/**
+	 * Permet de récupérer le repertoire de roms nes
+	 * @return le repertoire de roms nes
+	 */
+	public RomRepository getRepo() {
+		return this.repo;
 	}
 	
 }
