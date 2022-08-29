@@ -9,12 +9,10 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.nes.software.img.TMCImageOs;
-import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.TextElement;
-import fr.tangv.nestmc.nes.software.os.element.align.Align;
+import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
-import fr.tangv.nestmc.nes.software.os.element.focus.FocusExecution;
 import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.FullerElementManager;
@@ -41,43 +39,42 @@ public class TMCNesOs extends NesOs {
 		byte border = (byte) 66;
 		byte back = (byte) 67;
 		byte unsel = (byte) 64;
-		byte sel = (byte) 130;
+		byte sel = text;
+		byte selBack = unsel;
 		byte trans = (byte) 0;
 		
 		this.ve = new ViewElement(0, 0, 256, 256, trans);
-		this.ve.setHorizontalAlign(Align.CENTER);
-		this.ve.setVerticalAlign(Align.CENTER);
+		this.ve.setHorizontalAlign(Aligns.CENTER);
+		this.ve.setVerticalAlign(Aligns.CENTER);
 		
 		
 		
-		close = new FocusElement(0, 0, 0, 0, back, unsel, sel);
+		close = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
 		close.setText("Close", text, (byte) 2);
-		close.addAction(InputController.SPACE, new FocusExecution() {
-			@Override
-			public void execute(int buttons, FocusElement ele, InputController input, TMCNes nes) {
-				if (ele.isFocus()) {
-					show = false;
-				}
-			}
-		});
-		
-		exit = new FocusElement(0, 0, 0, 0, back, unsel, sel);
-		exit.setText("Exit", text, (byte) 2);
-		exit.addAction(InputController.SPACE, new FocusExecution() {
-			@Override
-			public void execute(int buttons, FocusElement ele, InputController input, TMCNes nes) {
-				if (ele.isFocus()) {
-					if (nes instanceof McNes<?>) {
-						((McNes<?>) nes).closeController(McNes.FIRST_CONTROLLER + McNes.SECOND_CONTROLLER);
-					} else {
-						System.exit(0);
+		close.addAction(InputController.SPACE, 
+				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
+					if (ele.isFocus()) {
+						show = false;
 					}
 				}
-			}
-		});
+			);
+		
+		exit = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
+		exit.setText("Exit", text, (byte) 2);
+		exit.addAction(InputController.SPACE, 
+				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
+					if (ele.isFocus()) {
+						if (nes instanceof McNes<?>) {
+							((McNes<?>) nes).closeController(McNes.FIRST_CONTROLLER + McNes.SECOND_CONTROLLER);
+						} else {
+							System.exit(0);
+						}
+					}
+				}
+			);
 		
 		//liste
-		this.list = new FocusElement(0, 0, 0, 0, back, unsel, sel);
+		this.list = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
 		//this.list.addAction(InputController., null);a
 		//this.list = new PanelElement(0, 0, 0, 0, back, new FullerElementManager(FullerElementManager.HORIZONTAL));
 		//add selector nes roms
@@ -87,13 +84,14 @@ public class TMCNesOs extends NesOs {
 		this.panel = new PanelElement(0, 0, 128, 128, back, new FullerElementManager(FullerElementManager.VERTICAL));
 		this.panel.setBorder(new BasicBorder(2, border));
 		TextElement menu = new TextElement(0, 0, 0, 0, trans, "Menu", border, (byte) 3);
-		menu.setHorizontalAlign(Align.CENTER);
-		menu.setVerticalAlign(Align.CENTER);
+		menu.setHorizontalAlign(Aligns.CENTER);
+		menu.setVerticalAlign(Aligns.CENTER);
 		this.panel.addElement(menu, FullerElementManager.MAX_SIZE);
 		this.panel.addElement(list, FullerElementManager.MAX_SIZE);
 		this.panel.addElement(exit, FullerElementManager.MAX_SIZE);
 		this.panel.addElement(close, FullerElementManager.MAX_SIZE);
 		this.close.setFocus(true);
+		
 		this.ve.setView(this.panel);
 		
 		//update all

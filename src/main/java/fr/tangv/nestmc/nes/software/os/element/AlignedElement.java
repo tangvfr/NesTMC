@@ -3,6 +3,7 @@ package fr.tangv.nestmc.nes.software.os.element;
 import org.apache.commons.lang.Validate;
 
 import fr.tangv.nestmc.nes.software.os.element.align.Align;
+import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -10,8 +11,8 @@ import fr.tangv.nestmc.nes.software.os.element.align.Align;
  */
 public abstract class AlignedElement extends Element {
 
-	private Align horizontalAlign = Align.START;
-	private Align verticalAlign = Align.START;
+	private Align horizontalAlign = Aligns.START;
+	private Align verticalAlign = Aligns.START;
 	
 	/**
 	 * Permet de construire un element de base pouvant être aligner qui par default est en start

@@ -9,7 +9,7 @@ import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.TextElement;
-import fr.tangv.nestmc.nes.software.os.element.align.Align;
+import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 
@@ -20,8 +20,10 @@ import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 public class FocusElement extends ViewElement {
 
 	private final LinkedList<FocusAction> actions = new LinkedList<FocusAction>();
-	private final byte unfocusColor;
-	private final byte focusColor;
+	private final byte unfocusBorderColor;
+	private final byte focusBorderColor;
+	private final byte unfocusBackgroundColor;
+	private final byte focusBackgroundColor;
 	private boolean isFocus = false;
 	
 	/**
@@ -32,13 +34,16 @@ public class FocusElement extends ViewElement {
 	 * @param height hauteur
 	 * @param background coleur de fond
 	 */
-	public FocusElement(int x, int y, int width, int height, byte background, byte unfocusColor, byte focusColor) {
-		super(x, y, width, height, background);
-		this.focusColor = focusColor;
-		this.unfocusColor = unfocusColor;
-		this.setHorizontalAlign(Align.CENTER);
-		this.setVerticalAlign(Align.CENTER);
-		this.setBorder(new BasicBorder(1, this.unfocusColor));
+	public FocusElement(int x, int y, int width, int height, byte unfocusBorderColor, byte focusBorderColor,
+			byte unfocusBackgroundColor, byte focusBackgroundColor) {
+		super(x, y, width, height, unfocusBackgroundColor);
+		this.unfocusBorderColor = unfocusBorderColor;
+		this.focusBorderColor = focusBorderColor;
+		this.unfocusBackgroundColor = unfocusBackgroundColor;
+		this.focusBackgroundColor = focusBackgroundColor;
+		this.setHorizontalAlign(Aligns.CENTER);
+		this.setVerticalAlign(Aligns.CENTER);
+		this.setBorder(new BasicBorder(1, this.unfocusBorderColor));
 	}
 	
 	@Override
@@ -64,8 +69,8 @@ public class FocusElement extends ViewElement {
 	public void setText(String str, byte color, byte cof) {
 		TextElement te = new TextElement(0, 0, this.getWidth(), this.getHeight(), (byte) 0, str, color);
 		te.setTextCof(cof);
-		te.setHorizontalAlign(Align.CENTER);
-		te.setVerticalAlign(Align.CENTER);
+		te.setHorizontalAlign(Aligns.CENTER);
+		te.setVerticalAlign(Aligns.CENTER);
 		this.setView(te);
 	}
 	
@@ -77,8 +82,8 @@ public class FocusElement extends ViewElement {
 	public void setImage(DrawableImage img, byte cof) {
 		ImageElement ie = new ImageElement(0, 0, this.getWidth(), this.getHeight(), (byte) 0, img);
 		ie.setImgCof(cof);
-		ie.setHorizontalAlign(Align.CENTER);
-		ie.setVerticalAlign(Align.CENTER);
+		ie.setHorizontalAlign(Aligns.CENTER);
+		ie.setVerticalAlign(Aligns.CENTER);
 		this.setView(ie);
 	}
 	
@@ -96,7 +101,8 @@ public class FocusElement extends ViewElement {
 	 */
 	public void setFocus(boolean isFocus) {
 		this.isFocus = isFocus;
-		((BasicBorder) this.getBorder()).setBorderColor(isFocus ? this.focusColor : this.unfocusColor);
+		((BasicBorder) this.getBorder()).setBorderColor(isFocus ? this.focusBorderColor : this.unfocusBorderColor);
+		this.setBackground(isFocus ? this.focusBackgroundColor : this.unfocusBackgroundColor);
 	}
 	
 	/**

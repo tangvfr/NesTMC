@@ -4,7 +4,7 @@ package fr.tangv.nestmc.nes.software.os.element.align;
  * @author Tangv - https://tangv.fr
  * Permet de faire un alignement en etant coller au debut du contenneur
  */
-public class StartAlign extends Align {
+public class StartAlign implements Align {
 
 	@Override
 	public int calcOffset(int containerLength, int elementLength) {

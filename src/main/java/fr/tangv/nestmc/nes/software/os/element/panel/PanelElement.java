@@ -84,6 +84,15 @@ public class PanelElement extends Element {
 	}
 	
 	/**
+	 * Permet d'obtenir un element en fonction de son index
+	 * @param index index de l'element
+	 * @return l'elment a l'index
+	 */
+	public Element getElement(int index) {
+		return this.elements.get(index).getElement();
+	}
+	
+	/**
 	 * Permet d'enlever un element
 	 * @param ele element supprimé
 	 * @return true si l'element a bien été suprimé

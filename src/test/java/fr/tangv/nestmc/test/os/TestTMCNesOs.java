@@ -9,7 +9,7 @@ import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.ScrollElement;
 import fr.tangv.nestmc.nes.software.os.element.TextElement;
-import fr.tangv.nestmc.nes.software.os.element.align.Align;
+import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.border.CornerBasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
@@ -82,34 +82,34 @@ public class TestTMCNesOs extends NesOs {
 
 		//Text 2
 		this.text2 = new TextElement(48, 32, 48, 16, TestTMCNesOs.BACK, "Center", WHITE);
-		this.text2.setHorizontalAlign(Align.CENTER);
-		this.text2.setVerticalAlign(Align.CENTER);
+		this.text2.setHorizontalAlign(Aligns.CENTER);
+		this.text2.setVerticalAlign(Aligns.CENTER);
 		this.text2.setBorder(new BasicBorder(1, TestTMCNesOs.FRONT));
 		
 		//Text 3
 		this.text3 = new TextElement(48, 56, 32, 20, TestTMCNesOs.BACK, "END", WHITE);
-		this.text3.setHorizontalAlign(Align.END);
+		this.text3.setHorizontalAlign(Aligns.END);
 		this.text3.setTextCof((byte) 2);
 
 		//Text 4
 		this.text4 = new TextElement(48, 80, 40, 16, TestTMCNesOs.BACK, "HUGE22334455667788", WHITE);
-		this.text4.setHorizontalAlign(Align.END);
-		this.text4.setVerticalAlign(Align.END);
+		this.text4.setHorizontalAlign(Aligns.END);
+		this.text4.setVerticalAlign(Aligns.END);
 		
 		//Image 1
 		this.img1 = new ImageElement(100, 8, 17, 16, TestTMCNesOs.BACK, TMCImageOs.JOYPAD_CONSOLE);
 		
 		//Image 2
 		this.img2 = new ImageElement(100, 40, 40, 32, TestTMCNesOs.TRANS, TMCImageOs.JOYPAD_CONSOLE);
-		this.img2.setVerticalAlign(Align.CENTER);
-		this.img2.setHorizontalAlign(Align.CENTER);
+		this.img2.setVerticalAlign(Aligns.CENTER);
+		this.img2.setHorizontalAlign(Aligns.CENTER);
 		this.img2.setImgCof((byte) 2);
 		this.img2.setBorder(new BasicBorder(1, TestTMCNesOs.FRONT));
 		
 		//Image 3
 		this.img3 = new ImageElement(100, 80, 40, 32, TestTMCNesOs.BACK, TMCImageOs.JOYPAD_CONSOLE);
-		this.img3.setVerticalAlign(Align.END);
-		this.img3.setHorizontalAlign(Align.CENTER);
+		this.img3.setVerticalAlign(Aligns.END);
+		this.img3.setHorizontalAlign(Aligns.CENTER);
 
 		//Image 4
 		this.img4 = new ImageElement(100, 128, 40, 32, TestTMCNesOs.BACK, null);
@@ -140,13 +140,13 @@ public class TestTMCNesOs extends NesOs {
 		{
 			this.pe = new PanelElement(0, 0, 160, 128, (byte) 63, new FullerElementManager(FullerElementManager.VERTICAL));
 			ViewElement ve = new ViewElement(0, 0, 256, 256, TestTMCNesOs.TRANS);
-			ve.setHorizontalAlign(Align.CENTER);
-			ve.setVerticalAlign(Align.CENTER);
+			ve.setHorizontalAlign(Aligns.CENTER);
+			ve.setVerticalAlign(Aligns.CENTER);
 			ve.setView(this.pe);
 					
 			TextElement te = new TextElement(0, 0, 30, 9, (byte) 83, "Test", (byte) 82);
-			te.setHorizontalAlign(Align.CENTER);
-			te.setVerticalAlign(Align.CENTER);
+			te.setHorizontalAlign(Aligns.CENTER);
+			te.setVerticalAlign(Aligns.CENTER);
 			te.setBorder(new BasicBorder(1, TestTMCNesOs.WHITE));
 			
 			TextElement t2 = new TextElement(0, 0, 50, 7, (byte) 86, "Second", (byte) 82);
@@ -163,13 +163,13 @@ public class TestTMCNesOs extends NesOs {
 		{
 			this.pe2 = new PanelElement(0, 0, 128, 128, (byte) 79, new DiviserElementManager(DiviserElementManager.VERTICAL, 2));
 			ViewElement ve = new ViewElement(0, 0, 256, 256, TestTMCNesOs.TRANS);
-			ve.setHorizontalAlign(Align.END);
-			ve.setVerticalAlign(Align.CENTER);
+			ve.setHorizontalAlign(Aligns.END);
+			ve.setVerticalAlign(Aligns.CENTER);
 			ve.setView(this.pe2);
 			
 			TextElement te = new TextElement(0, 0, 30, 9, (byte) 83, "Test", (byte) 82);
-			te.setHorizontalAlign(Align.CENTER);
-			te.setVerticalAlign(Align.CENTER);
+			te.setHorizontalAlign(Aligns.CENTER);
+			te.setVerticalAlign(Aligns.CENTER);
 			te.setBorder(new BasicBorder(1, TestTMCNesOs.WHITE));
 			
 			TextElement t2 = new TextElement(0, 0, 50, 7, (byte) 86, "Second", (byte) 82);
@@ -183,9 +183,9 @@ public class TestTMCNesOs extends NesOs {
 		}
 		
 		{//color scroll
-			this.fe = new FocusElement(0, 0, 256, 256, TestTMCNesOs.TRANS, (byte) 129, (byte) 130);
-			fe.setHorizontalAlign(Align.CENTER);
-			fe.setVerticalAlign(Align.START);
+			this.fe = new FocusElement(0, 0, 256, 256, (byte) 129, (byte) 130, TestTMCNesOs.TRANS, TestTMCNesOs.TRANS);
+			fe.setHorizontalAlign(Aligns.CENTER);
+			fe.setVerticalAlign(Aligns.START);
 			PanelElement pe = new PanelElement(0, 0, 160, 160, (byte) 79, new FullerElementManager(FullerElementManager.VERTICAL));
 			
 			//color scroll
