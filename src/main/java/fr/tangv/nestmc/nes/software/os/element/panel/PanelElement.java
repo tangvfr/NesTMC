@@ -64,6 +64,24 @@ public class PanelElement extends Element {
 	}
 	
 	/**
+	 * Permet de savoir si un element est present dans le panel
+	 * @param ele element tester
+	 * @return true si l'element est present
+	 */
+	public boolean containsElement(Element ele) {
+		boolean find = false;
+		
+		Iterator<ParamPanelElement> it = this.elements.iterator();
+		while (!find && it.hasNext()) {//parcours tous les elements
+			if (it.next().getElement().equals(ele)) {
+				find = true;
+			}
+		}
+		
+		return find;
+	}
+	
+	/**
 	 * Permet d'ajouter un element avec comme paramètre 0
 	 * Penser a definir votre gestionnaire d'alignement {@link #setManager(ElementManager)}
 	 * @param ele element ajouté
@@ -96,10 +114,9 @@ public class PanelElement extends Element {
 	 * Permet d'enlever un element
 	 * @param ele element supprimé
 	 * @return true si l'element a bien été suprimé
-	 * @deprecated peut provoqué des alignements incorrecte
 	 */
-	@SuppressWarnings("unlikely-arg-type")
 	public boolean removeElement(Element ele) {
+		@SuppressWarnings("unlikely-arg-type")
 		boolean rm = this.elements.remove(ele);
 		this.updateSizeAndPosition();
 		return rm;

@@ -187,7 +187,7 @@ public abstract class McNesManager<T> extends BukkitRunnable {
 		Iterator<McNes<T>> it = this.consoles.iterator();
 		boolean find = false;
 		while (it.hasNext() && !find) {//parcour toutes les console tant que aucnune ne correspond
-			find = !it.next().getLocation().equals(loc);
+			find = it.next().getLocation().equals(loc);
 		}
 		return find;
 	}

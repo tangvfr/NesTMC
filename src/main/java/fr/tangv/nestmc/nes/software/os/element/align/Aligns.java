@@ -10,13 +10,4 @@ public abstract class Aligns {
 	public static final Align CENTER = new CenterAlign();
 	public static final Align END = new EndAlign();
 	
-	/**
-	 * Permet de crée un aligneur par marge
-	 * @param margin la marge constante
-	 * @return l'aglineur crée
-	 */
-	public static Align createMargin(int margin) {
-		return new MarginAlign(margin);
-	}
-	
 }

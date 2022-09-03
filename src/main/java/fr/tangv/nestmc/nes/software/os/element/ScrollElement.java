@@ -136,10 +136,17 @@ public class ScrollElement extends Element {
 		this.scroll = scroll;
 	}
 	
+	/**
+	 * Permet d'incrementer le scroll de 1
+	 */
 	public void incScroll() {
 		this.incScroll(1);
 	}
 	
+	/**
+	 * Permet d'incrementer le scroll
+	 * @param inc incrmentation
+	 */
 	public void incScroll(int inc) {
 		Validate.isTrue(inc > 0, "Incrment <= 0 !", inc);
 		this.scroll += inc;
@@ -148,10 +155,17 @@ public class ScrollElement extends Element {
 		}
 	}
 	
+	/**
+	 * Permet de decrementer le scroll de 1
+	 */
 	public void decScroll() {
 		this.decScroll(1);
 	}
 	
+	/**
+	 * Permet de decrementer le scroll
+	 * @param dec decrementation
+	 */
 	public void decScroll(int dec) {
 		Validate.isTrue(dec > 0, "Decrement <= 0 !", dec);
 		this.scroll -= dec;

@@ -9,13 +9,19 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.rom.RomRepository;
 import fr.tangv.nestmc.nes.software.NesOs;
+import fr.tangv.nestmc.nes.software.img.TMCImageOs;
+import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
+import fr.tangv.nestmc.nes.software.os.element.focus.FocusSelector;
+import fr.tangv.nestmc.nes.software.os.element.panel.MarginElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
+import fr.tangv.nestmc.nes.software.os.element.panel.PanelElementBuilder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.FullerElementManager;
+import fr.tangv.nestmc.nes.software.os.element.panel.manager.OneElementManager;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 /**
@@ -31,6 +37,7 @@ public class TMCNesOs extends NesOs {
 	private FocusElement exit;
 	private RomSelectorElement sel;
 	private PanelElement panel;
+	private FocusSelector focus;
 	
 	/**
 	 * Permet de construire 
@@ -50,7 +57,7 @@ public class TMCNesOs extends NesOs {
 		this.ve.setVerticalAlign(Aligns.CENTER);
 		
 		shutdown = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
-		shutdown.setText("Shutdown", (byte) 0, (byte) 2);
+		shutdown.setText("Shutdown", trans, (byte) 2);
 		shutdown.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
 					if (ele.isFocus()) {
@@ -63,7 +70,7 @@ public class TMCNesOs extends NesOs {
 			);
 		
 		close = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
-		close.setText("Close", text, (byte) 2);
+		close.setText("Resume", text, (byte) 2);
 		close.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
 					if (ele.isFocus()) {
@@ -91,19 +98,30 @@ public class TMCNesOs extends NesOs {
 		//this.list.setImage(TMCImageOs.JOYPAD_CONSOLE, (byte) 2);
 		
 		//panel
-		this.panel = new PanelElement(0, 0, 128, 128, back, new FullerElementManager(FullerElementManager.VERTICAL));
-		this.panel.setBorder(new BasicBorder(2, border));
-		TextElement menu = new TextElement(0, 0, 0, 0, trans, "Menu", border, (byte) 3);
-		menu.setHorizontalAlign(Aligns.CENTER);
+		this.panel = new PanelElement(0, 0, 256, 256, trans, new FullerElementManager(FullerElementManager.VERTICAL));
+		TextElement menu = new TextElement(0, 0, 0, 0, trans, "Menu", (byte) 25, (byte) 3);
+		menu.setHorizontalAlign(Aligns.END);
 		menu.setVerticalAlign(Aligns.CENTER);
-		this.panel.addElement(menu, FullerElementManager.MAX_SIZE);
-		this.panel.addElement(this.sel, FullerElementManager.MAX_SIZE);
-		this.panel.addElement(this.shutdown, FullerElementManager.MAX_SIZE);
-		this.panel.addElement(this.exit, FullerElementManager.MAX_SIZE);
-		this.panel.addElement(this.close, FullerElementManager.MAX_SIZE);
-		this.close.setFocus(true);
+		ImageElement img = new ImageElement(TMCImageOs.JOYPAD_CONSOLE, trans);
+		img.setImgCofAndSize((byte) 2, 0, 0);
+		this.panel.addElement(PanelElementBuilder.createLeft(img, menu, trans, 0, 8, 0, null, 0, 0), FullerElementManager.MAX_SIZE);
+		this.panel.addElement(new MarginElement(this.sel, 2, 0, 0, 0), FullerElementManager.MAX_SIZE);
+		this.panel.addElement(new MarginElement(this.shutdown, 2, 0, 0, 0), FullerElementManager.MAX_SIZE);
+		this.panel.addElement(new MarginElement(this.exit, 2, 0, 0, 0), FullerElementManager.MAX_SIZE);
+		this.panel.addElement(new MarginElement(this.close, 2, 0, 0, 0), FullerElementManager.MAX_SIZE);
 		
-		this.ve.setView(this.panel);
+
+		PanelElement window = new PanelElement(0, 0, 128, 128, (byte) 99, new OneElementManager());
+		window.setBorder(new BasicBorder(2, border));
+		window.addElement(new MarginElement(this.panel, 2));
+		
+		this.ve.setView(window);
+		//focus
+		this.focus = new FocusSelector();
+		this.focus.addFocus(this.sel);
+		this.focus.addFocus(this.shutdown);
+		this.focus.addFocus(this.exit);
+		this.focus.addFocus(this.close);
 		
 		//update all
 		this.ve.updateSizeAndPosition();
@@ -115,7 +133,10 @@ public class TMCNesOs extends NesOs {
 	
 	public void show(TMCNes nes) {
 		this.show = true;
-		((TextElement) this.shutdown.getView()).setTextColor(nes.isStart() ? (byte) 18 : (byte) 0);
+
+		//shutdown add and remove
+		((TextElement) this.shutdown.getView()).setTextColor(nes.isStart() ? (byte) 18 : (byte) 46);
+		
 		if (nes.isStart() && nes.isRunning()) {
 			nes.pause();
 		}
@@ -143,23 +164,14 @@ public class TMCNesOs extends NesOs {
 			}
 		}
 		
-		if (show) {
+		if (this.show) {
 			this.ve.update(nes, firstIn, secondIn, mixedIn);
 			
-			if (mixedIn.isClicked(InputController.UP) || mixedIn.isClicked(InputController.DOWN)) {
-				if (this.sel.isFocus()) {
-					this.sel.setFocus(false);
-					this.shutdown.setFocus(true);
-				} else if (this.shutdown.isFocus()) {
-					this.shutdown.setFocus(false);
-					this.exit.setFocus(true);
-				} else if (this.exit.isFocus()) {
-					this.exit.setFocus(false);
-					this.close.setFocus(true);
-				} else {//close is selcted
-					this.close.setFocus(false);
-					this.sel.setFocus(true);
-				}
+			if (mixedIn.isClicked(InputController.UP)) {
+				this.focus.back();
+			}
+			if (mixedIn.isClicked(InputController.DOWN)) {
+				this.focus.next();
 			}
 		}
 		
@@ -186,7 +198,6 @@ public class TMCNesOs extends NesOs {
 		if (show) {
 			this.ve.render(nes, screen);
 		}
-		
 	}
 
 }

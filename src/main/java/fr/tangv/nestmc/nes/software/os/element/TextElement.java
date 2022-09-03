@@ -2,6 +2,7 @@ package fr.tangv.nestmc.nes.software.os.element;
 
 import org.apache.commons.lang.Validate;
 
+import fr.tangv.nestmc.draw.CalcCofMinecraftFont;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 
@@ -11,12 +12,18 @@ import fr.tangv.nestmc.nes.TMCNes;
  */
 public class TextElement extends AlignedElement {
 
+	public static final int NONE_HEIGHT = -1;//taille mini pour afficher el texte
 	public static final int MIN_HEIGHT = 7;//taille mini pour afficher el texte
 	public static final int GOOD_HEIGHT = 9;//bonne taille pour afficher du texte
+	
+	//ajouter systeme pour faire pack le text element prend le moins de place possible mais lissible
 	
 	private String text;
 	private byte textCof = 1;
 	private byte textColor;
+	private String drawedText;
+	private int drawedX;
+	private int drawedY;
 	
 	/**
 	 * Permet de construire un element contenant du texte par default est en alignement start et de taille 1
@@ -50,52 +57,14 @@ public class TextElement extends AlignedElement {
 		this(x, y, width, height, background, text, textColor);
 		this.textCof = textCof;
 	}
-
+	
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
 		super.render(nes, screen);
 		if (!Element.colorIsInvisible(this.textColor)) {
 			screen.setCof(this.textCof);
 			screen.setColor(this.textColor);
-			
-			int height = this.getHeight();
-			int lineHeight = screen.getHeightText() - this.textCof;
-			
-			if (height >= lineHeight) {//test si on peu écrire une ligne
-				int textLength = this.text.length();
-				int i = 0;
-				
-				while (i < textLength) {
-					int drawLength = 0;
-					int calcLength = 0;
-					int width = this.getWidth();
-					
-					while (i < textLength) {
-						//add length
-						if (i != 0) {
-							calcLength += this.textCof;
-						}
-						calcLength += screen.getWidthChar(this.text.charAt(i));
-						
-						//test length
-						if (calcLength <= width) {
-							drawLength = calcLength;
-							i++;
-						} else {
-							textLength = -1;
-						}
-					}
-					
-					//line height
-					
-					//draw test
-					screen.drawText(
-							this.getX() + this.getHorizontalAlign().calcOffset(width, drawLength),
-							this.getY() + this.getVerticalAlign().calcOffset(height, lineHeight),
-							text.substring(0, i)
-							);
-				}
-			}
+			screen.drawText(this.drawedX, this.drawedY, this.drawedText);
 		}
 	}
 
@@ -113,6 +82,7 @@ public class TextElement extends AlignedElement {
 	 */
 	public void setText(String text) {
 		this.text = text;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -129,6 +99,7 @@ public class TextElement extends AlignedElement {
 	 */
 	public void setTextCof(byte cof) {
 		this.textCof = cof;
+		this.updateSizeAndPosition();
 	}
 
 	/**
@@ -149,7 +120,40 @@ public class TextElement extends AlignedElement {
 	
 	@Override
 	public void updateSizeAndPosition() {
-		//need screen info font
+		int height = this.getHeight();
+		int lineHeight = CalcCofMinecraftFont.getHeightText(this.textCof) - this.textCof;
+		
+		if (height >= lineHeight) {//test si on peu écrire une ligne
+			int textLength = this.text.length();
+			int i = 0;
+			
+			int drawLength = 0;
+			int calcLength = 0;
+			int width = this.getWidth();
+			
+			while (i < textLength) {
+				//add length
+				if (i != 0) {
+					calcLength += this.textCof;
+				}
+				calcLength += CalcCofMinecraftFont.getWidthChar(this.text.charAt(i), this.textCof);
+				
+				//test length
+				if (calcLength <= width) {
+					drawLength = calcLength;
+					i++;
+				} else {
+					textLength = -1;
+				}
+			}
+			
+			//draw test
+			this.drawedX = this.getX() + this.getHorizontalAlign().calcOffset(width, drawLength);
+			this.drawedY = this.getY() + this.getVerticalAlign().calcOffset(height, lineHeight);
+			this.drawedText = text.substring(0, i);
+		} else {
+			this.drawedText = "";
+		}
 	}
 	
 }

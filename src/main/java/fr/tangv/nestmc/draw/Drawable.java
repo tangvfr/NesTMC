@@ -427,27 +427,27 @@ public abstract class Drawable implements Pixelable {
 	/**
 	 * Permet de retourner la largueur des textes en prennant en compte le cof
 	 * @param text texte dont on souhaite la largueur
-	 * @return la largueur du texte en fonction du cof
+	 * @return la largueur du texte en focntion du cof
 	 */
 	public int getWidthText(String text) {
-		return MinecraftFont.Font.getWidth(text) * this.cof;
+		return CalcCofMinecraftFont.getWidthText(text, this.cof);
   	}
-	
+  
 	/**
 	 * Permet de retourner la largueur d'un caratère en prennant en compte le cof
 	 * @param ch caratère dont on souhaite savoir la largueur
 	 * @return la largueur du texte en fonction du cof
 	 */
 	public int getWidthChar(char ch) {
-		return MinecraftFont.Font.getChar(ch).getWidth() * this.cof;
+		return CalcCofMinecraftFont.getWidthChar(ch, this.cof);
   	}
-  
+	
 	/**
 	 * Permet de retourner la hauteur des textes en prennant en compte le cof
 	 * @return hauteur du texte en fonction du cof
 	 */
 	public int getHeightText() {
-		return MinecraftFont.Font.getHeight() * this.cof;
+		return CalcCofMinecraftFont.getHeightText(this.cof);
 	}
 	
 }
