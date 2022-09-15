@@ -11,7 +11,6 @@ import fr.tangv.nestmc.nes.rom.RomRepository;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.nes.software.img.TMCImageOs;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
-import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
@@ -22,6 +21,7 @@ import fr.tangv.nestmc.nes.software.os.element.panel.PanelElementBuilder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.FullerElementManager;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.OneElementManager;
+import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 /**
@@ -125,6 +125,10 @@ public class TMCNesOs extends NesOs {
 		
 		//update all
 		this.ve.updateSizeAndPosition();
+	}
+	
+	public RomSelectorElement getSelector() {
+		return this.sel;
 	}
 	
 	public boolean isShow() {

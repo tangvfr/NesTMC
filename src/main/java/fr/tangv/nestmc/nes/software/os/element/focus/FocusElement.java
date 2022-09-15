@@ -6,12 +6,13 @@ import java.util.LinkedList;
 import fr.tangv.nestmc.draw.DrawableImage;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
+import fr.tangv.nestmc.nes.software.os.color.FocusColors;
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
-import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
+import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -33,6 +34,10 @@ public class FocusElement extends ViewElement {
 	 * @param width largeur
 	 * @param height hauteur
 	 * @param background coleur de fond
+	 * @param unfocusBorderColor la couleur du bord quand deselectionner
+	 * @param focusBorderColor la couleur du bord quand selectionner
+	 * @param unfocusBackgroundColor la couleur du fond quand deselectionner
+	 * @param focusBackgroundColor la couleur du fond quand selectionner
 	 */
 	public FocusElement(int x, int y, int width, int height, byte unfocusBorderColor, byte focusBorderColor,
 			byte unfocusBackgroundColor, byte focusBackgroundColor) {
@@ -44,6 +49,27 @@ public class FocusElement extends ViewElement {
 		this.setHorizontalAlign(Aligns.CENTER);
 		this.setVerticalAlign(Aligns.CENTER);
 		this.setBorder(new BasicBorder(1, this.unfocusBorderColor));
+	}
+	
+	/**
+	 * Permet de construire un element pouvant être focus
+	 * @param x décalage horizontal
+	 * @param y décalage vertical
+	 * @param width largeur
+	 * @param height hauteur
+	 * @param background coleur de fond
+	 * @param focusColors les couleurs pour les elements selectionnables
+	 */
+	public FocusElement(int x, int y, int width, int height, FocusColors color) {
+		this(	x,
+				y,
+				width,
+				height,
+				color.getUnfocusBorder(),
+				color.getFocusBorder(),
+				color.getUnfocusBackground(),
+				color.getFocusBackground()
+				);
 	}
 	
 	@Override

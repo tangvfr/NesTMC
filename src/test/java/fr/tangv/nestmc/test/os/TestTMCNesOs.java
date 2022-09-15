@@ -8,7 +8,6 @@ import fr.tangv.nestmc.nes.software.img.TMCImageOs;
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.ScrollElement;
-import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.border.CornerBasicBorder;
@@ -18,6 +17,7 @@ import fr.tangv.nestmc.nes.software.os.element.panel.PanelElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.DiviserElementManager;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.FullerElementManager;
+import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
 
 /**
  * @author Tangv - https://tangv.fr

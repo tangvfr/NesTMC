@@ -4,9 +4,9 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.rom.NesRom;
 import fr.tangv.nestmc.nes.rom.RomRepository;
-import fr.tangv.nestmc.nes.software.os.element.TextElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
+import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
 
 /**
  * @author Tangv - https://tangv.fr

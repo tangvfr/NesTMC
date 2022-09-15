@@ -117,7 +117,7 @@ public abstract class Element implements TMCNesInteractor {
 	}
 
 	/**
-	 * Permet de modifier la largeur de l'element
+	 * Permet de modifier la largeur de l'element et met a jour l'element
 	 * @param width la nouvelle largeur de l'element
 	 */
 	public void setWidth(int width) {
@@ -126,12 +126,28 @@ public abstract class Element implements TMCNesInteractor {
 	}
 
 	/**
-	 * Permet de modifier la hauteur de l'element
+	 * Permet de modifier la hauteur de l'element et met a jour l'element
 	 * @param height la nouvelle hauteur de l'element
 	 */
 	public void setHeight(int height) {
 		this.height = height;
 		this.updateSizeAndPosition();
+	}
+	
+	/**
+	 * Permet de modifier la largeur de l'element sans mettre a jour l'element
+	 * @param width la nouvelle largeur de l'element
+	 */
+	protected void setWidthNoUpdate(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * Permet de modifier la hauteur de l'element sans mettre a jour l'element
+	 * @param height la nouvelle hauteur de l'element
+	 */
+	protected void setHeightNoUpdate(int height) {
+		this.height = height;
 	}
 
 	/**

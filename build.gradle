@@ -37,6 +37,33 @@ bukkit {
     description = "This plugin add nes. It is playable in minecraft."
     load = "STARTUP"
     main = "${group}.${project.name}"
+
+    commands {
+        reloadrom {
+            description = 'Reload rom'
+            aliases = ['t']
+            permission = 'testplugin.test'
+            usage = 'Just run the command!'
+            // permissionMessage = 'You may not test this command!' 
+        }
+        // ...
+    }
+    
+    permissions {
+        'nestmc.*' {
+            // Defaults permissions to true
+            children = ['testplugin.test', ] 
+            // You can also specify the values of the permissions
+            childrenMap = ['nestmc.reloadrom': false, 'nestmc.givenes': false]
+        }
+        'nestmc.reloadrom' {
+            
+        }
+        'nestmc.givenes' {
+            description = 'Allows you to run the test command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+    }
 }
 
 task copyToServer {

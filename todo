@@ -8,3 +8,5 @@ O diviseur aligneur
 -save nes after reload
 -add destruct nes - is linked (in controller)
 /reloadrom
+
+/patch bug screen freeze when death or other

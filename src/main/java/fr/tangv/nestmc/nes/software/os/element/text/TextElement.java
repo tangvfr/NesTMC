@@ -1,10 +1,12 @@
-package fr.tangv.nestmc.nes.software.os.element;
+package fr.tangv.nestmc.nes.software.os.element.text;
 
 import org.apache.commons.lang.Validate;
 
 import fr.tangv.nestmc.draw.CalcCofMinecraftFont;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
+import fr.tangv.nestmc.nes.software.os.element.AlignedElement;
+import fr.tangv.nestmc.nes.software.os.element.Element;
 
 /**
  * @author Tangv - https://tangv.fr
@@ -12,21 +14,22 @@ import fr.tangv.nestmc.nes.TMCNes;
  */
 public class TextElement extends AlignedElement {
 
-	public static final int NONE_HEIGHT = -1;//taille mini pour afficher el texte
 	public static final int MIN_HEIGHT = 7;//taille mini pour afficher el texte
 	public static final int GOOD_HEIGHT = 9;//bonne taille pour afficher du texte
-	
-	//ajouter systeme pour faire pack le text element prend le moins de place possible mais lissible
 	
 	private String text;
 	private byte textCof = 1;
 	private byte textColor;
+	private int preferedWidth;
+	private int preferedHeigth;
+	private SizeMode horizontalMode = SizeMode.PREFERED;
+	private SizeMode verticalMode = SizeMode.PREFERED;
 	private String drawedText;
 	private int drawedX;
 	private int drawedY;
 	
 	/**
-	 * Permet de construire un element contenant du texte par default est en alignement start et de taille 1
+	 * Permet de construire un element contenant du texte par default est en alignement start et de taille 1 et prendra la place donner par default
 	 * @param x décalage horizontal
 	 * @param y décalage vertical
 	 * @param width largeur
@@ -40,6 +43,8 @@ public class TextElement extends AlignedElement {
 		Validate.notNull(text, "Text can't null !");
 		this.text = text;
 		this.textColor = textColor;
+		this.preferedWidth = width;
+		this.preferedHeigth = height;
 	}
 	
 	/**
@@ -119,8 +124,69 @@ public class TextElement extends AlignedElement {
 	}
 	
 	@Override
+	public void setWidth(int width) {
+		super.setWidth(width);
+		this.preferedWidth = width;
+	}
+	
+	@Override
+	public void setHeight(int height) {
+		super.setHeight(height);
+		this.preferedHeigth = height;
+	}
+	
+	/**
+	 * Permet de récupérer l'ajustement de la largueur de l'element de texte
+	 * @return le mode d'ajustement de la largueur de l'element de texte
+	 */
+	public SizeMode getHorizontalMode() {
+		return this.horizontalMode;
+	}
+
+	/**
+	 * Permet de modifier l'ajustement de la largueur de l'element de texte
+	 * @param horizontalMode le nouveau mode d'ajustement de la largueur de l'element de texte
+	 */
+	public void setHorizontalMode(SizeMode horizontalMode) {
+		this.horizontalMode = horizontalMode;
+		this.updateSizeAndPosition();
+	}
+
+	/**
+	 * Permet de récupérer l'ajustement de la hauteur de l'element de texte
+	 * @return le mode d'ajustement de la hauteur de l'element de texte
+	 */
+	public SizeMode getVerticalMode() {
+		return this.verticalMode;
+	}
+
+	/**
+	 * Permet de modifier l'ajustement de la hauteur de l'element de texte
+	 * @param horizontalMode le nouveau mode d'ajustement de la hauteur de l'element de texte
+	 */
+	public void setVerticalMode(SizeMode verticalMode) {
+		this.verticalMode = verticalMode;
+		this.updateSizeAndPosition();
+	}
+
+	@Override
 	public void updateSizeAndPosition() {
-		int height = this.getHeight();
+		int height;
+		switch (this.verticalMode) {
+			case MIN:
+				height = TextElement.MIN_HEIGHT * this.textCof;
+				break;
+			case PREFERED:
+				height = TextElement.GOOD_HEIGHT * this.textCof;
+				break;
+			case MAX:
+			default:
+				height = this.preferedHeigth;
+				break;
+		}
+		super.setHeightNoUpdate(height);
+		
+		//calc width and check height
 		int lineHeight = CalcCofMinecraftFont.getHeightText(this.textCof) - this.textCof;
 		
 		if (height >= lineHeight) {//test si on peu écrire une ligne
@@ -129,7 +195,7 @@ public class TextElement extends AlignedElement {
 			
 			int drawLength = 0;
 			int calcLength = 0;
-			int width = this.getWidth();
+			int width = this.preferedWidth;
 			
 			while (i < textLength) {
 				//add length
@@ -143,9 +209,15 @@ public class TextElement extends AlignedElement {
 					drawLength = calcLength;
 					i++;
 				} else {
-					textLength = -1;
+					textLength = -1;//pour sortie de la boucle
 				}
 			}
+			
+			//test mode horizontal
+			if (this.horizontalMode == SizeMode.MIN) {
+				width = drawLength;
+			}
+			super.setWidthNoUpdate(width);
 			
 			//draw test
 			this.drawedX = this.getX() + this.getHorizontalAlign().calcOffset(width, drawLength);
