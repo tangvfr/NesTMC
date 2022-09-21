@@ -3,20 +3,32 @@ package fr.tangv.nestmc.nes;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
 
-import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.draw.MapBuffer;
-import fr.tangv.nestmc.palette.McNesPalette;
 
-public class NesScreenMap extends FourMapScreen implements GUIInterface {
+/**
+ * @author Tangv - https://tangv.fr
+ * Permet de crée un écran de 4 map pour une nes
+ */
+public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 
+	private static final int LENGTH_SCREEN_BUFFER = 256 * 240;
+	
+	/*palette de couleur pour la nes*/
+	private final byte[] colors;
+	/*Nes a llaquelle apartien le Gui interface*/
 	private NES nes;
+	/*le dernier buffer d'image*/
+	private int[] nespixels;
 	
 	/**
 	 * Permet de crée l'écran de la nes sur 4 MapBuffer
 	 * @param bitScreens les ecrans qui font l'écran de la NES
+	 * @param colors palette de couleur pour la nes
 	 */
-	public NesScreenMap(MapBuffer[] bitScreens) {
+	public NesScreenMap(MapBuffer[] bitScreens, byte[] colors) {
 		super(bitScreens);
+		this.colors = colors;
+		this.nespixels = new int[NesScreenMap.LENGTH_SCREEN_BUFFER];//by default 0
 	}
 	
 	@Override
@@ -27,26 +39,6 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 	@Override
 	public void setNES(NES nes) {
 		this.nes = nes;
-	}
-
-	@Override
-	public void loadROMs(String path) {
-		
-		System.out.println("load roms: " + path);
-	}
-
-	@Override
-	public void messageBox(String message) {
-		System.out.println("messagebox: " + message);
-	}
-
-	@Override
-	public void render() {}
-
-	@Override
-	public void run() {
-		//update param
-		System.out.println("I run !");
 	}
 
 	/**
@@ -62,7 +54,7 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 		//avancement dans le buffer de l'écran de la nes
 		int i = startBuf;
 		//palette des couleur nes pour les maps
-		byte[] palette = McNesPalette.MC_NES_PALETTE;
+		byte[] palette = this.colors;
 		//index exclu de fin des lignes a copier
 		int endLengthY = numberOfLine * 128;
 		//index exclu de fin de la ligne a copier
@@ -85,19 +77,30 @@ public class NesScreenMap extends FourMapScreen implements GUIInterface {
 		return i;
 	}
 	
+	@Override
+	public void drawNesScreen() {
+		//nespixels = 256x240
+		MapBuffer[] screens = this.getBitScreens();
+
+		synchronized (this) {
+			//haut de l'ecran les 128 premiere ligne
+			int iStoped = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
+			
+			//bas de l'ecran les 112 dernier ligne
+			this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+		}
+	}
+	
 	/**
 	 * Méthode qui est appeler lorsque le PPU de la NES a calculer une frame
 	 */
 	@Override
 	public void setFrame(int[] nespixels, int[] bgcolor, boolean dotcrawl) {
-		//nespixels = 256x240
-		MapBuffer[] screens = this.getBitScreens();
-		
-		//haut de l'ecran les 128 premiere ligne
-		int iStoped = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
-		
-		//bas de l'ecran les 112 dernier ligne
-		this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+		synchronized (this) {
+			for (int i = 0; i < NesScreenMap.LENGTH_SCREEN_BUFFER; i++) {
+				this.nespixels[i] = nespixels[i];
+			}
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.draw;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Partie d'un écran, écran de la taille d'une map minecraft
  */
 public class MapBuffer implements Pixelable, MapBuffered {
@@ -21,6 +21,7 @@ public class MapBuffer implements Pixelable, MapBuffered {
 		this.buf = new byte[MapBuffer.LENGTH];
 	}
 	
+	@Override
 	public byte[] getBuffer() {
 		return this.buf;
 	}

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de convertir un fichier pal (palette de couleur NES) vers un tableau
  */
 public class ReadPalNesColor {

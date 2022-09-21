@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.draw;
 
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de définir un pixel
  */
 public interface Pixelable {

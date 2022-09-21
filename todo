@@ -1,0 +1,12 @@
+O multi folder for rom repo
+O make emulate mcnes (tmcnes in jframe)
+O diviseur aligneur
+
+-make message(config) & value configurable
+#make os gui
+
+-save nes after reload
+-add destruct nes - is linked (in controller)
+/reloadrom
+
+/patch bug screen freeze when death or other

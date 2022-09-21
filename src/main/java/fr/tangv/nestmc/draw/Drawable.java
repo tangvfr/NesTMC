@@ -1,12 +1,13 @@
 package fr.tangv.nestmc.draw;
 
 import org.bukkit.map.MapFont.CharacterSprite;
+
+import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
+
 import org.bukkit.map.MinecraftFont;
 
-import fr.tangv.nestmc.palette.MapColor;
-
 /**
- * @author tangv
+ * @author Tangv - https://tangv.fr
  * Permet de dessiner
  */
 public abstract class Drawable implements Pixelable {
@@ -16,7 +17,7 @@ public abstract class Drawable implements Pixelable {
 	//hauteur
 	private final int SIZE_Y;
 	//coleur dessiné
-	private byte color = MapColor.TRANSPARENT_DARK;
+	private byte color = MapColorV1_8.TRANSPARENT_DARK;
 	//coefficient multiplicateur de buffer et de texte
 	private byte cof = 1;
 	
@@ -346,7 +347,7 @@ public abstract class Drawable implements Pixelable {
 	}
 	
 	/**
-	 * Méthode qui permet de desiner l'image d'un buffer, prend pas en compte les couleurs transparente, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
+	 * Méthode qui permet de desiner l'image d'un buffer, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
 	 * @param ox coordonnée inital de l'image en partant de la gauche
 	 * @param oy coordonnée inital de l'image en partant du haut
 	 * @param img image sous forme de buffer
@@ -371,6 +372,16 @@ public abstract class Drawable implements Pixelable {
 				i++;
 			}
 		}
+	}
+	
+	/**
+	 * Méthode qui permet de desiner une image, attention change la couleur et depends du cof, regarder {@link #setCof(byte)}
+	 * @param ox coordonnée inital de l'image en partant de la gauche
+	 * @param oy coordonnée inital de l'image en partant du haut
+	 * @param img image desinable
+	 */
+	public void drawImage(int ox, int oy, DrawableImage img) {
+		this.drawBuffer(ox, oy, img.getBuf(), img.getWidth(), img.getHeight());
 	}
 	
 	/**
@@ -419,15 +430,24 @@ public abstract class Drawable implements Pixelable {
 	 * @return la largueur du texte en focntion du cof
 	 */
 	public int getWidthText(String text) {
-		return MinecraftFont.Font.getWidth(text) * this.cof;
+		return CalcCofMinecraftFont.getWidthText(text, this.cof);
   	}
   
+	/**
+	 * Permet de retourner la largueur d'un caratère en prennant en compte le cof
+	 * @param ch caratère dont on souhaite savoir la largueur
+	 * @return la largueur du texte en fonction du cof
+	 */
+	public int getWidthChar(char ch) {
+		return CalcCofMinecraftFont.getWidthChar(ch, this.cof);
+  	}
+	
 	/**
 	 * Permet de retourner la hauteur des textes en prennant en compte le cof
 	 * @return hauteur du texte en fonction du cof
 	 */
 	public int getHeightText() {
-		return MinecraftFont.Font.getHeight() * this.cof;
+		return CalcCofMinecraftFont.getHeightText(this.cof);
 	}
 	
 }

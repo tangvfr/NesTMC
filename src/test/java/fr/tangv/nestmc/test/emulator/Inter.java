@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
+import com.grapeshot.halfnes.ui.PuppetKeyListener;
 import com.grapeshot.halfnes.video.NesColors;
 
 public class Inter implements GUIInterface {
