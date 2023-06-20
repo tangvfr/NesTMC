@@ -1,7 +1,7 @@
 package fr.tangv.nestmc.test.os;
 
 import fr.tangv.nestmc.draw.MapBuffer;
-import fr.tangv.nestmc.draw.MapBuffered;
+import fr.tangv.nestmc.draw.PixeableBuffered;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
@@ -35,12 +35,12 @@ public class TestFakeTMCNes extends TMCNes {
 				);
 		
 		//screen 256x256
-		this.frame = new MapBufferFrame(new MapBuffered() {
+		this.frame = new MapBufferFrame(new PixeableBuffered() {
 			@Override
 			public byte[] getBuffer() {
 				return TestFakeTMCNes.this.buffer;
 			}
-		}, 3);
+		}, 256, 3);
 		
 		//simulate minecraft ticks
 		new Thread(() -> {
@@ -59,7 +59,7 @@ public class TestFakeTMCNes extends TMCNes {
 		this.frame.getFrame().toFront();
 	}
 	
-	private final void copyBitScreenToScreen(MapBuffered[] bitScreen) {
+	private final void copyBitScreenToScreen(PixeableBuffered[] bitScreen) {
 		byte[] buf;
 		final int length = 128 * 128;
 		int i, dc, di;

@@ -1,6 +1,6 @@
 package fr.tangv.nestmc.draw;
 
-public interface MapBuffered {
+public interface PixeableBuffered {
 
 	/**
 	 * Retourne les couleur qui compose la map

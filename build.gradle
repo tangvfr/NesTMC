@@ -20,6 +20,8 @@ repositories {
 dependencies {
     shadow 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
     shadow 'org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
+    testImplementation 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
+    testImplementation 'org.bukkit:craftbukkit:1.8.8-R0.1-SNAPSHOT' // The full Spigot server with no shadowing. Requires mavenLocal.
     implementation project(':halfNes')
 }
 
@@ -34,16 +36,16 @@ bukkit {
     version = "${project.version}"
     apiVersion = "1.8.8"
     authors = ["Tangv"]
-    description = "This plugin add nes. It is playable in minecraft."
+    description = "This plugin add playable nes into minecraft."
     load = "STARTUP"
     main = "${group}.${project.name}"
 
     commands {
         reloadrom {
             description = 'Reload rom'
-            aliases = ['t']
-            permission = 'testplugin.test'
-            usage = 'Just run the command!'
+            aliases = ['rlr']
+            permission = 'nestmc.reloadrom'
+            usage = 'Reload roms on all nes.'
             // permissionMessage = 'You may not test this command!' 
         }
         // ...
@@ -52,16 +54,20 @@ bukkit {
     permissions {
         'nestmc.*' {
             // Defaults permissions to true
-            children = ['testplugin.test', ] 
+            //children = ['testplugin.test']
             // You can also specify the values of the permissions
-            childrenMap = ['nestmc.reloadrom': false, 'nestmc.givenes': false]
+            //childrenMap = ['nestmc.reloadrom': true, 'nestmc.givenes': true]
+            description = 'It allows you to run nes commands'
+            setDefault('OP')
         }
         'nestmc.reloadrom' {
-            
+            description = 'It allows you to run the reload rom command'
+            children = ['nestmc.*']
         }
         'nestmc.givenes' {
-            description = 'Allows you to run the test command'
-            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+            children = ['testplugin.test']
+            description = 'It allows you to run the test command'
+            children = ['nestmc.*']
         }
     }
 }

@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import org.bukkit.map.MapPalette;
 
-import fr.tangv.nestmc.draw.MapBuffered;
+import fr.tangv.nestmc.draw.PixeableBuffered;
 
 public class MapBufferFrame {
 
@@ -18,12 +18,15 @@ public class MapBufferFrame {
 	private final JComponent map;
 	
 	/**
-	 * Permet d'ouvrir une frame pour representer une MapBuffered
+	 * Permet d'ouvrir une frame pour representer une PixeableBuffered
 	 * @param map map a afficher
+	 * @param width largeur du plan que represente le buffer
 	 * @param cof taille de un pixel
 	 */
-	public MapBufferFrame(MapBuffered map, int cof) {
-		final int SIZE = (int) Math.sqrt(map.getBuffer().length);
+	public MapBufferFrame(PixeableBuffered map, int width, int cof) {
+		final int SIZE_X = width;
+		final int SIZE_Y = map.getBuffer().length / width;
+
 		frame = new JFrame("Drawable Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -36,8 +39,8 @@ public class MapBufferFrame {
 				byte[] buf = map.getBuffer();
 				int i = 0;
 				
-				for (int y = 0; y < SIZE; y++) {
-					for (int x = 0; x < SIZE; x++) {
+				for (int y = 0; y < SIZE_Y; y++) {
+					for (int x = 0; x < SIZE_X; x++) {
 						g.setColor(MapPalette.getColor(buf[i]));
 						g.fillRect(x * cof, y * cof, cof, cof);
 						i++;
@@ -52,14 +55,14 @@ public class MapBufferFrame {
 		this.pan.add(this.map);
 		
 		//map
-		Dimension dim = new Dimension(SIZE * cof, SIZE * cof);
+		Dimension dim = new Dimension(SIZE_X * cof, SIZE_Y * cof);
 		this.map.setSize(dim);
 		this.map.setMinimumSize(dim);
 		this.map.setMaximumSize(dim);
 		this.map.setLocation(32, 0);
 				
 		//frame
-		this.frame.setSize(64 + SIZE * cof, 64 + SIZE * cof);
+		this.frame.setSize(64 + SIZE_X * cof, 64 + SIZE_Y * cof);
 		this.frame.setResizable(false);
 		this.frame.setContentPane(this.pan);
 		this.frame.setVisible(true);

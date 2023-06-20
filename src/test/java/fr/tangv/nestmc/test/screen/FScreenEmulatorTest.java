@@ -18,7 +18,7 @@ public class FScreenEmulatorTest {
 		
 		for (int i = 0; i < 4; i++) {
 			maps[i] = new MapBuffer();
-			frames[i] = new MapBufferFrame(maps[i], 3);
+			frames[i] = new MapBufferFrame(maps[i], MapBuffer.WIDTH, 3);
 		}
 		
 		//keyboard

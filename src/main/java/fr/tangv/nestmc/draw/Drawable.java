@@ -1,5 +1,6 @@
 package fr.tangv.nestmc.draw;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.map.MapFont.CharacterSprite;
 
 import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
@@ -251,6 +252,8 @@ public abstract class Drawable implements Pixelable {
 	 * @param r rayon du cercle
 	 */
 	public void drawCircle(int xc, int yc, int r) {
+		Validate.isTrue(r >= 0, "r can't be negative", r);
+
 		int x = 0;
 	    int y = r;
 	    int d = r - 1;
@@ -292,6 +295,8 @@ public abstract class Drawable implements Pixelable {
 	 * @param r rayon du disque
 	 */
 	public void fillCircle(int xc, int yc, int r) {
+		Validate.isTrue(r >= 0, "r can't be negative", r);
+
 		int x = 0;
 		int y = r;
 		int d = r - 1;
@@ -321,7 +326,124 @@ public abstract class Drawable implements Pixelable {
 			}
 		}
 	}
-	
+
+	/**
+	 * Permet de tracer les bord d'un rectangle arrondi
+	 * @param x1 coordonnée initiale du rectangle en partant de la gauche
+	 * @param y1 coordonnée initiale du rectangle en partant du haut
+	 * @param r rayon du cercle
+	 * @param width largueur du rectangle
+	 * @param height hauteur du rectangle
+	 */
+	public void drawAroundRect(int x1, int y1, int width, int height, int r) {
+		Validate.isTrue(r >= 0, "r can't be negative", r);
+		Validate.isTrue(r <= width, "r can't be > width", r);
+		Validate.isTrue(r <= height, "r can't be > height", r);
+
+		//round
+		int xs = x1 + r;//x to start round
+		int ys = y1 + r;//y to start round
+		int xm = x1 + width - 1;//x max
+		int ym = y1 + height - 1;//y max
+		int xe = xm - r;//x to end round
+		int ye = ym - r;//y to end round
+
+		//border line
+		this.drawLineX(xs + 1, y1, xe - 1);
+		this.drawLineX(xs + 1, ym, xe - 1);
+		this.drawLineY(x1, ys + 1, ye - 1);
+		this.drawLineY(xm , ys + 1, ye - 1);
+
+		//test
+		int x = 0;
+		int y = r;
+		int d = r - 1;
+
+		while(y >= x)
+		{
+			this.drawPoint(xe + x, ye + y);
+			this.drawPoint(xe + y, ye + x);
+			this.drawPoint(xs - x, ye + y);
+			this.drawPoint(xs - y, ye + x);
+			this.drawPoint(xe + x, ys - y);
+			this.drawPoint(xe + y, ys - x);
+			this.drawPoint(xs - x, ys - y);
+			this.drawPoint(xs - y, ys - x);
+
+			if (d >= 2*x)
+			{
+				d -= 2*x + 1;
+				x ++;
+			}
+			else if (d < 2 * (r-y))
+			{
+				d += 2*y - 1;
+				y --;
+			}
+			else
+			{
+				d += 2*(y - x - 1);
+				y --;
+				x ++;
+			}
+		}
+	}
+
+	/**
+	 * Permet de tracer un rectangle arrondi plein
+	 * @param x1 coordonnée initiale du rectangle en partant de la gauche
+	 * @param y1 coordonnée initiale du rectangle en partant du haut
+	 * @param r rayon du cercle
+	 * @param width largueur du rectangle
+	 * @param height hauteur du rectangle
+	 */
+	public void fillAroundRect(int x1, int y1, int width, int height, int r) {
+		Validate.isTrue(r >= 0, "r can't be negative", r);
+		Validate.isTrue(r <= width, "r can't be > width", r);
+		Validate.isTrue(r <= height, "r can't be > height", r);
+
+		//round
+		int xs = x1 + r;//x to start round
+		int ys = y1 + r;//y to start round
+		int xm = x1 + width - 1;//x max
+		int ym = y1 + height - 1;//y max
+		int xe = xm - r;//x to end round
+		int ye = ym - r;//y to end round
+
+		//inside
+		this.fillRect(xs + 1, y1, width - (r * 2) - 2, height);
+
+		//test
+		int x = 0;
+		int y = r;
+		int d = r - 1;
+
+		while(y >= x)
+		{
+			this.drawLineY(xe + x, ys - y, ye + y);
+			this.drawLineY(xe + y, ys - x, ye + x);
+			this.drawLineY(xs - x, ys - y, ye + y);
+			this.drawLineY(xs - y, ys - x, ye + x);
+
+			if (d >= 2*x)
+			{
+				d -= 2*x + 1;
+				x ++;
+			}
+			else if (d < 2 * (r-y))
+			{
+				d += 2*y - 1;
+				y --;
+			}
+			else
+			{
+				d += 2*(y - x - 1);
+				y --;
+				x ++;
+			}
+		}
+	}
+
 	
 	/*
 	 * Méthodes qui prennes en compte le coeficient multiplicateur

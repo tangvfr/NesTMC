@@ -4,7 +4,7 @@ package fr.tangv.nestmc.draw;
  * @author Tangv - https://tangv.fr
  * Partie d'un écran, écran de la taille d'une map minecraft
  */
-public class MapBuffer implements Pixelable, MapBuffered {
+public class MapBuffer implements Pixelable, PixeableBuffered {
 	
 	//largeur du carré
 	public final static int WIDTH = 128;

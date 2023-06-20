@@ -5,6 +5,10 @@ import fr.tangv.nestmc.palette.v1_8.MapColorV1_8;
 
 public class DrawableTest {
 
+	/**
+	 * Permet de tester les différentes méthodes offertes par la classe Drawable
+	 * @param draw desinable sur le quelle dessiner
+	 */
 	public static void testDrawable(Drawable draw) {
 		draw.clearScreen(MapColorV1_8.BLACK_SHADOW);
 		
@@ -125,6 +129,41 @@ public class DrawableTest {
 		
 		//all character
 		//" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~\u837f\u83c7\u83fc\u83e9\u83e2\u83e4\u83e0\u83e5\u83e7\u83ea\u83eb\u83e8\u83ef\u83ee\u83ec\u83c4\u83c5\u83c9\u83e6\u83c6\u83f4\u83f6\u83f2\u83fb\u83f9\u83ff\u83d6\u83dc\u83f8£\u83d8\u83d7\u0191\u83e1\u83ed\u83f3\u83fa\u83f1\u83d1ªº¿®¬½¼¡«»"
+
+		//set background to test size
+		draw.setColor(MapColorV1_8.NETHER_BRICK_SHADOW);
+		draw.drawRect(5, 120, 30, 70);
+		//test draw rect arround
+		draw.setColor(MapColorV1_8.LIME_LIGTH);
+		draw.drawAroundRect(5, 120, 30, 70, 10);
+		draw.setColor(MapColorV1_8.DIAMOND_LIGTH);
+		draw.drawAroundRect(10, 128, 20, 10, 0);
+		draw.drawAroundRect(10, 140, 20, 10, 1);
+		draw.drawAroundRect(10, 152, 20, 10, 2);
+		draw.drawAroundRect(10, 164, 20, 10, 3);
+		draw.drawAroundRect(10, 176, 20, 10, 4);
+		draw.setColor(MapColorV1_8.EMERALD_LIGTH);
+		draw.drawAroundRect(100, 128, 20, 10, 3);
+		draw.drawAroundRect(100, 140, 20, 10, 5);
+		draw.setColor(MapColorV1_8.BLUE_LIGTH);
+		draw.drawAroundRect(108, 158, 1, 1, 1);
+		draw.drawAroundRect(112, 158, 2, 2, 0);
+		draw.drawAroundRect(118, 158, 2, 2, 1);
+		draw.drawPoint(108 + 2, 168 + 2);
+		draw.drawAroundRect(108, 168, 5, 5, 1);
+
+		//set background to test size
+		draw.setColor(MapColorV1_8.NETHER_BRICK_SHADOW);
+		draw.fillRect(45, 120, 30, 70);
+		//test draw rect arround
+		draw.setColor(MapColorV1_8.LIME_LIGTH);
+		draw.fillAroundRect(45, 120, 30, 70, 10);
+		draw.setColor(MapColorV1_8.DIAMOND_LIGTH);
+		draw.fillAroundRect(50, 128, 20, 10, 0);
+		draw.fillAroundRect(50, 140, 20, 10, 1);
+		draw.fillAroundRect(50, 152, 20, 10, 2);
+		draw.fillAroundRect(50, 164, 20, 10, 3);
+		draw.fillAroundRect(50, 176, 20, 10, 4);
 	}
 	
 }
