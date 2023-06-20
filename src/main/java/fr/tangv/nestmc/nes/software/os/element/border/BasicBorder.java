@@ -7,7 +7,7 @@ import fr.tangv.nestmc.nes.software.os.element.Element;
  * @author Tangv - https://tangv.fr
  * Bordure simple pour un Element
  */
-public class BasicBorder extends Border {
+public class BasicBorder extends Border implements ColoredBorder {
 
 	protected int topBorder;
 	protected int bottomBorder;
@@ -125,18 +125,12 @@ public class BasicBorder extends Border {
 		this.rightBorder = rightBorder;
 	}
 
-	/**
-	 * Permet de récupérer la couleur du bord de l'element
-	 * @return la couleur du bord de l'element
-	 */
+	@Override
 	public byte getBorderColor() {
 		return this.border;
 	}
 
-	/**
-	 * Permet de modifier le couelur du bord de l'element
-	 * @param border la nouvelle couleur du bord de l'element
-	 */
+	@Override
 	public void setBorderColor(byte color) {
 		this.border = color;
 	}

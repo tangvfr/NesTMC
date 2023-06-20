@@ -64,6 +64,9 @@ public abstract class Element implements TMCNesInteractor {
 
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
+		if (this.border != null) {
+			this.border.render(this, screen);
+		}
 		if (!Element.colorIsInvisible(this.background)) {//le fond n'est pas transparent
 			screen.setColor(this.background);
 			if (this.round <= 0) {
@@ -71,9 +74,6 @@ public abstract class Element implements TMCNesInteractor {
 			} else {
 				screen.fillAroundRect(this.x, this.y, this.width, this.height, this.round);
 			}
-		}
-		if (this.border != null) {
-			this.border.render(this, screen);
 		}
 	}
 

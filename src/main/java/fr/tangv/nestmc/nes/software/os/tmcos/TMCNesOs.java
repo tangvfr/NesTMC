@@ -13,6 +13,7 @@ import fr.tangv.nestmc.nes.software.img.TMCImageOs;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
+import fr.tangv.nestmc.nes.software.os.element.border.RoundBorder;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusElement;
 import fr.tangv.nestmc.nes.software.os.element.focus.FocusSelector;
 import fr.tangv.nestmc.nes.software.os.element.panel.MarginElement;
@@ -51,6 +52,7 @@ public class TMCNesOs extends NesOs {
 		byte sel = text;
 		byte selBack = unsel;
 		byte trans = (byte) 0;
+		int round = 10;
 		
 		this.ve = new ViewElement(0, 0, 256, 256, trans);
 		this.ve.setHorizontalAlign(Aligns.CENTER);

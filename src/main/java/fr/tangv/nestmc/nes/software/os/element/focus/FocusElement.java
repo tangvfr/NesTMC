@@ -8,6 +8,9 @@ import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
+import fr.tangv.nestmc.nes.software.os.element.border.Border;
+import fr.tangv.nestmc.nes.software.os.element.border.ColoredBorder;
+import fr.tangv.nestmc.nes.software.os.element.border.RoundBorder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
 
@@ -33,14 +36,14 @@ public class FocusElement extends ViewElement {
 	 * @param y décalage vertical
 	 * @param width largeur
 	 * @param height hauteur
-	 * @param background coleur de fond
 	 * @param unfocusBorderColor la couleur du bord quand deselectionner
 	 * @param focusBorderColor la couleur du bord quand selectionner
 	 * @param unfocusBackgroundColor la couleur du fond quand deselectionner
 	 * @param focusBackgroundColor la couleur du fond quand selectionner
+	 * @param round l'arrondie
 	 */
 	public FocusElement(int x, int y, int width, int height, byte unfocusBorderColor, byte focusBorderColor,
-			byte unfocusBackgroundColor, byte focusBackgroundColor) {
+			byte unfocusBackgroundColor, byte focusBackgroundColor, int round) {
 		super(x, y, width, height, unfocusBackgroundColor);
 		this.unfocusBorderColor = unfocusBorderColor;
 		this.focusBorderColor = focusBorderColor;
@@ -48,7 +51,15 @@ public class FocusElement extends ViewElement {
 		this.focusBackgroundColor = focusBackgroundColor;
 		this.setHorizontalAlign(Aligns.CENTER);
 		this.setVerticalAlign(Aligns.CENTER);
-		this.setBorder(new BasicBorder(1, this.unfocusBorderColor));
+		//l'arrondie
+		Border border;
+		if (round > 0) {
+			this.setRound(round);
+			border = new RoundBorder(1, this.unfocusBorderColor, round);
+		} else {
+			border = new BasicBorder(1, this.unfocusBorderColor);
+		}
+		this.setBorder(border);
 	}
 	
 	/**
@@ -57,10 +68,10 @@ public class FocusElement extends ViewElement {
 	 * @param y décalage vertical
 	 * @param width largeur
 	 * @param height hauteur
-	 * @param background coleur de fond
-	 * @param focusColors les couleurs pour les elements selectionnables
+	 * @param color les couleurs pour les elements selectionnables
+	 * @param round l'arrondie
 	 */
-	public FocusElement(int x, int y, int width, int height, FocusColors color) {
+	public FocusElement(int x, int y, int width, int height, FocusColors color, int round) {
 		this(	x,
 				y,
 				width,
@@ -68,8 +79,52 @@ public class FocusElement extends ViewElement {
 				color.getUnfocusBorder(),
 				color.getFocusBorder(),
 				color.getUnfocusBackground(),
-				color.getFocusBackground()
+				color.getFocusBackground(),
+				round
 				);
+	}
+
+	/**
+	 * Permet de construire un element pouvant être focus
+	 * @param x décalage horizontal
+	 * @param y décalage vertical
+	 * @param width largeur
+	 * @param height hauteur
+	 * @param unfocusBorderColor la couleur du bord quand deselectionner
+	 * @param focusBorderColor la couleur du bord quand selectionner
+	 * @param unfocusBackgroundColor la couleur du fond quand deselectionner
+	 * @param focusBackgroundColor la couleur du fond quand selectionner
+	 */
+	public FocusElement(int x, int y, int width, int height, byte unfocusBorderColor, byte focusBorderColor,
+						byte unfocusBackgroundColor, byte focusBackgroundColor) {
+		this(	x,
+				y,
+				width,
+				height,
+				unfocusBorderColor,
+				focusBorderColor,
+				unfocusBackgroundColor,
+				focusBackgroundColor,
+				0
+		);
+	}
+
+	/**
+	 * Permet de construire un element pouvant être focus
+	 * @param x décalage horizontal
+	 * @param y décalage vertical
+	 * @param width largeur
+	 * @param height hauteur
+	 * @param color les couleurs pour les elements selectionnables
+	 */
+	public FocusElement(int x, int y, int width, int height, FocusColors color) {
+		this(	x,
+				y,
+				width,
+				height,
+				color,
+				0
+		);
 	}
 	
 	@Override
@@ -127,7 +182,7 @@ public class FocusElement extends ViewElement {
 	 */
 	public void setFocus(boolean isFocus) {
 		this.isFocus = isFocus;
-		((BasicBorder) this.getBorder()).setBorderColor(isFocus ? this.focusBorderColor : this.unfocusBorderColor);
+		((ColoredBorder) this.getBorder()).setBorderColor(isFocus ? this.focusBorderColor : this.unfocusBorderColor);
 		this.setBackground(isFocus ? this.focusBackgroundColor : this.unfocusBackgroundColor);
 	}
 	
