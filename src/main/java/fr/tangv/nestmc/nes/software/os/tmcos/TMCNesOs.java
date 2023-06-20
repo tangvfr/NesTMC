@@ -58,7 +58,7 @@ public class TMCNesOs extends NesOs {
 		this.ve.setHorizontalAlign(Aligns.CENTER);
 		this.ve.setVerticalAlign(Aligns.CENTER);
 		
-		shutdown = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
+		shutdown = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
 		shutdown.setText("Shutdown", trans, (byte) 2);
 		shutdown.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -71,7 +71,7 @@ public class TMCNesOs extends NesOs {
 				}
 			);
 		
-		close = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
+		close = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
 		close.setText("Resume", text, (byte) 2);
 		close.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -81,7 +81,7 @@ public class TMCNesOs extends NesOs {
 				}
 			);
 		
-		exit = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack);
+		exit = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
 		exit.setText("Exit", text, (byte) 2);
 		exit.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -96,7 +96,7 @@ public class TMCNesOs extends NesOs {
 			);
 		
 		//liste
-		this.sel = new RomSelectorElement(this, repo, text, unsel, sel, back, selBack);
+		this.sel = new RomSelectorElement(this, repo, text, unsel, sel, back, selBack, round);
 		//this.list.setImage(TMCImageOs.JOYPAD_CONSOLE, (byte) 2);
 		
 		//panel

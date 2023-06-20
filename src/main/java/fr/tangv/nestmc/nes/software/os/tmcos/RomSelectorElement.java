@@ -20,8 +20,8 @@ public class RomSelectorElement extends FocusElement {
 	private int selectedRomId = 0;
 
 	public RomSelectorElement(TMCNesOs os, RomRepository repo, byte textColor, byte unfocusBorderColor, byte focusBorderColor,
-			byte unfocusBackgroundColor, byte focusBackgroundColor) {
-		super(0, 0, 0, 0, unfocusBorderColor, focusBorderColor, unfocusBackgroundColor, focusBackgroundColor);
+			byte unfocusBackgroundColor, byte focusBackgroundColor, int round) {
+		super(0, 0, 0, 0, unfocusBorderColor, focusBorderColor, unfocusBackgroundColor, focusBackgroundColor, round);
 		this.repo = repo;
 		this.os = os;
 		//text
@@ -31,7 +31,12 @@ public class RomSelectorElement extends FocusElement {
 		this.setView(this.text);
 		this.showRom();
 	}
-	
+
+	public RomSelectorElement(TMCNesOs os, RomRepository repo, byte textColor, byte unfocusBorderColor, byte focusBorderColor,
+							  byte unfocusBackgroundColor, byte focusBackgroundColor) {
+		this(os, repo, textColor, unfocusBorderColor, focusBorderColor, unfocusBackgroundColor, focusBackgroundColor, 0);
+	}
+
 	public void showRom() {
 		if (this.repo.isEmpty()) {
 			text.setText("[None]");
