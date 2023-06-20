@@ -1,9 +1,9 @@
 package fr.tangv.nestmc.nes.software.os.element.focus;
 
+import org.apache.commons.lang.Validate;
+
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr

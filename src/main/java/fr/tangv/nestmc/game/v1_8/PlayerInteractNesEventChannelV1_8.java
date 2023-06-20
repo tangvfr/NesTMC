@@ -3,9 +3,6 @@
  */
 package fr.tangv.nestmc.game.v1_8;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import fr.tangv.nestmc.game.McNesManager;
 import fr.tangv.nestmc.game.event.NesClick;
 import fr.tangv.nestmc.game.event.PlayerInteractNesEvent;
@@ -14,6 +11,8 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity.EnumEntityUseAction;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 /**
  * @author Tangv - https://tangv.fr

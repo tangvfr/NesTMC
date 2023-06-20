@@ -1,10 +1,10 @@
 package fr.tangv.nestmc.nes.software.os.element.panel.manager;
 
-import java.util.List;
-
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.border.Border;
 import fr.tangv.nestmc.nes.software.os.element.panel.ParamPanelElement;
+
+import java.util.List;
 
 /**
  * @author Tangv - https://tangv.fr

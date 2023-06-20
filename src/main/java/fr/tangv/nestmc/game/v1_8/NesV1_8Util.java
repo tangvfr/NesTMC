@@ -3,13 +3,8 @@
  */
 package fr.tangv.nestmc.game.v1_8;
 
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.util.Vector;
-
-import net.minecraft.server.v1_8_R3.DataWatcher;
-import net.minecraft.server.v1_8_R3.EntityItemFrame;
-import net.minecraft.server.v1_8_R3.EnumDirection;
-import net.minecraft.server.v1_8_R3.ItemStack;
-import net.minecraft.server.v1_8_R3.Items;
 
 /**
  * @author Tangv - https://tangv.fr

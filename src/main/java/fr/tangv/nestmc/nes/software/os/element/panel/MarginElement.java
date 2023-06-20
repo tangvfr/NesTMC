@@ -1,10 +1,9 @@
 package fr.tangv.nestmc.nes.software.os.element.panel;
 
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.border.Border;
 import fr.tangv.nestmc.nes.software.os.element.border.EmptyBorder;
+import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr

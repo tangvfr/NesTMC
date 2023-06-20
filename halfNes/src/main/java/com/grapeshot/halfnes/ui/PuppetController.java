@@ -1,13 +1,6 @@
 package com.grapeshot.halfnes.ui;
 
-import static com.grapeshot.halfnes.Utils.BIT0;
-import static com.grapeshot.halfnes.Utils.BIT1;
-import static com.grapeshot.halfnes.Utils.BIT2;
-import static com.grapeshot.halfnes.Utils.BIT3;
-import static com.grapeshot.halfnes.Utils.BIT4;
-import static com.grapeshot.halfnes.Utils.BIT5;
-import static com.grapeshot.halfnes.Utils.BIT6;
-import static com.grapeshot.halfnes.Utils.BIT7;
+import static com.grapeshot.halfnes.Utils.*;
 
 /**
  * Created by skaggsm on 12/5/15.

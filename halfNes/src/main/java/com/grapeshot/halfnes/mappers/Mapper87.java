@@ -4,8 +4,6 @@
  */
 package com.grapeshot.halfnes.mappers;
 
-import com.grapeshot.halfnes.Utils;
-
 /**
  *
  * @author Andrew

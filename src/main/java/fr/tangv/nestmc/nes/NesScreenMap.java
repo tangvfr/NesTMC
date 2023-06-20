@@ -2,7 +2,6 @@ package fr.tangv.nestmc.nes;
 
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
-
 import fr.tangv.nestmc.draw.MapBuffer;
 
 /**

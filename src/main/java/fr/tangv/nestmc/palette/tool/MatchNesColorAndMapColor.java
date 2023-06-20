@@ -1,11 +1,11 @@
 package fr.tangv.nestmc.palette.tool;
 
-import java.awt.Color;
+import org.bukkit.map.MapPalette;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import org.bukkit.map.MapPalette;
 
 /**
  * @author Tangv - https://tangv.fr

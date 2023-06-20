@@ -1,9 +1,8 @@
 package fr.tangv.nestmc.game.controller;
 
+import fr.tangv.nestmc.game.McNes;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
-
-import fr.tangv.nestmc.game.McNes;
 
 /**
  * @author Tangv - https://tangv.fr

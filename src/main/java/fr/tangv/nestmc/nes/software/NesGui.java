@@ -1,9 +1,9 @@
 package fr.tangv.nestmc.nes.software;
 
-import java.io.File;
-
 import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.nes.NesScreenMap;
+
+import java.io.File;
 
 /**
  * @author Tangv - https://tangv.fr

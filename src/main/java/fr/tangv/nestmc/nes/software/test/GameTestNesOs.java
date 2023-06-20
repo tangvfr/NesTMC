@@ -4,7 +4,6 @@
 package fr.tangv.nestmc.nes.software.test;
 
 import com.grapeshot.halfnes.mappers.BadMapperException;
-
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;

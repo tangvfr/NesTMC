@@ -1,9 +1,8 @@
 package com.grapeshot.halfnes.ui;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
 
 /**
  * @author Tangv - https://tangv.fr

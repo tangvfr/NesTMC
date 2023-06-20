@@ -1,13 +1,13 @@
 package fr.tangv.nestmc.nes.software.os.element.panel;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.panel.manager.ElementManager;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * @author Tangv - https://tangv.fr

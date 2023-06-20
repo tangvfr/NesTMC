@@ -1,10 +1,9 @@
 package fr.tangv.nestmc.game.event;
 
+import fr.tangv.nestmc.game.McNes;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import fr.tangv.nestmc.game.McNes;
 
 /**
  * @author Tangv - https://tangv.fr

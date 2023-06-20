@@ -1,9 +1,8 @@
 package fr.tangv.nestmc.nes.software.os.element;
 
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.nes.software.os.element.align.Align;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
+import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr

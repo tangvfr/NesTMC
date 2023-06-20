@@ -1,12 +1,11 @@
 package fr.tangv.nestmc.test.emulator;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.NesController;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * @author Tangv - https://tangv.fr

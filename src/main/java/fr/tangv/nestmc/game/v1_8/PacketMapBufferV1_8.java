@@ -1,7 +1,5 @@
 package fr.tangv.nestmc.game.v1_8;
 
-import java.util.ArrayList;
-
 import fr.tangv.nestmc.game.McNesManager;
 import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.util.ReflectionUtil;
@@ -9,6 +7,8 @@ import net.minecraft.server.v1_8_R3.MapIcon;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
 import net.minecraft.server.v1_8_R3.PacketPlayOutMap;
+
+import java.util.ArrayList;
 
 /**
  * @author Tangv - https://tangv.fr

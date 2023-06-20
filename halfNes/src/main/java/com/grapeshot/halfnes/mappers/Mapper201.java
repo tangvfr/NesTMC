@@ -1,7 +1,5 @@
 package com.grapeshot.halfnes.mappers;
 
-import com.grapeshot.halfnes.*;
-
 public class Mapper201 extends Mapper {
 
     @Override

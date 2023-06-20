@@ -3,30 +3,21 @@
  */
 package fr.tangv.nestmc.game.v1_8;
 
-import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
 import fr.tangv.nestmc.game.PacketMapBuffer;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.nes.TMCNes;
-import net.minecraft.server.v1_8_R3.EntityItemFrame;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.EnumDirection;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntity;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
+import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
+
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @author Tangv - https://tangv.fr

@@ -4,15 +4,15 @@
  */
 package com.grapeshot.halfnes;
 
-import static com.grapeshot.halfnes.Utils.reverseByte;
-import static java.util.Arrays.fill;
+import com.grapeshot.halfnes.mappers.Mapper;
+import com.grapeshot.halfnes.ui.DebugUI;
+import com.grapeshot.halfnes.ui.GUIInterface;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
-import com.grapeshot.halfnes.mappers.Mapper;
-import com.grapeshot.halfnes.ui.DebugUI;
-import com.grapeshot.halfnes.ui.GUIInterface;
+import static com.grapeshot.halfnes.Utils.reverseByte;
+import static java.util.Arrays.fill;
 
 public class PPU {
 

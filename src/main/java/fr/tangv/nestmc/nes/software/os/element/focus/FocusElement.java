@@ -1,8 +1,5 @@
 package fr.tangv.nestmc.nes.software.os.element.focus;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import fr.tangv.nestmc.draw.DrawableImage;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.InputController;
@@ -13,6 +10,9 @@ import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
 import fr.tangv.nestmc.nes.software.os.element.panel.ViewElement;
 import fr.tangv.nestmc.nes.software.os.element.text.TextElement;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * @author Tangv - https://tangv.fr

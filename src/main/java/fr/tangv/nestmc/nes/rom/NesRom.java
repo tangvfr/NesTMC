@@ -3,11 +3,11 @@
  */
 package fr.tangv.nestmc.nes.rom;
 
-import java.io.File;
-
 import com.grapeshot.halfnes.ROMLoader;
 import com.grapeshot.halfnes.mappers.BadMapperException;
 import com.grapeshot.halfnes.mappers.Mapper;
+
+import java.io.File;
 
 /**
  * @author Tangv - https://tangv.fr

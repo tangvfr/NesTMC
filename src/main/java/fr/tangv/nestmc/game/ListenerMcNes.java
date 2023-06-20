@@ -1,5 +1,7 @@
 package fr.tangv.nestmc.game;
 
+import fr.tangv.nestmc.game.controller.RequestController;
+import fr.tangv.nestmc.game.event.PlayerInteractNesEvent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -7,15 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
-
-import fr.tangv.nestmc.game.controller.RequestController;
-import fr.tangv.nestmc.game.event.PlayerInteractNesEvent;
 
 /**
  * @author Tangv - https://tangv.fr

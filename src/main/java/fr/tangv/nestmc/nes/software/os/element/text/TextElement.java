@@ -1,12 +1,11 @@
 package fr.tangv.nestmc.nes.software.os.element.text;
 
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.draw.CalcCofMinecraftFont;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.software.os.element.AlignedElement;
 import fr.tangv.nestmc.nes.software.os.element.Element;
+import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr

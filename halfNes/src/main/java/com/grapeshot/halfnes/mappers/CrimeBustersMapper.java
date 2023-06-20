@@ -1,7 +1,5 @@
 package com.grapeshot.halfnes.mappers;
 
-import com.grapeshot.halfnes.*;
-
 public class CrimeBustersMapper extends Mapper {
     //Mapper 38 - GNROM (mapper 066) variant for Crime Busters
 

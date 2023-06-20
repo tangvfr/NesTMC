@@ -1,15 +1,12 @@
 package fr.tangv.nestmc.test.emulator;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.GUIInterface;
 import com.grapeshot.halfnes.ui.PuppetKeyListener;
 import com.grapeshot.halfnes.video.NesColors;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Inter implements GUIInterface {
 

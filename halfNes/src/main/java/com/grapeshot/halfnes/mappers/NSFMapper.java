@@ -4,12 +4,12 @@
  */
 package com.grapeshot.halfnes.mappers;
 
-import java.util.Arrays;
-
 import com.grapeshot.halfnes.CPU;
 import com.grapeshot.halfnes.CPURAM;
 import com.grapeshot.halfnes.PPU;
 import com.grapeshot.halfnes.Utils;
+
+import java.util.Arrays;
 
 /**
  *

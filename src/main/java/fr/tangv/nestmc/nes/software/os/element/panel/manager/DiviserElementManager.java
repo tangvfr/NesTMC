@@ -1,12 +1,11 @@
 package fr.tangv.nestmc.nes.software.os.element.panel.manager;
 
-import java.util.List;
-
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.nes.software.os.element.Element;
 import fr.tangv.nestmc.nes.software.os.element.border.Border;
 import fr.tangv.nestmc.nes.software.os.element.panel.ParamPanelElement;
+import org.apache.commons.lang.Validate;
+
+import java.util.List;
 
 /**
  * @author Tangv - https://tangv.fr

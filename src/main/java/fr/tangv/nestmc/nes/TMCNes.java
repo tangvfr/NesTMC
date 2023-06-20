@@ -1,14 +1,12 @@
 package fr.tangv.nestmc.nes;
 
-import org.apache.commons.lang.Validate;
-
 import com.grapeshot.halfnes.NES;
-
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.MixedInputController;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.rom.NesRom;
 import fr.tangv.nestmc.nes.software.NesOs;
+import org.apache.commons.lang.Validate;
 
 
 /**

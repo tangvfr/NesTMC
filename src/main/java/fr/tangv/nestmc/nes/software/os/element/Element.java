@@ -26,22 +26,37 @@ public abstract class Element implements TMCNesInteractor {
 	private int width;
 	private int height;
 	private byte background;
+	private int round;
 	private Border border = null;
-	
+
 	/**
 	 * Permet de construire un element de base
 	 * @param x décalage horizontal
 	 * @param y décalage vertical
 	 * @param width largeur
 	 * @param height hauteur
-	 * @param background coleur de fond
+	 * @param background couleur de fond
 	 */
 	public Element(int x, int y, int width, int height, byte background) {
+		this(x, y, width, height, background, 0);
+	}
+
+	/**
+	 * Permet de construire un element de base et défini son arrondie
+	 * @param x décalage horizontal
+	 * @param y décalage vertical
+	 * @param width largeur
+	 * @param height hauteur
+	 * @param background couleur de fond
+	 * @param round l'arrondie
+	 */
+	public Element(int x, int y, int width, int height, byte background, int round) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.background = background;
+		this.round = round;
 	}
 
 	@Override
@@ -51,11 +66,23 @@ public abstract class Element implements TMCNesInteractor {
 	public void render(TMCNes nes, NesScreen screen) {
 		if (!Element.colorIsInvisible(this.background)) {//le fond n'est pas transparent
 			screen.setColor(this.background);
-			screen.fillRect(this.x, this.y, this.width, this.height);
+			if (this.round <= 0) {
+				screen.fillRect(this.x, this.y, this.width, this.height);
+			} else {
+				screen.fillAroundRect(this.x, this.y, this.width, this.height, this.round);
+			}
 		}
 		if (this.border != null) {
 			this.border.render(this, screen);
 		}
+	}
+
+	/**
+	 * Permet de récupérer le l'arrondie de l'element
+	 * @return l'arrondie de l'element
+	 */
+	public int getRound() {
+		return round;
 	}
 
 	/**
@@ -96,6 +123,14 @@ public abstract class Element implements TMCNesInteractor {
 	 */
 	public byte getBackground() {
 		return this.background;
+	}
+
+	/**
+	 * Permet de modifier l'arrondie de l'element
+	 * @param round le nouvelle l'arrondie de l'element
+	 */
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	/**

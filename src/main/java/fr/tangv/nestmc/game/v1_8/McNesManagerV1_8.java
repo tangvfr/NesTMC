@@ -3,12 +3,6 @@
  */
 package fr.tangv.nestmc.game.v1_8;
 
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-
 import fr.tangv.nestmc.NesTMC;
 import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.game.McNesManager;
@@ -22,6 +16,11 @@ import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 /**
  * @author Tangv - https://tangv.fr

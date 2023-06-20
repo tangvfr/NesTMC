@@ -1,21 +1,5 @@
 package fr.tangv.nestmc.game;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.BiConsumer;
-
-import org.apache.commons.lang.Validate;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import fr.tangv.nestmc.NesTMC;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
@@ -25,6 +9,21 @@ import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.rom.FolderRomRepository;
 import fr.tangv.nestmc.nes.rom.RomRepository;
 import fr.tangv.nestmc.nes.software.NesOs;
+import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.BiConsumer;
 
 /**
  * @author Tangv - https://tangv.fr

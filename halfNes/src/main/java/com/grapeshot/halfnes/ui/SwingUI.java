@@ -4,23 +4,17 @@
  */
 package com.grapeshot.halfnes.ui;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.DisplayMode;
-import java.awt.FileDialog;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
+import com.grapeshot.halfnes.FileUtils;
+import com.grapeshot.halfnes.NES;
+import com.grapeshot.halfnes.video.RGBRenderer;
+import com.grapeshot.halfnes.video.Renderer;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,20 +27,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-import javax.swing.TransferHandler;
-
-import com.grapeshot.halfnes.FileUtils;
-import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.video.RGBRenderer;
-import com.grapeshot.halfnes.video.Renderer;
 
 public class SwingUI extends JFrame implements GUIInterface {
 

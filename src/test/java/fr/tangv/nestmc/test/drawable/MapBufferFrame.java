@@ -1,15 +1,10 @@
 package fr.tangv.nestmc.test.drawable;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import fr.tangv.nestmc.draw.PixeableBuffered;
 import org.bukkit.map.MapPalette;
 
-import fr.tangv.nestmc.draw.PixeableBuffered;
+import javax.swing.*;
+import java.awt.*;
 
 public class MapBufferFrame {
 

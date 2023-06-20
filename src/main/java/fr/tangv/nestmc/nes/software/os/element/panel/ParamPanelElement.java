@@ -1,8 +1,7 @@
 package fr.tangv.nestmc.nes.software.os.element.panel;
 
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.nes.software.os.element.Element;
+import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr

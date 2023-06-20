@@ -5,9 +5,8 @@
 package com.grapeshot.halfnes.mappers;
 
 import com.grapeshot.halfnes.*;
-import com.grapeshot.halfnes.PPU;
+
 import java.util.Arrays;
-import java.util.prefs.Preferences;
 import java.util.zip.CRC32;
 
 public abstract class Mapper {

@@ -1,16 +1,13 @@
 package fr.tangv.nestmc.test.color;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import org.bukkit.map.MapPalette;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.bukkit.map.MapPalette;
 
 public class ShowColor {
 

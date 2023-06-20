@@ -1,11 +1,11 @@
 package fr.tangv.nestmc.util;
 
+import org.apache.commons.lang.Validate;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
-
-import org.apache.commons.lang.Validate;
 
 public class ReflectionUtil {
 

@@ -1,8 +1,8 @@
 package fr.tangv.nestmc.test.color;
 
-import java.awt.Color;
-
 import org.bukkit.map.MapPalette;
+
+import java.awt.*;
 
 public class PaletteGIMP {
 

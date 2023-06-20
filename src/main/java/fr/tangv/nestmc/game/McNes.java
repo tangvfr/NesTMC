@@ -1,15 +1,5 @@
 package fr.tangv.nestmc.game;
 
-import java.io.File;
-import java.security.MessageDigest;
-import java.util.List;
-
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-
 import fr.tangv.nestmc.draw.FourMapScreen;
 import fr.tangv.nestmc.game.controller.PlayerController;
 import fr.tangv.nestmc.game.controller.RequestController;
@@ -18,6 +8,15 @@ import fr.tangv.nestmc.nes.TMCNes;
 import fr.tangv.nestmc.nes.controller.NesController;
 import fr.tangv.nestmc.nes.software.NesGui;
 import fr.tangv.nestmc.nes.software.NesOs;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
+import java.io.File;
+import java.security.MessageDigest;
+import java.util.List;
 
 /**
  * @author Tangv - https://tangv.fr

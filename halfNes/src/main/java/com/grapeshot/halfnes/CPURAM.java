@@ -4,9 +4,9 @@
  */
 package com.grapeshot.halfnes;
 
-import java.util.Arrays;
-
 import com.grapeshot.halfnes.mappers.Mapper;
+
+import java.util.Arrays;
 
 /**
  *

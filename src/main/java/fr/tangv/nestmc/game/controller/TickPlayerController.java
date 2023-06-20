@@ -1,9 +1,8 @@
 package fr.tangv.nestmc.game.controller;
 
-import org.bukkit.entity.Player;
-
 import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.controller.NesController;
+import org.bukkit.entity.Player;
 
 /**
  * @author Tangv - https://tangv.fr

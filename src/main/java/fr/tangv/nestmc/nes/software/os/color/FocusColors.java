@@ -1,9 +1,9 @@
 package fr.tangv.nestmc.nes.software.os.color;
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 /**
  * @author Tangv - https://tangv.fr

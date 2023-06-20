@@ -3,7 +3,6 @@ package fr.tangv.nestmc.test.screen;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.ui.PuppetController;
 import com.grapeshot.halfnes.ui.PuppetKeyListener;
-
 import fr.tangv.nestmc.draw.MapBuffer;
 import fr.tangv.nestmc.nes.NesScreenMap;
 import fr.tangv.nestmc.palette.v1_8.McNesPaletteV1_8;

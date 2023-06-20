@@ -1,9 +1,8 @@
 package fr.tangv.nestmc.nes.software.os.element;
 
-import org.apache.commons.lang.Validate;
-
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
+import org.apache.commons.lang.Validate;
 
 /**
  * @author Tangv - https://tangv.fr
