@@ -35,5 +35,11 @@ public interface InputController {
 	 * @return true si le bouton est enfoncé
 	 */
 	public boolean isPress(int button);
+
+	/**
+	 * Permet de savoir le controlleur est connecté ou non
+	 * @return true si le controlleur est connecté
+	 */
+	public boolean isConnected();
 	
 }

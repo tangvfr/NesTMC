@@ -62,10 +62,10 @@ public class FocusColors implements ConfigurationSerializable {
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("unfocus_border", unfocusBorder);
-		map.put("focus_border", focusBorder);
-		map.put("unfocus_background", unfocusBackground);
-		map.put("focus_background", focusBackground);
+		map.put("unfocus_border", this.unfocusBorder);
+		map.put("focus_border", this.focusBorder);
+		map.put("unfocus_background", this.unfocusBackground);
+		map.put("focus_background", this.focusBackground);
 		return map;
 	}
 	

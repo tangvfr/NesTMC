@@ -12,6 +12,10 @@ import fr.tangv.nestmc.draw.MapBuffer;
  */
 public abstract class NesScreen extends FourMapScreen {
 
+	public final static int WIDTH = 256;
+	public final static int NES_HEIGHT = 240;
+	public final static int SCREEN_HEIGHT = 256;
+
 	/**
 	 * Permet de crée l'écran de la nes sur 4 MapBuffer
 	 * @param bitScreens les ecrans qui font l'écran de la NES

@@ -76,11 +76,11 @@ public class GuiColors implements ConfigurationSerializable {
 	@Override
 	public Map<String, Object> serialize() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("title", title);
-		map.put("text", text);
-		map.put("border", border);
-		map.put("background", background);
-		map.put("button", button);
+		map.put("title", this.title);
+		map.put("text", this.text);
+		map.put("border", this.border);
+		map.put("background", this.background);
+		map.put("button", this.button);
 		return map;
 	}
 	

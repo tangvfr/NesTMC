@@ -121,6 +121,10 @@ public class FrameController implements KeyListener {
 			case KeyEvent.VK_9:
 				btn = InputController.HEALD_8;//click
 				break;
+
+			case KeyEvent.VK_C:
+				btn = -2;//switch connected stat
+				break;
 				
 			default:
 				btn = -1;
@@ -132,7 +136,7 @@ public class FrameController implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int btn = keyEventToButton(e);
-		if (btn != -1) {
+		if (btn >= 0) {
 			this.control.releaseButton(btn);
 		}
 	}
@@ -140,8 +144,12 @@ public class FrameController implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int btn = keyEventToButton(e);
-		if (btn != -1) {
+		if (btn >= 0) {
 			this.control.pressButton(btn);
+		} else {
+			if (btn == -2) {//switch connected stat
+				this.control.setConnected(!this.control.isConnected());
+			}
 		}
 	}
 	

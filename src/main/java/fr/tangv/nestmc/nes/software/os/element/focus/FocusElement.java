@@ -126,6 +126,32 @@ public class FocusElement extends ViewElement {
 				0
 		);
 	}
+
+	/**
+	 * Permet de construire un element pouvant être focus avec toutes les dimensions et placement a 0
+	 * @param color les couleurs pour les elements selectionnables
+	 * @param round l'arrondie
+	 */
+	public FocusElement(FocusColors color, int round) {
+		this(	0,
+				0,
+				0,
+				0,
+				color.getUnfocusBorder(),
+				color.getFocusBorder(),
+				color.getUnfocusBackground(),
+				color.getFocusBackground(),
+				round
+		);
+	}
+
+	/**
+	 * Permet de construire un element pouvant être focus avec toutes les dimensions, placement et round a 0
+	 * @param color les couleurs pour les elements selectionnables
+	 */
+	public FocusElement(FocusColors color) {
+		this(color, 0);
+	}
 	
 	@Override
 	public void update(TMCNes nes, InputController firstIn, InputController secondIn, InputController mixedIn) {

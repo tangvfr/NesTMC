@@ -3,6 +3,7 @@
  */
 package fr.tangv.nestmc.nes.software.os.tmcos;
 
+import fr.tangv.nestmc.draw.DrawableImage;
 import fr.tangv.nestmc.game.McNes;
 import fr.tangv.nestmc.nes.NesScreen;
 import fr.tangv.nestmc.nes.TMCNes;
@@ -10,6 +11,7 @@ import fr.tangv.nestmc.nes.controller.InputController;
 import fr.tangv.nestmc.nes.rom.RomRepository;
 import fr.tangv.nestmc.nes.software.NesOs;
 import fr.tangv.nestmc.nes.software.img.TMCImageOs;
+import fr.tangv.nestmc.nes.software.os.color.FocusColors;
 import fr.tangv.nestmc.nes.software.os.element.ImageElement;
 import fr.tangv.nestmc.nes.software.os.element.align.Aligns;
 import fr.tangv.nestmc.nes.software.os.element.border.BasicBorder;
@@ -39,11 +41,20 @@ public class TMCNesOs extends NesOs {
 	private RomSelectorElement sel;
 	private PanelElement panel;
 	private FocusSelector focus;
-	
+	private NesInfoRender nesInfoRender;
+
 	/**
 	 * Permet de construire 
 	 */
 	public TMCNesOs(RomRepository repo) {
+		//info nes
+		this.nesInfoRender = new NesInfoRender(
+				MapColorV1_8.LAVA_LIGTH,
+				MapColorV1_8.NETHER_BRICK_LIGTH,
+				(byte) 119,
+				(byte) 87,
+				(byte) 85
+		);
 		//color
 		byte text = (byte) 58;
 		byte border = (byte) 66;
@@ -52,13 +63,14 @@ public class TMCNesOs extends NesOs {
 		byte sel = text;
 		byte selBack = unsel;
 		byte trans = (byte) 0;
-		int round = 10;
-		
-		this.ve = new ViewElement(0, 0, 256, 256, trans);
+		FocusColors focusColors = new FocusColors(unsel, sel, back, selBack);
+		int round = 6;
+
+		this.ve = new ViewElement(0, 0, NesScreen.WIDTH, NesScreen.SCREEN_HEIGHT, trans);
 		this.ve.setHorizontalAlign(Aligns.CENTER);
 		this.ve.setVerticalAlign(Aligns.CENTER);
 		
-		shutdown = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
+		shutdown = new FocusElement(focusColors, round);
 		shutdown.setText("Shutdown", trans, (byte) 2);
 		shutdown.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -71,7 +83,7 @@ public class TMCNesOs extends NesOs {
 				}
 			);
 		
-		close = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
+		close = new FocusElement(focusColors, round);
 		close.setText("Resume", text, (byte) 2);
 		close.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -81,7 +93,7 @@ public class TMCNesOs extends NesOs {
 				}
 			);
 		
-		exit = new FocusElement(0, 0, 0, 0, unsel, sel, back, selBack, round);
+		exit = new FocusElement(focusColors, round);
 		exit.setText("Exit", text, (byte) 2);
 		exit.addAction(InputController.OPEN_INV, 
 				(int buttons, FocusElement ele, InputController input, TMCNes nes) -> {
@@ -100,7 +112,7 @@ public class TMCNesOs extends NesOs {
 		//this.list.setImage(TMCImageOs.JOYPAD_CONSOLE, (byte) 2);
 		
 		//panel
-		this.panel = new PanelElement(0, 0, 256, 256, trans, new FullerElementManager(FullerElementManager.VERTICAL));
+		this.panel = new PanelElement(0, 0, NesScreen.WIDTH, NesScreen.SCREEN_HEIGHT, trans, new FullerElementManager(FullerElementManager.VERTICAL));
 		TextElement menu = new TextElement(0, 0, 0, 0, trans, "Menu", (byte) 25, (byte) 3);
 		menu.setHorizontalAlign(Aligns.END);
 		menu.setVerticalAlign(Aligns.CENTER);
@@ -114,7 +126,8 @@ public class TMCNesOs extends NesOs {
 		
 
 		PanelElement window = new PanelElement(0, 0, 128, 128, (byte) 99, new OneElementManager());
-		window.setBorder(new BasicBorder(2, border));
+		window.setRound(round);
+		window.setBorder(new RoundBorder(2, border, round + 2));
 		window.addElement(new MarginElement(this.panel, 2));
 		
 		this.ve.setView(window);
@@ -192,15 +205,10 @@ public class TMCNesOs extends NesOs {
 
 	@Override
 	public void render(TMCNes nes, NesScreen screen) {
-		if (nes.isStart()) {
-			screen.drawNesScreen();
-			screen.setColor(MapColorV1_8.GREEN_LIGTH);
-		} else {
-			screen.clearScreen((byte) 119);
-			screen.setColor(MapColorV1_8.RED_LIGTH);
-		}
-		screen.fillRect(4, 244, 248, 8);
-	
+		//draw screen nes
+		this.nesInfoRender.render(nes, screen);
+
+		//draw menu
 		if (show) {
 			this.ve.render(nes, screen);
 		}

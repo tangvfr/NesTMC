@@ -11,6 +11,8 @@ import fr.tangv.nestmc.draw.MapBuffer;
 public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 
 	private static final int LENGTH_SCREEN_BUFFER = 256 * 240;
+	private static final int HALF_HEIGHT_SCREEN = NesScreen.SCREEN_HEIGHT / 2;
+	private static final int HALF_WIDTH_SCREEN = NesScreen.WIDTH / 2;
 	
 	/*palette de couleur pour la nes*/
 	private final byte[] colors;
@@ -55,12 +57,12 @@ public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 		//palette des couleur nes pour les maps
 		byte[] palette = this.colors;
 		//index exclu de fin des lignes a copier
-		int endLengthY = numberOfLine * 128;
+		int endLengthY = numberOfLine * NesScreenMap.HALF_WIDTH_SCREEN;
 		//index exclu de fin de la ligne a copier
 		int endLengthX;
 		
-		for (int y = 0; y < endLengthY; y += 128) {//parcours tous les lignes de la map de 128x128
-			endLengthX = y + 128;
+		for (int y = 0; y < endLengthY; y += NesScreenMap.HALF_WIDTH_SCREEN) {//parcours tous les lignes de la map de 128x128
+			endLengthX = y + NesScreenMap.HALF_WIDTH_SCREEN;
 			//left screen
 			for (int ls = y; ls < endLengthX; ls++) {//parcours les 128 premier pixel de la ligne de l'ecran de la nes
 				screenLeft[ls] = palette[nespixels[i]];
@@ -83,10 +85,10 @@ public abstract class NesScreenMap extends NesScreen implements GUIInterface {
 
 		synchronized (this) {
 			//haut de l'ecran les 128 premiere ligne
-			int iStoped = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), 128);
+			int iStoped = this.writeLigneInScreen(nespixels, 0, screens[0].getBuffer(), screens[1].getBuffer(), NesScreenMap.HALF_HEIGHT_SCREEN);
 			
 			//bas de l'ecran les 112 dernier ligne
-			this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), 240 - 128);
+			this.writeLigneInScreen(nespixels, iStoped, screens[2].getBuffer(), screens[3].getBuffer(), NesScreen.NES_HEIGHT - NesScreenMap.HALF_HEIGHT_SCREEN);
 		}
 	}
 	

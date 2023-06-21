@@ -12,6 +12,8 @@ public class NesController implements ControllerInterface, InputController {
 	private int clickButtons = 0;
 	/*inspiré de la classe PuppetController*/
     private int latchbyte = 0, outbyte = 0;
+	/*si le controlleur est lié*/
+	private boolean connected;
 
     @Override
     public synchronized void strobe() {
@@ -38,7 +40,9 @@ public class NesController implements ControllerInterface, InputController {
 	/**
 	 * Permet de crée un controlleur de console NES vierge
 	 */
-	public NesController() {}
+	public NesController() {
+		this.connected = false;
+	}
 
 	/**
 	 * Permet de mettre a jour les valeurs (clicked buttons & press buttons)
@@ -97,5 +101,18 @@ public class NesController implements ControllerInterface, InputController {
 	public synchronized void pressButton(int button) {
 		this.nowButtons |= button;
 	}
-	
+
+	@Override
+	public synchronized boolean isConnected() {
+		return this.connected;
+	}
+
+	/**
+	 * Peremt de modifier si la manette est connecté ou non
+	 * @param connected le nouvel état de connection de la manette
+	 */
+	public synchronized void setConnected(boolean connected) {
+		this.connected = connected;
+	}
+
 }

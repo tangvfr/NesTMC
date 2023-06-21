@@ -30,5 +30,9 @@ public class MixedInputController implements InputController {
 	public boolean isPress(int button) {
 		return this.first.isPress(button) || this.second.isPress(button);
 	}
-	
+
+	@Override
+	public boolean isConnected() {
+		return false;
+	}
 }

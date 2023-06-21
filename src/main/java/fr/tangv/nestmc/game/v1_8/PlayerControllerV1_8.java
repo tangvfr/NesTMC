@@ -162,6 +162,7 @@ public class PlayerControllerV1_8 extends TickPlayerController {
 		this.player.playerConnection.sendPacket(new PacketPlayOutSpawnEntityLiving(this.aim));//spawn aim
 		//action
 		this.getController().resetButtons();
+		this.getController().setConnected(true);
 		//handler
 		this.player.playerConnection.networkManager.channel.pipeline().addBefore(this.player.getName(), "control:"+this.player.getName(), this);
 	}
@@ -193,6 +194,7 @@ public class PlayerControllerV1_8 extends TickPlayerController {
 		*/
 		//clear action
 		this.getController().resetButtons();
+		this.getController().setConnected(false);
 		//handler
 		//System.out.println("I am destruct");
 		Channel ch = this.player.playerConnection.networkManager.channel;
